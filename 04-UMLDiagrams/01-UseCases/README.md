@@ -1,6 +1,6 @@
 # SCRIPTAL
-## - Scripttastic! -
-
+### - Scripttastic! -
+### UseCases
 ### We are:
 - Cristian Jose Acalo Cruz (CrisAcalo)
 - Karla Alejandra Ansatuña Andrade (KarlaAns)

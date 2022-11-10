@@ -1,6 +1,6 @@
 # SCRIPTAL
-## - Scripttastic! -
-
+### - Scriptastic -
+### Definition
 ### We are:
 - Cristian Jose Acalo Cruz (CrisAcalo)
 - Karla Alejandra Ansatuña Andrade (KarlaAns)

@@ -1,6 +1,6 @@
 # SCRIPTAL
-## - Scripttastic! -
-
+### - Scripttastic! -
+### Code
 ### We are:
 - Cristian Jose Acalo Cruz (CrisAcalo)
 - Karla Alejandra Ansatuña Andrade (KarlaAns)
