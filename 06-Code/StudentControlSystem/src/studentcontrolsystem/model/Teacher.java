@@ -6,44 +6,51 @@ package studentcontrolsystem.model;
  * @author Alejandro Andrade, Scriptal, DCCO_ESPE
  */
 public class Teacher {
-    
+    private long id;
+    private String password;
     private String name;
-    private Classroom classroom[] = {};
-    
-    public Teacher(int numberOfClassrooms, int numberOfStudentsInClass){
-        name = "";
-        for (int i = 0; i < numberOfClassrooms; i++)
-        {
-            classroom[i] = new Classroom(numberOfStudentsInClass);          
-        }
-               
+    private String email;
+
+    public Teacher() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
-    /**
-     * @return the name
-     */
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public String getName() {
         return name;
     }
 
-    /**
-     * @param name the name to set
-     */
     public void setName(String name) {
         this.name = name;
     }
 
-    /**
-     * @return the classroom
-     */
-    public Classroom[] getClassroom() {
-        return classroom;
+    public String getEmail() {
+        return email;
     }
 
-    /**
-     * @param classroom the classroom to set
-     */
-    public void setClassroom(Classroom[] classroom) {
-        this.classroom = classroom;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Teacher(long id, String password, String name, String email) {
+        this.id = id;
+        this.password = password;
+        this.name = name;
+        this.email = email;
     }
 }
