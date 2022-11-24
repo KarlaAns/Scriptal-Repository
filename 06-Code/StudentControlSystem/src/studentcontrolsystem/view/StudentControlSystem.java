@@ -12,6 +12,9 @@ public class StudentControlSystem {
         teacher = new Teacher();
         int choiceTeachOrStud;
         int choiceTeacher;
+        long searchId;
+        String searchPassword = "";
+        teacher.getPassword();
         Scanner sc = new Scanner(System.in);
         do {
             // Primer menu, puede ser estudiante o profesor
@@ -20,13 +23,27 @@ public class StudentControlSystem {
             choiceVerifier(choiceTeachOrStud);
             switch (choiceTeachOrStud) {
                 case 1 -> {
-                    
+
+                    System.out.print("Please enter your id: ");
+                    searchId = sc.nextInt();
+                    while (searchId != 1234567890) {
+                        System.out.println("Please try again: ");
+                        searchId = sc.nextInt();
+                    }
+                    System.out.println("Please enter your password");
+                    searchPassword = sc.next();
+                    int areDifferent = searchPassword.compareTo(teacher.getPassword());
+                    while (areDifferent!=0) {
+                        System.out.println("Please try again: ");
+                        searchPassword = sc.next();
+                    }
+                    System.out.println("you made it yay");
                     do {
                         //Tercer menu para el profesor
                         menuTeacher();
-                        choiceTeacher=sc.nextInt();
+                        choiceTeacher = sc.nextInt();
                         choiceVerifier(choiceTeacher);
-                        
+
                     }while(choiceTeacher !=4);
                 }
             }
@@ -59,24 +76,6 @@ public class StudentControlSystem {
         System.out.println("4.Exit the teacher menu > \t");
         System.out.println("=======================");
     }
-    private static void idEntering(Teacher teacher, Teacher password, Teacher id, Scanner sc){
-        System.out.println("Please type your Id: \t");
-int searchId;
-                    boolean searchInFor = true;
-
-                    System.out.print("Please enter your id: ");
-                    searchId = sc.nextInt();
-
-                    for (int i = 0; i < 100; i++) {
-                        if (searchId == teacher.getId()) {
-
-                            searchInFor = false;
-                        }
-                    }
-                    if (searchInFor) {
-                        System.out.println("Please try again");
-                    }
-        }
-    }
 }
+
 

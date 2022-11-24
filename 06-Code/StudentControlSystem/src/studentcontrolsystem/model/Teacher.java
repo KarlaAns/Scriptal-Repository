@@ -12,7 +12,7 @@ public class Teacher {
     private String email;
 
     public Teacher() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+
     }
 
     public long getId() {
@@ -49,7 +49,7 @@ public class Teacher {
 
     public Teacher(long id, String password, String name, String email) {
         this.id = id;
-        this.password = password;
+        this.password = "normal";
         this.name = name;
         this.email = email;
     }
