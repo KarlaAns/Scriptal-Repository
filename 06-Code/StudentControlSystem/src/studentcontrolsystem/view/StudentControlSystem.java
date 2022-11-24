@@ -81,9 +81,10 @@ public class StudentControlSystem {
 
             System.out.println("   Welcome " + name);
             System.out.println("=======================");
-            System.out.println("1.Register a student > \t");
+            System.out.println("1. Register a student > \t");
             //System.out.println("2.Enter into the grade system > \t");
-            System.out.println("2.Exit the teacher menu > \t");
+            System.out.println("2. View student list > \t");
+            System.out.println("3. Exit the teacher menu > \t");
             System.out.println("=======================");
             System.out.print("==============> ");
 
@@ -132,7 +133,9 @@ public class StudentControlSystem {
         System.out.print("Enter the student name: ");
         student.setName(sc.next());
         System.out.print("Enter the student age: ");
-        student.setAge(sc.nextInt());
+        int age = sc.nextInt();
+        age = validateAge(age);
+        student.setAge(age);
         System.out.print("Enter the student gender: ");
         student.setGender(sc.next());
 
@@ -280,5 +283,13 @@ public class StudentControlSystem {
         } catch (IOException ex) {
             ex.printStackTrace(System.out);
         }
+    }
+    private static int validateAge(int age) {
+        Scanner sc = new Scanner(System.in);
+        while(age < 14 || age > 20){
+            System.out.print("Age invalid, enter age again: ");
+            age = sc.nextInt();
+        }
+        return age;
     }
 }
