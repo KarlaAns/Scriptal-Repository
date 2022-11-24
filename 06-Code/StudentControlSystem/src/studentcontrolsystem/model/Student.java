@@ -9,12 +9,21 @@ public class Student {
     private String name;
     private int age;
     private int id;
+    private String gender;
     
     public Student(){
         name = "";
         age = 0;
         id = 0;
+        gender="";
         
+    }
+
+    public Student(String name, int age, int id, String gender) {
+        this.name = name;
+        this.age = age;
+        this.id = id;
+        this.gender = gender;
     }
     
     /**
@@ -58,6 +67,18 @@ public class Student {
     public void setId(int id) {
         this.id = id;
     }
-    
-    
+
+    /**
+     * @return the gender
+     */
+    public String getGender(String next) {
+        return gender;
+    }
+
+    /**
+     * @param gender the gender to set
+     */
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
 }
