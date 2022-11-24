@@ -47,6 +47,11 @@ public class StudentControlSystem {
                     printMenuTeacher();
 
                 }
+                case 2 ->{
+                    System.out.println("=======================");
+                    System.out.println("This section will be available soon :D");
+                    System.out.println("=======================");
+                }
                 case 3 -> {
                     exitFirstMenu = true;
                 }
@@ -78,8 +83,7 @@ public class StudentControlSystem {
             System.out.println("=======================");
             System.out.println("1.Register a student > \t");
             //System.out.println("2.Enter into the grade system > \t");
-            System.out.println("2.Find Data about a student > \t");
-            System.out.println("3.Exit the teacher menu > \t");
+            System.out.println("2.Exit the teacher menu > \t");
             System.out.println("=======================");
             System.out.print("==============> ");
 
@@ -105,6 +109,7 @@ public class StudentControlSystem {
             }
 
             case 2 -> {
+                readFile("studentsFile.csv");
 
             }
 
@@ -250,5 +255,30 @@ public class StudentControlSystem {
         }
         
     }
-
+    public static void printLine(String[] data) {
+        //for-each use
+        for (String fact : data) {
+            System.out.print(fact + "\t|");
+        }
+    }
+    public static void readFile(String fileName){
+        File file = new File(fileName);
+        String[] data;
+        try {
+            var input = new BufferedReader(new FileReader(file));
+            var line = input.readLine();
+            System.out.println("\nID\t|NAME\t|AGE\t|GENDER\t|");
+            while (line != null) {
+                data = line.split(";");
+                printLine(data);
+                line = input.readLine();
+                System.out.println();
+            }
+            input.close();
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace(System.out);
+        } catch (IOException ex) {
+            ex.printStackTrace(System.out);
+        }
+    }
 }
