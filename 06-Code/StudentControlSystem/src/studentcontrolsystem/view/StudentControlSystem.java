@@ -1,7 +1,7 @@
 
 package studentcontrolsystem.view;
-import java.util.Scanner;
-import studentcontrolsystem.model.Teacher;
+import java.util.*;
+import studentcontrolsystem.model.*;
 /**
  *
  * @author Alejandro Andrade, Scriptal, DCCO_ESPE
@@ -16,6 +16,8 @@ public class StudentControlSystem {
         boolean exitFirstMenu=false;
         String searchPassword = "";
         teacher.getPassword();
+        
+        
         Scanner sc = new Scanner(System.in);
         do {
             // Primer menu, puede ser estudiante o profesor
@@ -65,8 +67,11 @@ public class StudentControlSystem {
     }
 
     private static void printMenuTeacher() {
+        Scanner sc = new Scanner(System.in);
         String name;
         name="Lucy";
+        int option;
+        
         System.out.println("   Welcome " +name);
         System.out.println("=======================");
         System.out.println("1.Register a student > \t");
@@ -74,11 +79,65 @@ public class StudentControlSystem {
         System.out.println("2.Find Data about a student > \t");
         System.out.println("3.Exit the teacher menu > \t");
         System.out.println("=======================");
-        menuTeacher();
+        System.out.print("==============> ");
+        
+        option = sc.nextInt();
+        menuTeacher(option);
     }
 
-    private static void menuTeacher() {
+    private static void menuTeacher(int option) {
         
+        ArrayList<Student> studentsToWrite = new ArrayList<>();
+        ArrayList<Student> studentsToRead;
+        
+        switch (option) {
+            case 1 ->{
+                
+                registerStudent(studentsToWrite);
+            }
+            
+            case 2 ->{
+                
+            }
+            
+            case 3 -> System.out.println("..:: YOU HAVE EXIT ::..");
+                
+            default -> System.out.println("csd");
+        }
+    }
+
+    private static void registerStudent(ArrayList<Student> students) {
+        
+        Student student = new Student();
+        System.out.println("****************************");
+        Scanner sc = new Scanner(System.in);
+        
+        System.out.print("Enter the student name: ");
+        student.setName(sc.next());
+        System.out.println("Enter the student age: ");
+        student.setAge(sc.nextInt());
+        ArrayList id = generateId();
+        System.out.println(id);
+        
+        students.add(student);
+    }
+
+    private static ArrayList generateId() {
+        
+        int numero;
+        ArrayList numeros = new ArrayList();
+        ArrayList estrellas = new ArrayList();
+        
+        for (int i = 1; i <= 5; i++) {
+            numero = (int) (Math.random() * 50 + 1);
+            if (numeros.contains(numero)) {
+                i--;
+            } else {
+                numeros.add(numero);
+            }
+        }
+        
+        return numeros;
     }
 }
 
