@@ -117,6 +117,8 @@ public class StudentControlSystem {
     }
 
     private static void registerStudent(ArrayList<Student> students) {
+        
+        String fileName = "studentsFile.csv";
 
         Student student = new Student();
         System.out.println("****************************");
@@ -128,9 +130,16 @@ public class StudentControlSystem {
         student.setAge(sc.nextInt());
         System.out.print("Enter the student gender: ");
         student.setGender(sc.next());
-        
+
         int id = generateId();
+        boolean validationId = validateIfIdExist(fileName,id);
+        /*System.out.println(validationId);*/
+        if (validationId) {
+            id = generateId();
+        }
+        
         student.setId(id);
+        
         System.out.println("The student's id is: " + id);
 
         students.add(student);
@@ -166,6 +175,80 @@ public class StudentControlSystem {
         } catch (IOException ex) {
             ex.printStackTrace(System.out);
         }
+    }
+
+    public boolean validatorOfDNI(String DNI) {
+        boolean correctDNI = false;
+
+        try {
+
+            if (DNI.length() == 10) 
+            {
+                int thirdDigit = Integer.parseInt(DNI.substring(2, 3));
+                if (thirdDigit < 6) {
+                    int[] arrayDNI = {2, 1, 2, 1, 2, 1, 2, 1, 2};
+                    int verificator = Integer.parseInt(DNI.substring(9, 10));
+                    int addition = 0;
+                    int digit = 0;
+                    for (int i = 0; i < (DNI.length() - 1); i++) {
+                        digit = Integer.parseInt(DNI.substring(i, i + 1)) * arrayDNI[i];
+                        addition += ((digit % 10) + (digit / 10));
+                    }
+
+                    if ((addition % 10 == 0) && (addition % 10 == verificator)) {
+                        correctDNI = true;
+                    } else if ((10 - (addition % 10)) == verificator) {
+                        correctDNI = true;
+                    } else {
+                        correctDNI = false;
+                    }
+                } else {
+                    correctDNI = false;
+                }
+            } else {
+                correctDNI = false;
+            }
+        } catch (NumberFormatException nfe) {
+            correctDNI = false;
+        } catch (Exception err) {
+            System.out.println("An exception has ocurred in the process of validation");
+            correctDNI = false;
+        }
+
+        if (!correctDNI) {
+            System.out.println("The DNI entered is incorrect");
+        }
+        return correctDNI;
+    }
+    public static boolean validateIfIdExist(String fileName,int id) {
+        System.out.println("*********************************");
+        File file = new File(fileName);
+        System.out.println("*********************************");
+        
+        String[] data;
+        String idToString=id+"";
+        try {
+            var input = new BufferedReader(new FileReader(file));
+            var line = input.readLine();
+            while (line != null) {
+                data = line.split(";");
+
+                if (idToString.equals(data[0])) {
+                    return true;
+                }
+                
+                line = input.readLine();
+            }
+            input.close();
+            return false;
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace(System.out);
+            return false;
+        } catch (IOException ex) {
+            ex.printStackTrace(System.out);
+            return false;
+        }
+        
     }
 
 }
