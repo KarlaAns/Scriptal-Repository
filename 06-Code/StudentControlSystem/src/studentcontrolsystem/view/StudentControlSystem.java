@@ -11,43 +11,20 @@ import studentcontrolsystem.model.*;
 public class StudentControlSystem {
 
     public static void main(String[] args) {
-        Teacher teacher;
-        teacher = new Teacher();
+        
         int choiceTeachOrStud;
-        int choiceTeacher;
-        long searchId;
         boolean exitFirstMenu = false;
-        String searchPassword = "";
-        teacher.getPassword();
-
         Scanner sc = new Scanner(System.in);
+        
         do
         {
-            // Primer menu, puede ser estudiante o profesor
             menuTeacherOrStudent();
             choiceTeachOrStud = sc.nextInt();
             switch (choiceTeachOrStud)
             {
                 case 1 ->
                 {
-
-                    System.out.print("Please enter your id: ");
-                    searchId = sc.nextInt();
-                    while (searchId != 1234567890)
-                    {
-                        System.out.println("Please try again: ");
-                        searchId = sc.nextInt();
-                    }
-                    /*System.out.println("Please enter your password");
-                    searchPassword = sc.next();
-                    int areDifferent = searchPassword.compareTo(teacher.getPassword());
-                    while (areDifferent!=0) {
-                        System.out.println("Please try again: ");
-                        searchPassword = sc.next();
-                    }
-                    System.out.println("you made it yay");*/
-
-                    //Tercer menu para el profesor
+                    login();
                     printMenuTeacher();
 
                 }
@@ -270,6 +247,33 @@ public class StudentControlSystem {
         int numero;
         numero = (int) (Math.random() * 9999 + 1000);
         return numero;
+    }
+
+    private static void login() {
+        
+        Teacher teacher;
+        teacher = new Teacher();
+        
+        Scanner sc = new Scanner(System.in);
+        String readPassword;
+        int searchId;
+        System.out.print("Please enter your id: ");
+        searchId = sc.nextInt();
+        
+        while (searchId != teacher.getId()) {
+            System.out.println("Please try again: ");
+            searchId = sc.nextInt();
+        }
+        
+        System.out.print("Please enter your password: ");
+        readPassword = sc.next();
+        
+        while (!readPassword.equals(teacher.getPassword())) {
+            System.out.print("Please enter your password: ");
+            readPassword = sc.next();
+        }
+        
+        System.out.println("\n\n*** You made it yay ***\n\n");
     }
 
     public boolean validatorOfDNI(String DNI) {
