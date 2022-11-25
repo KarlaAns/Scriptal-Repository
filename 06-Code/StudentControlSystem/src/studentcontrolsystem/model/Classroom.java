@@ -7,17 +7,14 @@ package studentcontrolsystem.model;
  */
 public class Classroom {
     
+    private String name;
     private int id;
-    private Student students[] = {};
     
     public Classroom(int numberOfStudents){
+        name = "";
         id = 0;
-        for (int i = 0; i < numberOfStudents; i++)
-        {
-            students[i] = new Student();            
-        }
-        
     }
+    
 
     /**
      * @return the id
@@ -34,19 +31,17 @@ public class Classroom {
     }
 
     /**
-     * @return the students
+     * @return the name
      */
-    public Student[] getStudents() {
-        return students;
+    public String getName() {
+        return name;
     }
 
     /**
-     * @param students the students to set
+     * @param name the name to set
      */
-    public void setStudents(Student[] students) {
-        this.students = students;
+    public void setName(String name) {
+        this.name = name;
     }
-    
-    
     
 }
