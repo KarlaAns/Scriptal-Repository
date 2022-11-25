@@ -12,7 +12,10 @@ public class Teacher {
     private String email;
 
     public Teacher() {
-
+        id = 1234;
+        password = "xdnt";
+        name = "";
+        email = "";
     }
 
     public long getId() {
@@ -47,10 +50,16 @@ public class Teacher {
         this.email = email;
     }
 
+    @Override
+    public String toString() {
+        return "Teacher{" + "id=" + id + ", password=" + password + ", name=" + name + ", email=" + email + '}';
+    }
+    
     public Teacher(long id, String password, String name, String email) {
         this.id = id;
-        this.password = "normal";
+        this.password = password;
         this.name = name;
         this.email = email;
     }
+    
 }
