@@ -22,7 +22,7 @@ public class StudentControlSystem {
 
         Scanner sc = new Scanner(System.in);
         do {
-            // Primer menu, puede ser estudiante o profesor
+            // First menu, could be a student or a teacher
             menuTeacherOrStudent();
             choiceTeachOrStud = sc.nextInt();
             switch (choiceTeachOrStud) {
