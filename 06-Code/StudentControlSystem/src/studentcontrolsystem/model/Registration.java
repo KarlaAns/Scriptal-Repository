@@ -6,7 +6,7 @@ package studentcontrolsystem.model;
 
 /**
  *
- * @author Cristian Acalo, Scriptal, DCCO-ESPE
+ * @author DCCO-ESPE
  */
 public class Registration {
     private int id;

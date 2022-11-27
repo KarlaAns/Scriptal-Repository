@@ -3,7 +3,7 @@ package studentcontrolsystem.model;
 
 /**
  *
- * @author Alejandro Andrade, Scriptal, DCCO_ESPE
+ * @author Scriptal, DCCO_ESPE
  */
 public class Classroom {
     

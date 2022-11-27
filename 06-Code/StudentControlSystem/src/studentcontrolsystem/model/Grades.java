@@ -6,7 +6,7 @@ package studentcontrolsystem.model;
 
 /**
  *
- * @author Cristian Acalo, Scriptal, DCCO-ESPE
+ * @author Scriptal, DCCO-ESPE
  */
 public class Grades {
     private double grade;

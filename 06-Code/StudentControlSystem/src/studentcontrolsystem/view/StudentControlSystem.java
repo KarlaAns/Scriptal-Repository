@@ -6,7 +6,7 @@ import studentcontrolsystem.model.*;
 
 /**
  *
- * @author Alejandro Andrade, Scriptal, DCCO_ESPE
+ * @author Scriptal, DCCO_ESPE
  */
 public class StudentControlSystem {
 
@@ -18,30 +18,30 @@ public class StudentControlSystem {
         
         do
         {
-            menuTeacherOrStudent();
-            choiceTeachOrStud = sc.nextInt();
-            switch (choiceTeachOrStud)
-            {
-                case 1 ->
-                {
-                    login();
-                    printMenuTeacher();
+            try {
+                menuTeacherOrStudent();
+                choiceTeachOrStud = sc.nextInt();
+                switch (choiceTeachOrStud) {
+                    case 1 -> {
+                        login();
+                        printMenuTeacher();
+                    }
+                    case 2 -> {
+                        System.out.println("======================================");
+                        System.out.println("This section will be available soon :D");
+                        System.out.println("======================================");
+                    }
+                    case 3 -> {
+                        exitFirstMenu = true;
+                    }
+                    default ->
+                        System.out.println("Invalid option");
 
                 }
-                case 2 ->
-                {
-                    System.out.println("=======================");
-                    System.out.println("This section will be available soon :D");
-                    System.out.println("=======================");
-                }
-                case 3 ->
-                {
-                    exitFirstMenu = true;
-                }
-                default ->
-                    System.out.println("Invalid option");
-
+            } catch (Exception e) {
+                System.out.println("..:: INVALID DATA ::..");
             }
+            
         } while (!exitFirstMenu);
     }
 
@@ -59,24 +59,28 @@ public class StudentControlSystem {
         String name;
         name = "Lucy";
         int option;
-        do
-        {
-            System.out.println("..:: NCKSDCNSKDCN ::..");
+        
+        try {
+            do {
 
-            System.out.println("   Welcome " + name);
-            System.out.println("=======================");
-            System.out.println("1. Create a classroom > \t");
-            System.out.println("2. View students list > \t");
-            System.out.println("3. Enter in a classroom >");
-            System.out.println("4. Exit the teacher menu > \t");
-            System.out.println("=======================");
-            System.out.print("==============> ");
+                System.out.println("   Welcome " + name);
+                System.out.println("=======================");
+                System.out.println("1. Create a classroom > \t");
+                System.out.println("2. View students list > \t");
+                System.out.println("3. Enter in a classroom >");
+                System.out.println("4. Exit the teacher menu > \t");
+                System.out.println("=======================");
+                System.out.print("==============> ");
 
-            option = sc.nextInt();
-            menuTeacher(option);
+                option = sc.nextInt();
+                menuTeacher(option);
 
-        } while (option != 4);
+            } while (option != 4);
 
+        } catch (Exception e) {
+            System.out.println("..:: INVALID DATA, CLOSING... ::..");
+        }
+        
     }
 
     private static void menuTeacher(int option) {
@@ -90,8 +94,7 @@ public class StudentControlSystem {
 
             case 2 ->
             {
-                readFile("studentsFile.csv");
-
+                printFile("studentsFile.csv");
             }
 
             case 3 ->
@@ -121,6 +124,7 @@ public class StudentControlSystem {
             File file = new File(fileName);
             file.createNewFile();
             System.out.println("\n\n..:: Classroom has been created! ::..\n");
+            
         } catch (IOException ex)
         {
             ex.printStackTrace(System.out);
@@ -161,6 +165,7 @@ public class StudentControlSystem {
     }
 
     private static void menuClassroom(String classId) {
+        
         ArrayList<Student> studentsToWrite = new ArrayList<>();
         String studentsFile = "studentsFile.csv";
         String fileClass = classId + ".csv";
@@ -168,6 +173,7 @@ public class StudentControlSystem {
         boolean exit = false;
         int position = 0;
         int option = 0;
+        
         while (!exit)
         {
 
@@ -193,10 +199,11 @@ public class StudentControlSystem {
                     }
                     case 2 ->
                     {
-                        readFile(fileClass);
+                        printFile(fileClass);
                     }
                     case 3 ->
                     {
+                        System.out.println("..:: You have successfully exited");
                         exit = true;
                     }
                     default ->
@@ -257,23 +264,29 @@ public class StudentControlSystem {
         Scanner sc = new Scanner(System.in);
         String readPassword;
         int searchId;
-        System.out.print("Please enter your id: ");
-        searchId = sc.nextInt();
         
-        while (searchId != teacher.getId()) {
-            System.out.println("Please try again: ");
+        try {
+            System.out.print("Please enter your id: ");
             searchId = sc.nextInt();
-        }
-        
-        System.out.print("Please enter your password: ");
-        readPassword = sc.next();
-        
-        while (!readPassword.equals(teacher.getPassword())) {
-            System.out.print("Please enter your password: ");
+
+            while (searchId != teacher.getId()) {
+                System.out.println("Incorrect ID, please try again: ");
+                searchId = sc.nextInt();
+            }
+
+            System.out.print("..:: Please enter your password: ");
             readPassword = sc.next();
+
+            while (!readPassword.equals(teacher.getPassword())) {
+                System.out.print("..:: Incorrect password, please try again: ");
+                readPassword = sc.next();
+            }
+
+            System.out.println("\n\n**** You made it yay ****\n\n");
+            
+        } catch (Exception e) {
+            System.out.println("..:: INVALID DATA, CLOSING PROGRAM ::..");
         }
-        
-        System.out.println("\n\n*** You made it yay ***\n\n");
     }
 
     public boolean validatorOfDNI(String DNI) {
@@ -376,7 +389,7 @@ public class StudentControlSystem {
         }
     }
 
-    public static void readFile(String fileName) {
+    public static void printFile(String fileName) {
         File file = new File(fileName);
         String[] data;
         try
