@@ -15,7 +15,7 @@ public class StudentControlSystem {
         int choiceTeachOrStud;
         boolean exitFirstMenu = false;
         Scanner sc = new Scanner(System.in);
-        
+        String fileName = "studentsFile.csv";
         do
         {
             try {
@@ -23,6 +23,8 @@ public class StudentControlSystem {
                 choiceTeachOrStud = sc.nextInt();
                 switch (choiceTeachOrStud) {
                     case 1 -> {
+                        
+                        
                         login();
                         printMenuTeacher();
                     }
@@ -138,19 +140,20 @@ public class StudentControlSystem {
         int age = student.get(position).getAge();
         int id = student.get(position).getId();
         String gender = student.get(position).getGender(name);
+        String DNI = student.get(position).getDNI();
 
         try
         {
             PrintWriter output = new PrintWriter(new FileWriter(file, true));
-            output.println(id + ";" + name + ";" + age + ";" + gender);
+            output.println(id + ";" + name + ";" + DNI + ";" + age + ";" + gender);
             output.close();
             System.out.println("\n\n..:: File has been written! ::..\n");
         } catch (FileNotFoundException ex)
         {
-            ex.printStackTrace(System.out);
+            System.out.println("The file has not found, but it will be created");
         } catch (IOException ex)
         {
-            ex.printStackTrace(System.out);
+            System.out.println("The file has not found, but it will be created");
         }
     }
 
@@ -228,6 +231,15 @@ public class StudentControlSystem {
 
         System.out.print("Enter the student name: ");
         student.setName(sc.next());
+        System.out.print("Enter the DNI: ");
+        String DNI = sc.next();
+
+        while(!validatorOfDNI(DNI)){
+            System.out.print("TRY AGAIN: ");
+            DNI = sc.next();
+        }
+        student.setDNI(DNI);
+        
         System.out.print("Enter the student age: ");
         int age = sc.nextInt();
         age = validateAge(age);
@@ -289,7 +301,7 @@ public class StudentControlSystem {
         }
     }
 
-    public boolean validatorOfDNI(String DNI) {
+    private static boolean validatorOfDNI(String DNI) {
         boolean correctDNI = false;
 
         try
@@ -371,7 +383,7 @@ public class StudentControlSystem {
             return false;
         } catch (FileNotFoundException ex)
         {
-            ex.printStackTrace(System.out);
+            System.out.println("The file has not found, but it will be created");
             return false;
         } catch (IOException ex)
         {
@@ -396,7 +408,7 @@ public class StudentControlSystem {
         {
             var input = new BufferedReader(new FileReader(file));
             var line = input.readLine();
-            System.out.println("\nID\t|NAME\t|AGE\t|GENDER\t|");
+            System.out.println("\nID\t|NAME\t|DNI\t\t|AGE\t|GENDER\t|");
             while (line != null)
             {
                 data = line.split(";");
@@ -407,7 +419,7 @@ public class StudentControlSystem {
             input.close();
         } catch (FileNotFoundException ex)
         {
-            ex.printStackTrace(System.out);
+            System.out.println("The file has not found, but it will be created");
         } catch (IOException ex)
         {
             ex.printStackTrace(System.out);

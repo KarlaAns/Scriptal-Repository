@@ -10,6 +10,7 @@ public class Student {
     private int age;
     private int id;
     private String gender;
+    private String DNI;
     
     public Student(){
         name = "";
@@ -72,7 +73,7 @@ public class Student {
      * @return the gender
      */
     public String getGender(String next) {
-        return gender;
+        return getGender();
     }
 
     /**
@@ -80,5 +81,26 @@ public class Student {
      */
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    /**
+     * @return the gender
+     */
+    public String getGender() {
+        return gender;
+    }
+
+    /**
+     * @return the DNI
+     */
+    public String getDNI() {
+        return DNI;
+    }
+
+    /**
+     * @param DNI the DNI to set
+     */
+    public void setDNI(String DNI) {
+        this.DNI = DNI;
     }
 }
