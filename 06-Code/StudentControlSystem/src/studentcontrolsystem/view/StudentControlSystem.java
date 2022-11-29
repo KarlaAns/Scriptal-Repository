@@ -1,8 +1,12 @@
 package studentcontrolsystem.view;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import java.io.*;
 import java.util.*;
 import studentcontrolsystem.model.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -11,27 +15,24 @@ import studentcontrolsystem.model.*;
 public class StudentControlSystem {
 
     public static void main(String[] args) {
-        
+
         int choiceTeachOrStud;
         boolean exitFirstMenu = false;
         Scanner sc = new Scanner(System.in);
         String fileName = "studentsFile.csv";
-        do
-        {
+        do {
             try {
                 menuTeacherOrStudent();
                 choiceTeachOrStud = sc.nextInt();
                 switch (choiceTeachOrStud) {
                     case 1 -> {
-                        
-                        
+
                         login();
                         printMenuTeacher();
                     }
                     case 2 -> {
-                        System.out.println("======================================");
-                        System.out.println("This section will be available soon :D");
-                        System.out.println("======================================");
+                        menuStudent();
+
                     }
                     case 3 -> {
                         exitFirstMenu = true;
@@ -43,7 +44,7 @@ public class StudentControlSystem {
             } catch (Exception e) {
                 System.out.println("..:: INVALID DATA ::..");
             }
-            
+
         } while (!exitFirstMenu);
     }
 
@@ -61,16 +62,15 @@ public class StudentControlSystem {
         String name;
         name = "Lucy";
         int option;
-        
+
         try {
             do {
 
                 System.out.println("   Welcome " + name);
                 System.out.println("=======================");
-                System.out.println("1. Create a classroom > \t");
-                System.out.println("2. View students list > \t");
-                System.out.println("3. Enter in a classroom >");
-                System.out.println("4. Exit the teacher menu > \t");
+                System.out.println("1. View students list > \t");
+                System.out.println("2. Enter in a classroom >");
+                System.out.println("3. Exit the teacher menu > \t");
                 System.out.println("=======================");
                 System.out.print("==============> ");
 
@@ -82,57 +82,27 @@ public class StudentControlSystem {
         } catch (Exception e) {
             System.out.println("..:: INVALID DATA, CLOSING... ::..");
         }
-        
     }
 
     private static void menuTeacher(int option) {
 
-        switch (option)
-        {
-            case 1 ->
-            {
-                createClassroom();
-            }
+        switch (option) {
 
-            case 2 ->
-            {
+            case 1 -> {
                 printFile("studentsFile.csv");
             }
 
-            case 3 ->
-            {
+            case 2 -> {
                 enterToClass();
             }
 
-            case 4 ->
+            case 3 ->
                 System.out.println("..:: YOU HAVE EXIT ::..");
 
             default ->
                 System.out.println("Invalid option");
         }
     }
-
-    private static void createClassroom() {
-        String fileName = "";
-        Scanner sc = new Scanner(System.in);
-        String classId = "";
-
-        try
-        {
-
-            System.out.print("Enter the ID of class: ");
-            classId = sc.next();
-            fileName = classId + ".csv";
-            File file = new File(fileName);
-            file.createNewFile();
-            System.out.println("\n\n..:: Classroom has been created! ::..\n");
-            
-        } catch (IOException ex)
-        {
-            ex.printStackTrace(System.out);
-        }
-    }
-    
     public static void editFile(String fileName, ArrayList<Student> student, int position) {
         File file = new File(fileName);
 
@@ -142,17 +112,14 @@ public class StudentControlSystem {
         String gender = student.get(position).getGender(name);
         String DNI = student.get(position).getDNI();
 
-        try
-        {
+        try {
             PrintWriter output = new PrintWriter(new FileWriter(file, true));
             output.println(id + ";" + name + ";" + DNI + ";" + age + ";" + gender);
             output.close();
             System.out.println("\n\n..:: File has been written! ::..\n");
-        } catch (FileNotFoundException ex)
-        {
+        } catch (FileNotFoundException ex) {
             System.out.println("The file has not found, but it will be created");
-        } catch (IOException ex)
-        {
+        } catch (IOException ex) {
             System.out.println("The file has not found, but it will be created");
         }
     }
@@ -160,7 +127,7 @@ public class StudentControlSystem {
     private static void enterToClass() {
         Scanner sc = new Scanner(System.in);
         String classId;
-        
+
         System.out.println("Enter the id of the class you wish to join");
         classId = sc.next();
 
@@ -168,7 +135,7 @@ public class StudentControlSystem {
     }
 
     private static void menuClassroom(String classId) {
-        
+
         ArrayList<Student> studentsToWrite = new ArrayList<>();
         String studentsFile = "studentsFile.csv";
         String fileClass = classId + ".csv";
@@ -176,12 +143,10 @@ public class StudentControlSystem {
         boolean exit = false;
         int position = 0;
         int option = 0;
-        
-        while (!exit)
-        {
 
-            try
-            {
+        while (!exit) {
+
+            try {
                 System.out.println("=================");
                 System.out.println("Select any option");
                 System.out.println("=================");
@@ -190,22 +155,34 @@ public class StudentControlSystem {
                 System.out.println("3. Exit menu");
                 option = sc.nextInt();
 
-                switch (option)
-                {
-                    case 1 ->
-                    {
+                switch (option) {
+                    case 1 -> {
+                        studentsToWrite = readJSON(studentsToWrite);
                         registerStudent(studentsToWrite);
                         editFile(fileClass, studentsToWrite, position);
                         editFile(studentsFile, studentsToWrite, position);
+                        addToJSON(studentsToWrite);
                         System.out.println("..:: STUDENT ADDED ::..");
                         position++;
                     }
-                    case 2 ->
-                    {
+                    case 2 -> {
+                        boolean printTableOneTime = true;
+                        Student student = new Student();
+                        ArrayList<Student> studentsToRead = new ArrayList<Student>();
+                        studentsToRead = readJSON(studentsToRead);
+
+                        for (int i = 0; i < studentsToRead.size(); i++) {
+                            if (position > 0 && printTableOneTime == true) {
+                                System.out.println("|\tID\t|\tName\t|\tAge\t|\tColor\t|  Is Molting\t|");
+                                printTableOneTime = false;
+                            }
+                            student = studentsToRead.get(i);
+                            printStudent(student);
+                        }
                         printFile(fileClass);
+
                     }
-                    case 3 ->
-                    {
+                    case 3 -> {
                         System.out.println("..:: You have successfully exited");
                         exit = true;
                     }
@@ -213,8 +190,7 @@ public class StudentControlSystem {
                         System.out.println("Option is not valid");
                 }
 
-            } catch (Exception e)
-            {
+            } catch (Exception e) {
                 System.out.println("!!! Error !!!");
             }
 
@@ -234,12 +210,12 @@ public class StudentControlSystem {
         System.out.print("Enter the DNI: ");
         String DNI = sc.next();
 
-        while(!validatorOfDNI(DNI)){
+        while (!validatorOfDNI(DNI)) {
             System.out.print("TRY AGAIN: ");
             DNI = sc.next();
         }
         student.setDNI(DNI);
-        
+
         System.out.print("Enter the student age: ");
         int age = sc.nextInt();
         age = validateAge(age);
@@ -249,8 +225,7 @@ public class StudentControlSystem {
 
         int id = generateId();
         boolean validationId = validateIfIdExist(fileName, id);
-        if (validationId)
-        {
+        if (validationId) {
             id = generateId();
         }
 
@@ -269,14 +244,14 @@ public class StudentControlSystem {
     }
 
     private static void login() {
-        
+
         Teacher teacher;
         teacher = new Teacher();
-        
+
         Scanner sc = new Scanner(System.in);
         String readPassword;
         int searchId;
-        
+
         try {
             System.out.print("Please enter your id: ");
             searchId = sc.nextInt();
@@ -295,7 +270,7 @@ public class StudentControlSystem {
             }
 
             System.out.println("\n\n**** You made it yay ****\n\n");
-            
+
         } catch (Exception e) {
             System.out.println("..:: INVALID DATA, CLOSING PROGRAM ::..");
         }
@@ -304,56 +279,44 @@ public class StudentControlSystem {
     private static boolean validatorOfDNI(String DNI) {
         boolean correctDNI = false;
 
-        try
-        {
+        try {
 
-            if (DNI.length() == 10)
-            {
+            if (DNI.length() == 10) {
                 int thirdDigit = Integer.parseInt(DNI.substring(2, 3));
-                if (thirdDigit < 6)
-                {
-                    int[] arrayDNI =
-                    {
-                        2, 1, 2, 1, 2, 1, 2, 1, 2
-                    };
+                if (thirdDigit < 6) {
+                    int[] arrayDNI
+                            = {
+                                2, 1, 2, 1, 2, 1, 2, 1, 2
+                            };
                     int verificator = Integer.parseInt(DNI.substring(9, 10));
                     int addition = 0;
                     int digit = 0;
-                    for (int i = 0; i < (DNI.length() - 1); i++)
-                    {
+                    for (int i = 0; i < (DNI.length() - 1); i++) {
                         digit = Integer.parseInt(DNI.substring(i, i + 1)) * arrayDNI[i];
                         addition += ((digit % 10) + (digit / 10));
                     }
 
-                    if ((addition % 10 == 0) && (addition % 10 == verificator))
-                    {
+                    if ((addition % 10 == 0) && (addition % 10 == verificator)) {
                         correctDNI = true;
-                    } else if ((10 - (addition % 10)) == verificator)
-                    {
+                    } else if ((10 - (addition % 10)) == verificator) {
                         correctDNI = true;
-                    } else
-                    {
+                    } else {
                         correctDNI = false;
                     }
-                } else
-                {
+                } else {
                     correctDNI = false;
                 }
-            } else
-            {
+            } else {
                 correctDNI = false;
             }
-        } catch (NumberFormatException nfe)
-        {
+        } catch (NumberFormatException nfe) {
             correctDNI = false;
-        } catch (Exception err)
-        {
+        } catch (Exception err) {
             System.out.println("An exception has ocurred in the process of validation");
             correctDNI = false;
         }
 
-        if (!correctDNI)
-        {
+        if (!correctDNI) {
             System.out.println("The DNI entered is incorrect");
         }
         return correctDNI;
@@ -364,16 +327,13 @@ public class StudentControlSystem {
 
         String[] data;
         String idToString = id + "";
-        try
-        {
+        try {
             var input = new BufferedReader(new FileReader(file));
             var line = input.readLine();
-            while (line != null)
-            {
+            while (line != null) {
                 data = line.split(";");
 
-                if (idToString.equals(data[0]))
-                {
+                if (idToString.equals(data[0])) {
                     return true;
                 }
 
@@ -381,12 +341,10 @@ public class StudentControlSystem {
             }
             input.close();
             return false;
-        } catch (FileNotFoundException ex)
-        {
+        } catch (FileNotFoundException ex) {
             System.out.println("The file has not found, but it will be created");
             return false;
-        } catch (IOException ex)
-        {
+        } catch (IOException ex) {
             ex.printStackTrace(System.out);
             return false;
         }
@@ -395,8 +353,7 @@ public class StudentControlSystem {
 
     public static void printLine(String[] data) {
         //for-each use
-        for (String fact : data)
-        {
+        for (String fact : data) {
             System.out.print(fact + "\t|");
         }
     }
@@ -404,35 +361,134 @@ public class StudentControlSystem {
     public static void printFile(String fileName) {
         File file = new File(fileName);
         String[] data;
-        try
-        {
+        try {
             var input = new BufferedReader(new FileReader(file));
             var line = input.readLine();
             System.out.println("\nID\t|NAME\t|DNI\t\t|AGE\t|GENDER\t|");
-            while (line != null)
-            {
+            while (line != null) {
                 data = line.split(";");
                 printLine(data);
                 line = input.readLine();
                 System.out.println();
             }
             input.close();
-        } catch (FileNotFoundException ex)
-        {
+        } catch (FileNotFoundException ex) {
             System.out.println("The file has not found, but it will be created");
-        } catch (IOException ex)
-        {
+        } catch (IOException ex) {
             ex.printStackTrace(System.out);
         }
     }
 
     private static int validateAge(int age) {
         Scanner sc = new Scanner(System.in);
-        while (age < 14 || age > 20)
-        {
+        while (age < 14 || age > 20) {
             System.out.print("Age invalid, enter age again: ");
             age = sc.nextInt();
         }
         return age;
+    }
+
+    private static void addToJSON(ArrayList<Student> students) {
+        File fileJson = new File("Student List.json");
+        Gson gson = new Gson();
+        String json = gson.toJson(students);
+
+        try {
+            FileWriter writer = new FileWriter(fileJson);
+            writer.write(json);
+            writer.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace(System.out);
+        } catch (IOException e) {
+            e.printStackTrace(System.out);
+        }
+    }
+
+    private static ArrayList<Student> readJSON(ArrayList<Student> students) {
+        String json = "";
+        Gson gson = new Gson();
+
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("Student List.json"));
+            String line = "";
+            while ((line = br.readLine()) != null) {
+                json = line;
+                TypeToken<ArrayList<Student>> type = new TypeToken<ArrayList<Student>>() {
+                };
+                students = gson.fromJson(json, type.getType());
+            }
+            br.close();
+        } catch (FileNotFoundException ex) {
+            System.out.println("File not found");
+        } catch (IOException ex) {
+            Logger.getLogger(StudentControlSystem.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return students;
+    }
+
+    private static void printStudent(Student student) {
+
+        int id = student.getId();
+        int age = student.getAge();
+        String name = student.getName();
+        String gender = student.getGender();
+        String DNI = student.getDNI();
+        System.out.println(id + "\t|" + name + "\t|" + DNI + "\t\t|" + age + "\t|" + gender + "\t|");
+    }
+
+    private static void menuStudent() {
+        Scanner sc = new Scanner(System.in);
+        boolean exitMenuStudent = false;
+        int option;
+        try {
+        do {
+            System.out.println("..::Welcome Student::..");
+            System.out.println("=======================");
+            System.out.println("Select any option");
+            System.out.println("1. View student information >");
+            System.out.println("2. Exit Menu >");
+            System.out.println("=======================");
+            System.out.print("==============> ");
+            option=sc.nextInt();
+            switch (option) {
+                case 1 -> {
+                    ArrayList<Student>studentsToRead= new ArrayList<>();
+                    studentsToRead = readJSON(studentsToRead);
+                    printOnlyOne(studentsToRead);
+                }
+                case 2 -> {
+                    exitMenuStudent=true;
+
+                }
+                default -> {
+                    System.out.println("Only values between 1 and 2 are accepted");
+                }
+            }
+        } while (!exitMenuStudent);
+        }
+        catch(Exception e){
+            System.out.println("Value not accepted");
+        }
+
+    }
+     public static void printOnlyOne(ArrayList<Student>studentsToRead) {
+        Scanner sc = new Scanner(System.in);
+        String match;
+        Student student = new Student();
+        boolean idNotFound = true;
+        //readFile(chickensToRead);
+
+        System.out.println("Enter the student's DNI to view");
+        match = sc.next();
+
+        for (int i = 0; i < studentsToRead.size(); i++) {
+            student = studentsToRead.get(i);
+            if (match.equals(student.getDNI())) {
+                
+                System.out.println("\nID\t|NAME\t|DNI\t\t|AGE\t|GENDER\t|");
+                printStudent(student);
+                idNotFound = false;
+            }
+        }
     }
 }
