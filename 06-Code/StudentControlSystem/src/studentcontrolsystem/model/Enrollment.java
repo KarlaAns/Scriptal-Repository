@@ -8,17 +8,17 @@ package studentcontrolsystem.model;
  *
  * @author DCCO-ESPE
  */
-public class Registration {
+public class Enrollment {
     private int id;
     private int Course;
     
-    public Registration(){
+    public Enrollment(){
         id=0;
         Course=0;
     }
     
     //Constructor
-    public Registration(int id, int Course) {
+    public Enrollment(int id, int Course) {
         this.id = id;
         this.Course = Course;
     }
