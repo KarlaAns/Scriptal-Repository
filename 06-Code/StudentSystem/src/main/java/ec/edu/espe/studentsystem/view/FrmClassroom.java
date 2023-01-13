@@ -4,6 +4,9 @@
  */
 package ec.edu.espe.studentsystem.view;
 
+import ec.edu.espe.studentsystem.controller.Theme;
+import java.awt.EventQueue;
+
 /**
  *
  * @author Cristian Acalo, Scriptal, DCCO-ESPE
@@ -26,7 +29,46 @@ public class FrmClassroom extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuBar1 = new javax.swing.JMenuBar();
+        mnStudentSystem = new javax.swing.JMenu();
+        mniAbout = new javax.swing.JMenuItem();
+        mniLogOut = new javax.swing.JMenuItem();
+        mnManage = new javax.swing.JMenu();
+        menuView = new javax.swing.JMenu();
+        cbmiDarkMode = new javax.swing.JCheckBoxMenuItem();
+        menuHelp = new javax.swing.JMenu();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        mnStudentSystem.setText("StudentSystem");
+
+        mniAbout.setText("About");
+        mnStudentSystem.add(mniAbout);
+
+        mniLogOut.setText("Log Out");
+        mnStudentSystem.add(mniLogOut);
+
+        jMenuBar1.add(mnStudentSystem);
+
+        mnManage.setText("Manage");
+        jMenuBar1.add(mnManage);
+
+        menuView.setText("View");
+
+        cbmiDarkMode.setText("Dark Mode");
+        cbmiDarkMode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbmiDarkModeActionPerformed(evt);
+            }
+        });
+        menuView.add(cbmiDarkMode);
+
+        jMenuBar1.add(menuView);
+
+        menuHelp.setText("Help");
+        jMenuBar1.add(menuHelp);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -41,6 +83,26 @@ public class FrmClassroom extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void cbmiDarkModeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbmiDarkModeActionPerformed
+        if (cbmiDarkMode.isSelected())
+        {
+            EventQueue.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    Theme.setDarkTheme();
+                }
+            });
+        } else
+        {
+            EventQueue.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    Theme.setFlatLightLafTheme();
+                }
+            });
+        }
+    }//GEN-LAST:event_cbmiDarkModeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +140,13 @@ public class FrmClassroom extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBoxMenuItem cbmiDarkMode;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenu menuHelp;
+    private javax.swing.JMenu menuView;
+    private javax.swing.JMenu mnManage;
+    private javax.swing.JMenu mnStudentSystem;
+    private javax.swing.JMenuItem mniAbout;
+    private javax.swing.JMenuItem mniLogOut;
     // End of variables declaration//GEN-END:variables
 }
