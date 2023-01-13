@@ -15,12 +15,12 @@ import javax.swing.UIManager;
  *
  * @author NW USER
  */
-public class frmAboutUs extends javax.swing.JFrame {
+public class FrmAboutUs extends javax.swing.JFrame {
 
     /**
      * Creates new form frmAboutUs
      */
-    public frmAboutUs() {
+    public FrmAboutUs() {
         initComponents();
     }
 
@@ -231,7 +231,7 @@ public class frmAboutUs extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new frmAboutUs().setVisible(true);
+                new FrmAboutUs().setVisible(true);
             }
         });
     }

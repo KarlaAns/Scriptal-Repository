@@ -1,6 +1,10 @@
 
 package ec.edu.espe.studentsystem.view;
 
+import com.formdev.flatlaf.FlatLaf;
+import com.formdev.flatlaf.FlatLightLaf;
+import com.formdev.flatlaf.intellijthemes.FlatLightFlatIJTheme;
+import ec.edu.espe.studentsystem.controller.Theme;
 import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
@@ -14,12 +18,12 @@ import javax.swing.UIManager;
  *
  * @author NW USER
  */
-public class frmLogIn extends javax.swing.JFrame {
+public class FrmLogIn extends javax.swing.JFrame {
 
     /**
      * Creates new form frmLogIn
      */
-    public frmLogIn() {
+    public FrmLogIn() {
         initComponents();
     }
 
@@ -40,10 +44,9 @@ public class frmLogIn extends javax.swing.JFrame {
         lblPass = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnStudentSystem = new javax.swing.JMenu();
+        mniHome = new javax.swing.JMenuItem();
         mniAbout = new javax.swing.JMenuItem();
         mniLogOut = new javax.swing.JMenuItem();
         mnManage = new javax.swing.JMenu();
@@ -66,7 +69,7 @@ public class frmLogIn extends javax.swing.JFrame {
         lblPass.setText("Password:");
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 60)); // NOI18N
-        jLabel1.setText("Login");
+        jLabel1.setText("Log In");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -75,14 +78,14 @@ public class frmLogIn extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(59, 59, 59)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblID, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(txtID)
                         .addComponent(txtPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE))
                     .addComponent(lblPass, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(75, Short.MAX_VALUE))
+                    .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addContainerGap(73, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -102,32 +105,26 @@ public class frmLogIn extends javax.swing.JFrame {
                 .addContainerGap(74, Short.MAX_VALUE))
         );
 
-        jButton2.setText("Dark Theme");
-
-        jButton3.setText("Light Theme");
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(870, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(35, 35, 35))
+            .addGap(0, 1001, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2)
-                .addContainerGap())
+            .addGap(0, 64, Short.MAX_VALUE)
         );
 
         mnStudentSystem.setText("StudentSystem");
+
+        mniHome.setText("Home");
+        mniHome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniHomeActionPerformed(evt);
+            }
+        });
+        mnStudentSystem.add(mniHome);
 
         mniAbout.setText("About");
         mniAbout.addActionListener(new java.awt.event.ActionListener() {
@@ -191,6 +188,7 @@ public class frmLogIn extends javax.swing.JFrame {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
+                    Theme.setDarkTheme();
                     try
                     {
                         UIManager.setLookAndFeel(new FlatDarculaLaf());
@@ -206,6 +204,7 @@ public class frmLogIn extends javax.swing.JFrame {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
+                    Theme.setFlatLightLafTheme();
                     try
                     {
                         UIManager.setLookAndFeel(new FlatLightLaf());
@@ -219,10 +218,21 @@ public class frmLogIn extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cbmiDarkModeActionPerformed
 
+    private void mniHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniHomeActionPerformed
+        FrmMain main = new FrmMain();
+        main.setVisible(true);
+        System.out.println(UIManager.getLookAndFeel().getName());
+        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+            main.setStatusCbmiDarkMode(false);
+        }else{
+            main.setStatusCbmiDarkMode(true);
+        }
+        this.dispose();
+    }//GEN-LAST:event_mniHomeActionPerformed
     private void mniAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAboutActionPerformed
-        // TODO add your handling code here:
-        frmAboutUs mniAbout = new frmAboutUs();
-        mniAbout.setVisible(true);
+
+        //FrmAboutUs mniAbout = new FrmAboutUs();
+        //mniAbout.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_mniAboutActionPerformed
 
@@ -233,6 +243,7 @@ public class frmLogIn extends javax.swing.JFrame {
         try {
             //UIManager.setLookAndFeel(new FlatLightLaf());
             FlatLightFlatIJTheme.setup();
+            FlatLaf.updateUI();
 
         } catch (Exception ex) {
             System.err.println("Failed to initialize LaF");
@@ -241,7 +252,7 @@ public class frmLogIn extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new frmLogIn().setVisible(true);
+                new FrmLogIn().setVisible(true);
             }
         });
     }
@@ -262,8 +273,17 @@ public class frmLogIn extends javax.swing.JFrame {
     private javax.swing.JMenu mnManage;
     private javax.swing.JMenu mnStudentSystem;
     private javax.swing.JMenuItem mniAbout;
+    private javax.swing.JMenuItem mniHome;
     private javax.swing.JMenuItem mniLogOut;
     private javax.swing.JTextField txtID;
     private javax.swing.JTextField txtPassword;
     // End of variables declaration//GEN-END:variables
+
+    public boolean getStatusCbmiDarkMode() {
+        return cbmiDarkMode.isSelected();
+    }
+
+    public void setStatusCbmiDarkMode(boolean isSelected) {
+        this.cbmiDarkMode.setSelected(isSelected);
+    }
 }
