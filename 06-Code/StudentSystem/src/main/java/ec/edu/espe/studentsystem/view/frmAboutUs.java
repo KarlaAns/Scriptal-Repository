@@ -1,23 +1,26 @@
 
 package ec.edu.espe.studentsystem.view;
 
+import com.formdev.flatlaf.FlatDarculaLaf;
+import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.intellijthemes.FlatArcDarkIJTheme;
 import com.formdev.flatlaf.intellijthemes.FlatDraculaIJTheme;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatArcDarkContrastIJTheme;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatDraculaContrastIJTheme;
+import java.awt.EventQueue;
 import javax.swing.UIManager;
 
 /**
  *
  * @author NW USER
  */
-public class frmAboutUs extends javax.swing.JFrame {
+public class FrmAboutUs extends javax.swing.JFrame {
 
     /**
      * Creates new form frmAboutUs
      */
-    public frmAboutUs() {
+    public FrmAboutUs() {
         initComponents();
     }
 
@@ -42,8 +45,10 @@ public class frmAboutUs extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         mnStudentSystem = new javax.swing.JMenu();
         mniAbout = new javax.swing.JMenuItem();
+        mniLogOut = new javax.swing.JMenuItem();
         mnManage = new javax.swing.JMenu();
         menuView = new javax.swing.JMenu();
+        cbmiDarkMode = new javax.swing.JCheckBoxMenuItem();
         menuHelp = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -120,12 +125,24 @@ public class frmAboutUs extends javax.swing.JFrame {
         mniAbout.setText("About");
         mnStudentSystem.add(mniAbout);
 
+        mniLogOut.setText("Log Out");
+        mnStudentSystem.add(mniLogOut);
+
         jMenuBar1.add(mnStudentSystem);
 
         mnManage.setText("Manage");
         jMenuBar1.add(mnManage);
 
         menuView.setText("View");
+
+        cbmiDarkMode.setText("Dark Mode");
+        cbmiDarkMode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbmiDarkModeActionPerformed(evt);
+            }
+        });
+        menuView.add(cbmiDarkMode);
+
         jMenuBar1.add(menuView);
 
         menuHelp.setText("Help");
@@ -160,6 +177,40 @@ public class frmAboutUs extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void cbmiDarkModeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbmiDarkModeActionPerformed
+        if (cbmiDarkMode.isSelected())
+        {
+            EventQueue.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    try
+                    {
+                        UIManager.setLookAndFeel(new FlatDarculaLaf());
+                        FlatLaf.updateUI();
+                    } catch (Exception ex)
+                    {
+                        System.err.println("Failed to initialize LaF");
+                    }
+                }
+            });
+        } else
+        {
+            EventQueue.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    try
+                    {
+                        UIManager.setLookAndFeel(new FlatLightLaf());
+                        FlatLaf.updateUI();
+                    } catch (Exception ex)
+                    {
+                        System.err.println("Failed to initialize LaF");
+                    }
+                }
+            });
+        }
+    }//GEN-LAST:event_cbmiDarkModeActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -180,7 +231,7 @@ public class frmAboutUs extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new frmAboutUs().setVisible(true);
+                new FrmAboutUs().setVisible(true);
             }
         });
     }
@@ -188,6 +239,7 @@ public class frmAboutUs extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JCheckBoxMenuItem cbmiDarkMode;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -200,6 +252,7 @@ public class frmAboutUs extends javax.swing.JFrame {
     private javax.swing.JMenu mnManage;
     private javax.swing.JMenu mnStudentSystem;
     private javax.swing.JMenuItem mniAbout;
+    private javax.swing.JMenuItem mniLogOut;
     private javax.swing.JTextArea txtAreaDes;
     // End of variables declaration//GEN-END:variables
 }
