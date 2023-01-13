@@ -38,6 +38,14 @@ public class frmTeacher extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        mnStudentSystem = new javax.swing.JMenu();
+        mniAbout = new javax.swing.JMenuItem();
+        mniLogOut = new javax.swing.JMenuItem();
+        mnManage = new javax.swing.JMenu();
+        menuView = new javax.swing.JMenu();
+        cbmiDarkMode = new javax.swing.JCheckBoxMenuItem();
+        menuHelp = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -95,7 +103,7 @@ public class frmTeacher extends javax.swing.JFrame {
         pnlTeacherLayout.setVerticalGroup(
             pnlTeacherLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlTeacherLayout.createSequentialGroup()
-                .addContainerGap(118, Short.MAX_VALUE)
+                .addContainerGap(95, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addGap(46, 46, 46)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -107,6 +115,36 @@ public class frmTeacher extends javax.swing.JFrame {
                 .addGap(100, 100, 100))
         );
 
+        mnStudentSystem.setText("StudentSystem");
+
+        mniAbout.setText("About");
+        mnStudentSystem.add(mniAbout);
+
+        mniLogOut.setText("Log Out");
+        mnStudentSystem.add(mniLogOut);
+
+        jMenuBar1.add(mnStudentSystem);
+
+        mnManage.setText("Manage");
+        jMenuBar1.add(mnManage);
+
+        menuView.setText("View");
+
+        cbmiDarkMode.setText("Dark Mode");
+        cbmiDarkMode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbmiDarkModeActionPerformed(evt);
+            }
+        });
+        menuView.add(cbmiDarkMode);
+
+        jMenuBar1.add(menuView);
+
+        menuHelp.setText("Help");
+        jMenuBar1.add(menuHelp);
+
+        setJMenuBar(jMenuBar1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -115,7 +153,7 @@ public class frmTeacher extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlTeacher, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnlTeacher, javax.swing.GroupLayout.DEFAULT_SIZE, 539, Short.MAX_VALUE)
         );
 
         pack();
@@ -129,6 +167,26 @@ public class frmTeacher extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void cbmiDarkModeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbmiDarkModeActionPerformed
+        if (cbmiDarkMode.isSelected())
+        {
+            EventQueue.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    Theme.setDarkTheme();
+                }
+            });
+        } else
+        {
+            EventQueue.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    Theme.setFlatLightLafTheme();
+                }
+            });
+        }
+    }//GEN-LAST:event_cbmiDarkModeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -154,11 +212,19 @@ public class frmTeacher extends javax.swing.JFrame {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBoxMenuItem cbmiDarkMode;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenu menuHelp;
+    private javax.swing.JMenu menuView;
+    private javax.swing.JMenu mnManage;
+    private javax.swing.JMenu mnStudentSystem;
+    private javax.swing.JMenuItem mniAbout;
+    private javax.swing.JMenuItem mniLogOut;
     private javax.swing.JPanel pnlTeacher;
     // End of variables declaration//GEN-END:variables
 }
