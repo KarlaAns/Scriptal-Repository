@@ -189,14 +189,6 @@ public class FrmLogIn extends javax.swing.JFrame {
                 @Override
                 public void run() {
                     Theme.setDarkTheme();
-                    try
-                    {
-                        UIManager.setLookAndFeel(new FlatDarculaLaf());
-                        FlatLaf.updateUI();
-                    } catch (Exception ex)
-                    {
-                        System.err.println("Failed to initialize LaF");
-                    }
                 }
             });
         } else
@@ -205,14 +197,6 @@ public class FrmLogIn extends javax.swing.JFrame {
                 @Override
                 public void run() {
                     Theme.setFlatLightLafTheme();
-                    try
-                    {
-                        UIManager.setLookAndFeel(new FlatLightLaf());
-                        FlatLaf.updateUI();
-                    } catch (Exception ex)
-                    {
-                        System.err.println("Failed to initialize LaF");
-                    }
                 }
             });
         }
@@ -231,8 +215,8 @@ public class FrmLogIn extends javax.swing.JFrame {
     }//GEN-LAST:event_mniHomeActionPerformed
     private void mniAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAboutActionPerformed
 
-        //FrmAboutUs mniAbout = new FrmAboutUs();
-        //mniAbout.setVisible(true);
+        FrmAboutUs mniAbout = new FrmAboutUs();
+        mniAbout.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_mniAboutActionPerformed
 
