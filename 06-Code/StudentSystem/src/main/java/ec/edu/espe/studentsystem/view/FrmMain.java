@@ -184,8 +184,8 @@ public class FrmMain extends javax.swing.JFrame {
 
     private void mniAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAboutActionPerformed
 
-        //frmAboutUs newMniAbout = new frmAboutUs();
-        //newMniAbout.setVisible(true);
+        FrmAboutUs newMniAbout = new FrmAboutUs();
+        newMniAbout.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_mniAboutActionPerformed
 
