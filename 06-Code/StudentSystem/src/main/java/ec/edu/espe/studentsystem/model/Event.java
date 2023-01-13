@@ -5,17 +5,18 @@ package ec.edu.espe.studentsystem.model;
  *
  * @author Alejandro Andrade, Scriptal, DCCO_ESPE
  */
-public abstract class HighSchoolUser {
+public class Event {
+    
     private int id;
     private String name;
-    private String password;
-    private String email;
+    private String description;
+    private String date;
 
-    public HighSchoolUser(int id, String name, String password, String email) {
+    public Event(int id, String name, String description, String date) {
         this.id = id;
         this.name = name;
-        this.password = password;
-        this.email = email;
+        this.description = description;
+        this.date = date;
     }
 
     /**
@@ -47,31 +48,32 @@ public abstract class HighSchoolUser {
     }
 
     /**
-     * @return the password
+     * @return the description
      */
-    public String getPassword() {
-        return password;
+    public String getDescription() {
+        return description;
     }
 
     /**
-     * @param password the password to set
+     * @param description the description to set
      */
-    public void setPassword(String password) {
-        this.password = password;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     /**
-     * @return the email
+     * @return the date
      */
-    public String getEmail() {
-        return email;
+    public String getDate() {
+        return date;
     }
 
     /**
-     * @param email the email to set
+     * @param date the date to set
      */
-    public void setEmail(String email) {
-        this.email = email;
+    public void setDate(String date) {
+        this.date = date;
     }
+    
     
 }
