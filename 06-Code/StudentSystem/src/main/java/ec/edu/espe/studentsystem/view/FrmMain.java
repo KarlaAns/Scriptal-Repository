@@ -176,8 +176,10 @@ public class FrmMain extends javax.swing.JFrame {
     }//GEN-LAST:event_cbmiDarkModeActionPerformed
 
     private void mniAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAboutActionPerformed
-        // TODO add your handling code here:
-        
+
+         FrmAboutUs mniAbout = new FrmAboutUs();
+        mniAbout.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_mniAboutActionPerformed
 
     /**

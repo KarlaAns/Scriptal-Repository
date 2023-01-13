@@ -70,6 +70,11 @@ public class FrmStudent extends javax.swing.JFrame {
         mnStudentSystem.setText("StudentSystem");
 
         mniAbout.setText("About");
+        mniAbout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniAboutActionPerformed(evt);
+            }
+        });
         mnStudentSystem.add(mniAbout);
 
         mniLogOut.setText("Log Out");
@@ -140,16 +145,14 @@ public class FrmStudent extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cbmiDarkModeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbmiDarkModeActionPerformed
-        if (cbmiDarkMode.isSelected())
-        {
+        if (cbmiDarkMode.isSelected()) {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     Theme.setDarkTheme();
                 }
             });
-        } else
-        {
+        } else {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
@@ -162,6 +165,12 @@ public class FrmStudent extends javax.swing.JFrame {
     private void btnActivityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActivityActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnActivityActionPerformed
+
+    private void mniAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAboutActionPerformed
+        FrmAboutUs mniAbout = new FrmAboutUs();
+        mniAbout.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_mniAboutActionPerformed
 
     /**
      * @param args the command line arguments

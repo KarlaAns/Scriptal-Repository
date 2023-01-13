@@ -1,4 +1,3 @@
-
 package ec.edu.espe.studentsystem.view;
 
 import com.formdev.flatlaf.FlatLightLaf;
@@ -92,6 +91,11 @@ public class FrmEventMng extends javax.swing.JFrame {
         mnStudentSystem.setText("StudentSystem");
 
         mniAbout.setText("About");
+        mniAbout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniAboutActionPerformed(evt);
+            }
+        });
         mnStudentSystem.add(mniAbout);
 
         jMenuBar1.add(mnStudentSystem);
@@ -127,6 +131,13 @@ public class FrmEventMng extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void mniAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAboutActionPerformed
+
+        FrmAboutUs mniAbout = new FrmAboutUs();
+        mniAbout.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_mniAboutActionPerformed
 
     /**
      * @param args the command line arguments

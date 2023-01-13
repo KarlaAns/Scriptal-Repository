@@ -15,12 +15,12 @@ import javax.swing.UIManager;
  *
  * @author Cristian Acalo, Scriptal, DCCO-ESPE
  */
-public class frmTeacher extends javax.swing.JFrame {
+public class FrmTeacher extends javax.swing.JFrame {
 
     /**
      * Creates new form frmTeacher
      */
-    public frmTeacher() {
+    public FrmTeacher() {
         initComponents();
     }
 
@@ -117,6 +117,11 @@ public class frmTeacher extends javax.swing.JFrame {
         mnStudentSystem.setText("StudentSystem");
 
         mniAbout.setText("About");
+        mniAbout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniAboutActionPerformed(evt);
+            }
+        });
         mnStudentSystem.add(mniAbout);
 
         mniLogOut.setText("Log Out");
@@ -168,16 +173,14 @@ public class frmTeacher extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void cbmiDarkModeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbmiDarkModeActionPerformed
-        if (cbmiDarkMode.isSelected())
-        {
+        if (cbmiDarkMode.isSelected()) {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     Theme.setDarkTheme();
                 }
             });
-        } else
-        {
+        } else {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
@@ -187,17 +190,23 @@ public class frmTeacher extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cbmiDarkModeActionPerformed
 
+    private void mniAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAboutActionPerformed
+        FrmAboutUs mniAbout = new FrmAboutUs();
+        mniAbout.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_mniAboutActionPerformed
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        
+
         setTheme();
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new frmTeacher().setVisible(true);
+                new FrmTeacher().setVisible(true);
             }
         });
     }
@@ -209,7 +218,7 @@ public class frmTeacher extends javax.swing.JFrame {
             System.err.println("Failed to initialize LaF");
         }
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBoxMenuItem cbmiDarkMode;
     private javax.swing.JButton jButton1;

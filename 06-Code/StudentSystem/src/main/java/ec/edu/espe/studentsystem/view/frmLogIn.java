@@ -14,12 +14,12 @@ import javax.swing.UIManager;
  *
  * @author NW USER
  */
-public class frmLogIn extends javax.swing.JFrame {
+public class FrmLogIn extends javax.swing.JFrame {
 
     /**
      * Creates new form frmLogIn
      */
-    public frmLogIn() {
+    public FrmLogIn() {
         initComponents();
     }
 
@@ -220,8 +220,8 @@ public class frmLogIn extends javax.swing.JFrame {
     }//GEN-LAST:event_cbmiDarkModeActionPerformed
 
     private void mniAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAboutActionPerformed
-        // TODO add your handling code here:
-        frmAboutUs mniAbout = new frmAboutUs();
+
+        FrmAboutUs mniAbout = new FrmAboutUs();
         mniAbout.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_mniAboutActionPerformed
@@ -241,7 +241,7 @@ public class frmLogIn extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new frmLogIn().setVisible(true);
+                new FrmLogIn().setVisible(true);
             }
         });
     }

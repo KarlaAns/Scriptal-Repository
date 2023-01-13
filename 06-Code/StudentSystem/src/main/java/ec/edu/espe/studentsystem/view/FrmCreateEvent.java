@@ -146,13 +146,9 @@ public class FrmCreateEvent extends javax.swing.JFrame {
                             .addGroup(pnlInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addGroup(pnlInputLayout.createSequentialGroup()
                                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 228, Short.MAX_VALUE))
-                                .addGroup(pnlInputLayout.createSequentialGroup()
-                                    .addComponent(txtEvent)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(pnlInputLayout.createSequentialGroup()
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE))
+                                .addComponent(txtEvent))
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(pnlInputLayout.createSequentialGroup()
                         .addGap(241, 241, 241)
                         .addComponent(cmbGuest, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -252,6 +248,11 @@ public class FrmCreateEvent extends javax.swing.JFrame {
         mnStudentSystem.setText("StudentSystem");
 
         mniAbout.setText("About");
+        mniAbout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniAboutActionPerformed(evt);
+            }
+        });
         mnStudentSystem.add(mniAbout);
 
         jMenuBar1.add(mnStudentSystem);
@@ -315,7 +316,7 @@ public class FrmCreateEvent extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-/*
+        /*
         String[] Datos = new String[5];
         Datos[0] = txtEvent.getText();
         Datos[1] = cmbDay.getSelectedItem().toString() + cmbMonth.getSelectedItem().toString() + cmbYear.getSelectedItem().toString();
@@ -332,7 +333,7 @@ public class FrmCreateEvent extends javax.swing.JFrame {
         cmbYear.setSelectedIndex(0);
         txtAreaDescription.setText("");
         cmbGuest.setSelectedIndex(0);
-        */
+         */
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void txtEventKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEventKeyTyped
@@ -358,7 +359,7 @@ public class FrmCreateEvent extends javax.swing.JFrame {
         frmDeleteEvent deleteEvent = new frmDeleteEvent();
         deleteEvent.setVisible(true);
         this.dispose();
-        */
+         */
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
@@ -367,7 +368,7 @@ public class FrmCreateEvent extends javax.swing.JFrame {
         frmSearchEvent searchEvent = new frmSearchEvent();
         searchEvent.setVisible(true);
         this.dispose();
-*/
+         */
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
@@ -376,7 +377,7 @@ public class FrmCreateEvent extends javax.swing.JFrame {
         frmUpdateEvent updateEvent = new frmUpdateEvent();
         updateEvent.setVisible(true);
         this.dispose();
-        */
+         */
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void txtIDKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIDKeyTyped
@@ -396,6 +397,13 @@ public class FrmCreateEvent extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtIDActionPerformed
 
+    private void mniAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAboutActionPerformed
+
+        FrmAboutUs mniAbout = new FrmAboutUs();
+        mniAbout.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_mniAboutActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -412,6 +420,7 @@ public class FrmCreateEvent extends javax.swing.JFrame {
             }
         });
     }
+
     private static void setTheme() {
         try {
             UIManager.setLookAndFeel(new FlatLightLaf());
