@@ -1,11 +1,8 @@
 package ec.edu.espe.studentsystem.view;
-<<<<<<< HEAD
 
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.intellijthemes.FlatLightFlatIJTheme;
-=======
->>>>>>> 13a0b56c60de2543b10dc993d4554e8a99b412e5
 import ec.edu.espe.studentsystem.controller.Theme;
 import static ec.edu.espe.studentsystem.controller.Theme.setFlatLightLafTheme;
 import java.awt.EventQueue;
@@ -182,26 +179,26 @@ public class FrmMain extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cbmiDarkModeActionPerformed
 
-<<<<<<< HEAD
+
     private void btnLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogInActionPerformed
         
-        frmLogIn logIn = new frmLogIn();
-        logIn.setVisible(true);
+        //frmLogIn logIn = new frmLogIn();
+        //logIn.setVisible(true);
         if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
-            logIn.setStatusCbmiDarkMode(false);
+            //logIn.setStatusCbmiDarkMode(false);
         }else{
-            logIn.setStatusCbmiDarkMode(true);
+            //logIn.setStatusCbmiDarkMode(true);
         }
         this.dispose();
     }//GEN-LAST:event_btnLogInActionPerformed
-=======
+
     private void mniAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAboutActionPerformed
 
-         FrmAboutUs mniAbout = new FrmAboutUs();
-        mniAbout.setVisible(true);
+        //frmAboutUs newMniAbout = new frmAboutUs();
+        //newMniAbout.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_mniAboutActionPerformed
->>>>>>> 13a0b56c60de2543b10dc993d4554e8a99b412e5
+
 
     /**
      * @param args the command line arguments

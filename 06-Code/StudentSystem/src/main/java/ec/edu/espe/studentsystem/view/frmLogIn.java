@@ -1,17 +1,14 @@
 
 package ec.edu.espe.studentsystem.view;
 
-<<<<<<< HEAD
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.intellijthemes.FlatLightFlatIJTheme;
 import ec.edu.espe.studentsystem.controller.Theme;
-=======
 import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.intellijthemes.FlatLightFlatIJTheme;
->>>>>>> 13a0b56c60de2543b10dc993d4554e8a99b412e5
 import java.awt.EventQueue;
 import javax.swing.UIManager;
 
@@ -191,9 +188,7 @@ public class FrmLogIn extends javax.swing.JFrame {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-<<<<<<< HEAD
                     Theme.setDarkTheme();
-=======
                     try
                     {
                         UIManager.setLookAndFeel(new FlatDarculaLaf());
@@ -202,7 +197,6 @@ public class FrmLogIn extends javax.swing.JFrame {
                     {
                         System.err.println("Failed to initialize LaF");
                     }
->>>>>>> 13a0b56c60de2543b10dc993d4554e8a99b412e5
                 }
             });
         } else
@@ -210,9 +204,7 @@ public class FrmLogIn extends javax.swing.JFrame {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-<<<<<<< HEAD
                     Theme.setFlatLightLafTheme();
-=======
                     try
                     {
                         UIManager.setLookAndFeel(new FlatLightLaf());
@@ -221,13 +213,11 @@ public class FrmLogIn extends javax.swing.JFrame {
                     {
                         System.err.println("Failed to initialize LaF");
                     }
->>>>>>> 13a0b56c60de2543b10dc993d4554e8a99b412e5
                 }
             });
         }
     }//GEN-LAST:event_cbmiDarkModeActionPerformed
 
-<<<<<<< HEAD
     private void mniHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniHomeActionPerformed
         FrmMain main = new FrmMain();
         main.setVisible(true);
@@ -239,14 +229,12 @@ public class FrmLogIn extends javax.swing.JFrame {
         }
         this.dispose();
     }//GEN-LAST:event_mniHomeActionPerformed
-=======
     private void mniAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAboutActionPerformed
 
-        FrmAboutUs mniAbout = new FrmAboutUs();
-        mniAbout.setVisible(true);
+        //FrmAboutUs mniAbout = new FrmAboutUs();
+        //mniAbout.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_mniAboutActionPerformed
->>>>>>> 13a0b56c60de2543b10dc993d4554e8a99b412e5
 
     /**
      * @param args the command line arguments
@@ -272,11 +260,8 @@ public class FrmLogIn extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSubmit;
     private javax.swing.JCheckBoxMenuItem cbmiDarkMode;
-<<<<<<< HEAD
-=======
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
->>>>>>> 13a0b56c60de2543b10dc993d4554e8a99b412e5
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
@@ -288,10 +273,7 @@ public class FrmLogIn extends javax.swing.JFrame {
     private javax.swing.JMenu mnManage;
     private javax.swing.JMenu mnStudentSystem;
     private javax.swing.JMenuItem mniAbout;
-<<<<<<< HEAD
     private javax.swing.JMenuItem mniHome;
-=======
->>>>>>> 13a0b56c60de2543b10dc993d4554e8a99b412e5
     private javax.swing.JMenuItem mniLogOut;
     private javax.swing.JTextField txtID;
     private javax.swing.JTextField txtPassword;

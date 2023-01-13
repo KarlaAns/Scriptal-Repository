@@ -1,15 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package ec.edu.espe.studentsystem.view;
 
-import com.formdev.flatlaf.FlatDarculaLaf;
-import com.formdev.flatlaf.FlatLaf;
-import com.formdev.flatlaf.FlatLightLaf;
 import ec.edu.espe.studentsystem.controller.Theme;
 import java.awt.EventQueue;
-import javax.swing.UIManager;
 
 /**
  *
@@ -167,8 +160,8 @@ public class FrmStudent extends javax.swing.JFrame {
     }//GEN-LAST:event_btnActivityActionPerformed
 
     private void mniAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAboutActionPerformed
-        FrmAboutUs mniAbout = new FrmAboutUs();
-        mniAbout.setVisible(true);
+        //frmAboutUs newMniAbout = new frmAboutUs();
+        //newMniAbout.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_mniAboutActionPerformed
 
