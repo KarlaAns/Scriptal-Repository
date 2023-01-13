@@ -40,8 +40,10 @@ public class frmLogIn extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         mnStudentSystem = new javax.swing.JMenu();
         mniAbout = new javax.swing.JMenuItem();
+        mniLogOut = new javax.swing.JMenuItem();
         mnManage = new javax.swing.JMenu();
         menuView = new javax.swing.JMenu();
+        cbmiDarkMode = new javax.swing.JCheckBoxMenuItem();
         menuHelp = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -125,12 +127,24 @@ public class frmLogIn extends javax.swing.JFrame {
         mniAbout.setText("About");
         mnStudentSystem.add(mniAbout);
 
+        mniLogOut.setText("Log Out");
+        mnStudentSystem.add(mniLogOut);
+
         jMenuBar1.add(mnStudentSystem);
 
         mnManage.setText("Manage");
         jMenuBar1.add(mnManage);
 
         menuView.setText("View");
+
+        cbmiDarkMode.setText("Dark Mode");
+        cbmiDarkMode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbmiDarkModeActionPerformed(evt);
+            }
+        });
+        menuView.add(cbmiDarkMode);
+
         jMenuBar1.add(menuView);
 
         menuHelp.setText("Help");
@@ -161,6 +175,40 @@ public class frmLogIn extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void cbmiDarkModeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbmiDarkModeActionPerformed
+        if (cbmiDarkMode.isSelected())
+        {
+            EventQueue.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    try
+                    {
+                        UIManager.setLookAndFeel(new FlatDarculaLaf());
+                        FlatLaf.updateUI();
+                    } catch (Exception ex)
+                    {
+                        System.err.println("Failed to initialize LaF");
+                    }
+                }
+            });
+        } else
+        {
+            EventQueue.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    try
+                    {
+                        UIManager.setLookAndFeel(new FlatLightLaf());
+                        FlatLaf.updateUI();
+                    } catch (Exception ex)
+                    {
+                        System.err.println("Failed to initialize LaF");
+                    }
+                }
+            });
+        }
+    }//GEN-LAST:event_cbmiDarkModeActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -183,6 +231,7 @@ public class frmLogIn extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSubmit;
+    private javax.swing.JCheckBoxMenuItem cbmiDarkMode;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
@@ -196,6 +245,7 @@ public class frmLogIn extends javax.swing.JFrame {
     private javax.swing.JMenu mnManage;
     private javax.swing.JMenu mnStudentSystem;
     private javax.swing.JMenuItem mniAbout;
+    private javax.swing.JMenuItem mniLogOut;
     private javax.swing.JTextField txtID;
     private javax.swing.JTextField txtPassword;
     // End of variables declaration//GEN-END:variables
