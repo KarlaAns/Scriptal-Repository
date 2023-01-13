@@ -1,25 +1,26 @@
-
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
 package ec.edu.espe.studentsystem.view;
 
 import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import ec.edu.espe.studentsystem.controller.Theme;
-import static ec.edu.espe.studentsystem.controller.Theme.setFlatLightLafTheme;
 import java.awt.EventQueue;
 import javax.swing.UIManager;
-
 
 /**
  *
  * @author Alejandro Andrade, Scriptal, DCCO_ESPE
  */
-public class FrmMain extends javax.swing.JFrame {
+public class FrmStudent extends javax.swing.JFrame {
 
     /**
-     * Creates new form FrmMain
+     * Creates new form FrmStudent
      */
-    public FrmMain() {
+    public FrmStudent() {
         initComponents();
     }
 
@@ -32,76 +33,39 @@ public class FrmMain extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        lblStudent = new javax.swing.JLabel();
+        btnActivity = new javax.swing.JButton();
+        btnEnrollment = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnStudentSystem = new javax.swing.JMenu();
         mniAbout = new javax.swing.JMenuItem();
         mniLogOut = new javax.swing.JMenuItem();
         mnManage = new javax.swing.JMenu();
+        mnActivity = new javax.swing.JMenuItem();
+        mnEnrollment = new javax.swing.JMenuItem();
         menuView = new javax.swing.JMenu();
         cbmiDarkMode = new javax.swing.JCheckBoxMenuItem();
         menuHelp = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1000, 562));
 
-        jPanel1.setPreferredSize(new java.awt.Dimension(1000, 52));
-
-        jButton1.setText("Log In");
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(459, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(445, 445, 445))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addComponent(jButton1)
-                .addContainerGap(40, Short.MAX_VALUE))
-        );
-
-        jLabel1.setFont(new java.awt.Font("Stencil", 0, 48)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 60)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Welcome");
 
-        jLabel2.setFont(new java.awt.Font("Stencil", 0, 36)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("to Student System");
+        lblStudent.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
+        lblStudent.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblStudent.setPreferredSize(new java.awt.Dimension(0, 50));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(151, 151, 151)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(85, 85, 85))
-        );
+        btnActivity.setText("Activity");
+        btnActivity.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActivityActionPerformed(evt);
+            }
+        });
+
+        btnEnrollment.setText("Enrollment");
 
         mnStudentSystem.setText("StudentSystem");
 
@@ -114,6 +78,13 @@ public class FrmMain extends javax.swing.JFrame {
         jMenuBar1.add(mnStudentSystem);
 
         mnManage.setText("Manage");
+
+        mnActivity.setText("Activity");
+        mnManage.add(mnActivity);
+
+        mnEnrollment.setText("Enrollment");
+        mnManage.add(mnEnrollment);
+
         jMenuBar1.add(mnManage);
 
         menuView.setText("View");
@@ -139,15 +110,29 @@ public class FrmMain extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 988, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblStudent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(351, 351, 351)
+                .addComponent(btnActivity)
+                .addGap(147, 147, 147)
+                .addComponent(btnEnrollment)
+                .addContainerGap(342, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 527, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(92, 92, 92)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(lblStudent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(125, 125, 125)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnActivity)
+                    .addComponent(btnEnrollment))
+                .addContainerGap(150, Short.MAX_VALUE))
         );
 
         pack();
@@ -174,34 +159,38 @@ public class FrmMain extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cbmiDarkModeActionPerformed
 
+    private void btnActivityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActivityActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnActivityActionPerformed
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        setFlatLightLafTheme();
+        Theme.setFlatLightLafTheme();
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmMain().setVisible(true);
+                new FrmStudent().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnActivity;
+    private javax.swing.JButton btnEnrollment;
     private javax.swing.JCheckBoxMenuItem cbmiDarkMode;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lblStudent;
     private javax.swing.JMenu menuHelp;
     private javax.swing.JMenu menuView;
+    private javax.swing.JMenuItem mnActivity;
+    private javax.swing.JMenuItem mnEnrollment;
     private javax.swing.JMenu mnManage;
     private javax.swing.JMenu mnStudentSystem;
     private javax.swing.JMenuItem mniAbout;
     private javax.swing.JMenuItem mniLogOut;
     // End of variables declaration//GEN-END:variables
-
 }
