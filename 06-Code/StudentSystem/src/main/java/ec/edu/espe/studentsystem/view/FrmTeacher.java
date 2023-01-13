@@ -3,6 +3,7 @@ package ec.edu.espe.studentsystem.view;
 
 import ec.edu.espe.studentsystem.controller.Theme;
 import java.awt.EventQueue;
+import javax.swing.UIManager;
 
 /**
  *
@@ -29,11 +30,12 @@ public class FrmTeacher extends javax.swing.JFrame {
         pnlTeacher = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        brnClassrooms = new javax.swing.JButton();
+        btnStudents = new javax.swing.JButton();
+        btnAttendance = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnStudentSystem = new javax.swing.JMenu();
+        mniHome = new javax.swing.JMenuItem();
         mniAbout = new javax.swing.JMenuItem();
         mniLogOut = new javax.swing.JMenuItem();
         mnManage = new javax.swing.JMenu();
@@ -53,24 +55,29 @@ public class FrmTeacher extends javax.swing.JFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Welcome");
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton1.setText("Classrooms");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        brnClassrooms.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        brnClassrooms.setText("Classrooms");
+        brnClassrooms.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                brnClassroomsActionPerformed(evt);
             }
         });
 
-        jButton2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton2.setText("Students");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnStudents.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnStudents.setText("Students");
+        btnStudents.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnStudentsActionPerformed(evt);
             }
         });
 
-        jButton3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton3.setText("Attendance");
+        btnAttendance.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnAttendance.setText("Attendance");
+        btnAttendance.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAttendanceActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlTeacherLayout = new javax.swing.GroupLayout(pnlTeacher);
         pnlTeacher.setLayout(pnlTeacherLayout);
@@ -84,11 +91,11 @@ public class FrmTeacher extends javax.swing.JFrame {
                 .addGap(205, 205, 205)
                 .addGroup(pnlTeacherLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(pnlTeacherLayout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(brnClassrooms)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2)
+                        .addComponent(btnStudents)
                         .addGap(145, 145, 145)
-                        .addComponent(jButton3))
+                        .addComponent(btnAttendance))
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 587, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -101,13 +108,21 @@ public class FrmTeacher extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(108, 108, 108)
                 .addGroup(pnlTeacherLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(brnClassrooms)
+                    .addComponent(btnStudents)
+                    .addComponent(btnAttendance))
                 .addGap(100, 100, 100))
         );
 
         mnStudentSystem.setText("StudentSystem");
+
+        mniHome.setText("Home");
+        mniHome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniHomeActionPerformed(evt);
+            }
+        });
+        mnStudentSystem.add(mniHome);
 
         mniAbout.setText("About");
         mniAbout.addActionListener(new java.awt.event.ActionListener() {
@@ -118,11 +133,6 @@ public class FrmTeacher extends javax.swing.JFrame {
         mnStudentSystem.add(mniAbout);
 
         mniLogOut.setText("Log Out");
-        mniLogOut.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mniLogOutActionPerformed(evt);
-            }
-        });
         mnStudentSystem.add(mniLogOut);
 
         jMenuBar1.add(mnStudentSystem);
@@ -162,25 +172,60 @@ public class FrmTeacher extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void brnClassroomsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brnClassroomsActionPerformed
+        // TODO add your handling code here:
+        FrmClassroom classrooms = new FrmClassroom();
+        classrooms.setVisible(true);
+        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+            classrooms.setStatusCbmiDarkMode(false);
+        }else{
+            classrooms.setStatusCbmiDarkMode(true);
+        }
+        this.dispose();
+    }//GEN-LAST:event_brnClassroomsActionPerformed
+
+    private void btnStudentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStudentsActionPerformed
+        // TODO add your handling code here:
+        FrmStudent students = new FrmStudent();
+        students.setVisible(true);
+        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+            students.setStatusCbmiDarkMode(false);
+        }else{
+            students.setStatusCbmiDarkMode(true);
+        }
+        this.dispose();
+    }//GEN-LAST:event_btnStudentsActionPerformed
+
+    private void mniHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniHomeActionPerformed
+        FrmMain main = new FrmMain();
+        main.setVisible(true);
+        System.out.println(UIManager.getLookAndFeel().getName());
+        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+            main.setStatusCbmiDarkMode(false);
+        }else{
+            main.setStatusCbmiDarkMode(true);
+        }
+        this.dispose();
+    }//GEN-LAST:event_mniHomeActionPerformed
+
     private void mniAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAboutActionPerformed
+
         FrmAboutUs mniAbout = new FrmAboutUs();
         mniAbout.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_mniAboutActionPerformed
 
-    private void mniLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniLogOutActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_mniLogOutActionPerformed
-
     private void cbmiDarkModeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbmiDarkModeActionPerformed
-        if (cbmiDarkMode.isSelected()) {
+        if (cbmiDarkMode.isSelected())
+        {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     Theme.setDarkTheme();
                 }
             });
-        } else {
+        } else
+        {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
@@ -190,13 +235,9 @@ public class FrmTeacher extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cbmiDarkModeActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnAttendanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAttendanceActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnAttendanceActionPerformed
 
     /**
      * @param args the command line arguments
@@ -212,10 +253,10 @@ public class FrmTeacher extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton brnClassrooms;
+    private javax.swing.JButton btnAttendance;
+    private javax.swing.JButton btnStudents;
     private javax.swing.JCheckBoxMenuItem cbmiDarkMode;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -224,7 +265,16 @@ public class FrmTeacher extends javax.swing.JFrame {
     private javax.swing.JMenu mnManage;
     private javax.swing.JMenu mnStudentSystem;
     private javax.swing.JMenuItem mniAbout;
+    private javax.swing.JMenuItem mniHome;
     private javax.swing.JMenuItem mniLogOut;
     private javax.swing.JPanel pnlTeacher;
     // End of variables declaration//GEN-END:variables
+
+    public boolean getStatusCbmiDarkMode() {
+        return cbmiDarkMode.isSelected();
+    }
+
+    public void setStatusCbmiDarkMode(boolean isSelected) {
+        this.cbmiDarkMode.setSelected(isSelected);
+    }
 }

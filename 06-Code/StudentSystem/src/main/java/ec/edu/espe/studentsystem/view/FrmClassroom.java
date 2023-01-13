@@ -236,24 +236,21 @@ public class FrmClassroom extends javax.swing.JFrame {
         pnlFormLayout.setHorizontalGroup(
             pnlFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlFormLayout.createSequentialGroup()
+                .addGap(160, 160, 160)
                 .addGroup(pnlFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pnlFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(tblAssignmentsContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 671, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(pnlFormLayout.createSequentialGroup()
+                            .addComponent(pnlSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(pnlActions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(pnlFormLayout.createSequentialGroup()
-                        .addGap(163, 163, 163)
-                        .addGroup(pnlFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(tblAssignmentsContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 671, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(pnlFormLayout.createSequentialGroup()
-                                    .addComponent(pnlSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(pnlActions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFormLayout.createSequentialGroup()
-                                .addComponent(btnClean)
-                                .addGap(17, 17, 17))))
+                        .addComponent(btnClean)
+                        .addGap(17, 17, 17))
                     .addGroup(pnlFormLayout.createSequentialGroup()
-                        .addGap(17, 17, 17)
                         .addComponent(jLabel2)
                         .addGap(257, 257, 257)))
-                .addContainerGap(166, Short.MAX_VALUE))
+                .addContainerGap(169, Short.MAX_VALUE))
         );
         pnlFormLayout.setVerticalGroup(
             pnlFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -318,6 +315,7 @@ public class FrmClassroom extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void cbmiDarkModeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbmiDarkModeActionPerformed
@@ -409,4 +407,12 @@ public class FrmClassroom extends javax.swing.JFrame {
     private javax.swing.JTextField txtAction;
     private javax.swing.JTextField txtName;
     // End of variables declaration//GEN-END:variables
+    
+    public boolean getStatusCbmiDarkMode() {
+        return cbmiDarkMode.isSelected();
+    }
+
+    public void setStatusCbmiDarkMode(boolean isSelected) {
+        this.cbmiDarkMode.setSelected(isSelected);
+    }
 }

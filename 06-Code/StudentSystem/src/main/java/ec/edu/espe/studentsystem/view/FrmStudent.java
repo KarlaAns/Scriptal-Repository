@@ -195,4 +195,11 @@ public class FrmStudent extends javax.swing.JFrame {
     private javax.swing.JMenuItem mniAbout;
     private javax.swing.JMenuItem mniLogOut;
     // End of variables declaration//GEN-END:variables
+    public boolean getStatusCbmiDarkMode() {
+        return cbmiDarkMode.isSelected();
+    }
+
+    public void setStatusCbmiDarkMode(boolean isSelected) {
+        this.cbmiDarkMode.setSelected(isSelected);
+    }
 }
