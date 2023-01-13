@@ -8,12 +8,12 @@ import javax.swing.UIManager;
  *
  * @author Alejandro Andrade, Scriptal, DCCO_ESPE
  */
-public class FrmMain extends javax.swing.JFrame {
+public class FrmPrincipal extends javax.swing.JFrame {
 
     /**
      * Creates new form FrmMain
      */
-    public FrmMain() {
+    public FrmPrincipal() {
         initComponents();
     }
 
@@ -31,6 +31,8 @@ public class FrmMain extends javax.swing.JFrame {
         mnStudentSystem = new javax.swing.JMenu();
         mniAbout = new javax.swing.JMenuItem();
         mnManage = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         menuView = new javax.swing.JMenu();
         menuHelp = new javax.swing.JMenu();
 
@@ -55,6 +57,18 @@ public class FrmMain extends javax.swing.JFrame {
         jMenuBar1.add(mnStudentSystem);
 
         mnManage.setText("Manage");
+
+        jMenuItem1.setText("Event");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        mnManage.add(jMenuItem1);
+
+        jMenuItem2.setText("Teacher");
+        mnManage.add(jMenuItem2);
+
         jMenuBar1.add(mnManage);
 
         menuView.setText("View");
@@ -86,6 +100,10 @@ public class FrmMain extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -95,7 +113,7 @@ public class FrmMain extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmMain().setVisible(true);
+                new FrmPrincipal().setVisible(true);
             }
         });
     }
@@ -110,6 +128,8 @@ public class FrmMain extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JMenu menuHelp;
     private javax.swing.JMenu menuView;
