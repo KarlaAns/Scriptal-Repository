@@ -58,6 +58,7 @@ public class FrmClassroom extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        pnlForm.setBorder(pnlForm.getBorder());
         pnlForm.setFont(new java.awt.Font("Cascadia Code", 0, 12)); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Cascadia Code", 1, 24)); // NOI18N
@@ -160,7 +161,7 @@ public class FrmClassroom extends javax.swing.JFrame {
         tblAssignments.setOpaque(false);
         tblAssignmentsContainer.setViewportView(tblAssignments);
 
-        pnlActions.setBorder(pnlSearch.getBorder());
+        pnlActions.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 255, 255)));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel8.setText("Name");

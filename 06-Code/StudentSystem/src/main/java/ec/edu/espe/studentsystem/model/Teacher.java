@@ -16,6 +16,11 @@ public class Teacher extends HighSchoolUser{
         this.classroms = classrooms;
     }
 
+    @Override
+    public String toString() {
+        return "Teacher{" + "classroms=" + classroms + '}';
+    }
+    
     /**
      * @return the classroms
      */

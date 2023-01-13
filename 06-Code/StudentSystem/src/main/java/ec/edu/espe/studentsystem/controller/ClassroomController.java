@@ -47,4 +47,28 @@ public class ClassroomController {
         }
         return null;
     }
+    
+    public static Document enterToActivity(String activityName) {
+        Document dataActivity;
+        ArrayList<String> classrooms = new ArrayList<>();
+        String uri = "mongodb+srv://laandrade:laandrade@cluster0.jcz1lsa.mongodb.net/test";
+        try ( MongoClient mongoClient = MongoClients.create(uri)) {
+            MongoDatabase database = mongoClient.getDatabase("StudentControlSystem");
+
+            try {
+                System.out.println("Connected successfully to server.");
+
+                MongoCollection teachersCollection = database.getCollection("activities");
+
+                Bson filter = Filters.and(Filters.eq("name", activityName));
+                dataActivity = (Document) teachersCollection.find(filter).first();
+                
+                return dataActivity;
+
+            } catch (MongoException me) {
+                System.err.println("An error occurred while attempting to connect: " + me);
+            }
+        }
+        return null;
+    }
 }
