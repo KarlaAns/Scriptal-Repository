@@ -15,12 +15,12 @@ import javax.swing.UIManager;
  *
  * @author Cristian Acalo, Scriptal, DCCO-ESPE
  */
-public class frmTeacher extends javax.swing.JFrame {
+public class FrmTeacher extends javax.swing.JFrame {
 
     /**
      * Creates new form frmTeacher
      */
-    public frmTeacher() {
+    public FrmTeacher() {
         initComponents();
     }
 
@@ -117,9 +117,19 @@ public class frmTeacher extends javax.swing.JFrame {
         mnStudentSystem.setText("StudentSystem");
 
         mniAbout.setText("About");
+        mniAbout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniAboutActionPerformed(evt);
+            }
+        });
         mnStudentSystem.add(mniAbout);
 
         mniLogOut.setText("Log Out");
+        mniLogOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniLogOutActionPerformed(evt);
+            }
+        });
         mnStudentSystem.add(mniLogOut);
 
         jMenuBar1.add(mnStudentSystem);
@@ -187,6 +197,14 @@ public class frmTeacher extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cbmiDarkModeActionPerformed
 
+    private void mniLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniLogOutActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mniLogOutActionPerformed
+
+    private void mniAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAboutActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mniAboutActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -197,7 +215,7 @@ public class frmTeacher extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new frmTeacher().setVisible(true);
+                new FrmTeacher().setVisible(true);
             }
         });
     }
