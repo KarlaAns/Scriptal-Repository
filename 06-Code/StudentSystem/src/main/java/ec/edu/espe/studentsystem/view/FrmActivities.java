@@ -296,7 +296,12 @@ public class FrmActivities extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Move");
+        jButton1.setText("Change");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -477,23 +482,29 @@ public class FrmActivities extends javax.swing.JFrame {
         String selectedClassroom = (String) cmbClassrooms.getSelectedItem();
         
         if ("Classrooms".equals(selectedClassroom)){
-            txtName.enableInputMethods(false);
-            dtShipping.enableInputMethods(false);
-            dtDeadline.enableInputMethods(false);
-            btnFind.enableInputMethods(false);
-            btnNewAssignment.enableInputMethods(false);
-            btnClean.enableInputMethods(false);
+            txtName.setEnabled(false);
+            dtShipping.setEnabled(false);
+            dtDeadline.setEnabled(false);
+            txtAComment.setEnabled(false);
+            btnFind.setEnabled(false);
+            btnNewAssignment.setEnabled(false);
+            btnClean.setEnabled(false);
         }else{
-            txtName.enableInputMethods(true);
-            dtShipping.enableInputMethods(true);
-            dtDeadline.enableInputMethods(true);
-            btnFind.enableInputMethods(true);
-            btnNewAssignment.enableInputMethods(true);
-            btnClean.enableInputMethods(true);
+            txtName.setEnabled(true);
+            dtShipping.setEnabled(true);
+            dtDeadline.setEnabled(true);
+            txtAComment.setEnabled(true);
+            btnFind.setEnabled(true);
+            btnNewAssignment.setEnabled(true);
+            btnClean.setEnabled(true);
         }
         
         System.out.println(selectedClassroom);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1MouseClicked
 
     /**
      * @param args the command line arguments
