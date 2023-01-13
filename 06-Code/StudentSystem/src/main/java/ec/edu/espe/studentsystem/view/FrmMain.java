@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+
+=======
+>>>>>>> 9e769f3917cde14e56b8eadd6af7591e61a2402f
 package ec.edu.espe.studentsystem.view;
 
 import com.formdev.flatlaf.FlatDarculaLaf;
