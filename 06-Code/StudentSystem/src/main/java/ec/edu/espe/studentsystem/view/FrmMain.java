@@ -1,9 +1,5 @@
 
 package ec.edu.espe.studentsystem.view;
-
-import com.formdev.flatlaf.FlatDarculaLaf;
-import com.formdev.flatlaf.FlatLaf;
-import com.formdev.flatlaf.FlatLightLaf;
 import ec.edu.espe.studentsystem.controller.Theme;
 import static ec.edu.espe.studentsystem.controller.Theme.setFlatLightLafTheme;
 import java.awt.EventQueue;
@@ -106,6 +102,11 @@ public class FrmMain extends javax.swing.JFrame {
         mnStudentSystem.setText("StudentSystem");
 
         mniAbout.setText("About");
+        mniAbout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniAboutActionPerformed(evt);
+            }
+        });
         mnStudentSystem.add(mniAbout);
 
         mniLogOut.setText("Log Out");
@@ -173,6 +174,11 @@ public class FrmMain extends javax.swing.JFrame {
             });
         }
     }//GEN-LAST:event_cbmiDarkModeActionPerformed
+
+    private void mniAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAboutActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_mniAboutActionPerformed
 
     /**
      * @param args the command line arguments
