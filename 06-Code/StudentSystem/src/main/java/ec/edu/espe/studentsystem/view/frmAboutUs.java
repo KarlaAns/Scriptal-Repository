@@ -4,10 +4,7 @@ package ec.edu.espe.studentsystem.view;
 import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
-import com.formdev.flatlaf.intellijthemes.FlatArcDarkIJTheme;
-import com.formdev.flatlaf.intellijthemes.FlatDraculaIJTheme;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatArcDarkContrastIJTheme;
-import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatDraculaContrastIJTheme;
 import java.awt.EventQueue;
 import javax.swing.UIManager;
 
