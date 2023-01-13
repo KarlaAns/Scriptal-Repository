@@ -1,19 +1,9 @@
 package ec.edu.espe.studentsystem.view;
 
 import com.formdev.flatlaf.FlatLaf;
-import com.formdev.flatlaf.FlatLightLaf;
-import com.formdev.flatlaf.intellijthemes.FlatLightFlatIJTheme;
 import ec.edu.espe.studentsystem.controller.Theme;
 import static ec.edu.espe.studentsystem.controller.Theme.setFlatLightLafTheme;
 import java.awt.EventQueue;
-import java.awt.Image;
-import java.awt.MenuBar;
-import java.io.File;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.UIManager;
 
 /**
@@ -182,12 +172,12 @@ public class FrmMain extends javax.swing.JFrame {
 
     private void btnLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogInActionPerformed
         
-        //frmLogIn logIn = new frmLogIn();
-        //logIn.setVisible(true);
+        FrmLogIn logIn = new FrmLogIn();
+        logIn.setVisible(true);
         if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
-            //logIn.setStatusCbmiDarkMode(false);
+            logIn.setStatusCbmiDarkMode(false);
         }else{
-            //logIn.setStatusCbmiDarkMode(true);
+            logIn.setStatusCbmiDarkMode(true);
         }
         this.dispose();
     }//GEN-LAST:event_btnLogInActionPerformed
