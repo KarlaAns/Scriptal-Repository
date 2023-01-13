@@ -7,6 +7,7 @@ package ec.edu.espe.studentsystem.view;
 import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
+import ec.edu.espe.studentsystem.controller.Theme;
 import java.awt.EventQueue;
 import javax.swing.UIManager;
 
