@@ -1,18 +1,11 @@
 
 package ec.edu.espe.studentsystem.view;
 
-import com.formdev.flatlaf.FlatLaf;
-import com.formdev.flatlaf.FlatLightLaf;
-import com.formdev.flatlaf.intellijthemes.FlatLightFlatIJTheme;
 import ec.edu.espe.studentsystem.controller.Theme;
-import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.FlatLaf;
-import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.intellijthemes.FlatLightFlatIJTheme;
 import java.awt.EventQueue;
 import javax.swing.UIManager;
-
-
 
 /**
  *
