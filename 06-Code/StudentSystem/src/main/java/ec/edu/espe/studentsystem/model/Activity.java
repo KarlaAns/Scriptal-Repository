@@ -10,6 +10,7 @@ import java.util.ArrayList;
 public class Activity {
     
     private String subjectName;
+    private int teacherId;
     private String name;
     private String shipping;
     private String deadline;
@@ -17,8 +18,9 @@ public class Activity {
     private String activityType;
     private ArrayList<Assignation> activityReport;
 
-    public Activity(String subjectName, String name, String shipping, String deadline, String comment, String activityType, ArrayList<Assignation> activityReport) {
+    public Activity(String subjectName, int teacherId,String name, String shipping, String deadline, String comment, String activityType, ArrayList<Assignation> activityReport) {
         this.subjectName = subjectName;
+        this.teacherId = teacherId;
         this.name = name;
         this.shipping = shipping;
         this.deadline = deadline;
@@ -27,6 +29,8 @@ public class Activity {
         this.activityReport = activityReport;
     }
 
+    
+    
     /**
      * @return the name
      */
@@ -123,6 +127,20 @@ public class Activity {
      */
     public void setSubjectName(String subjectName) {
         this.subjectName = subjectName;
+    }
+
+    /**
+     * @return the teacherId
+     */
+    public int getTeacherId() {
+        return teacherId;
+    }
+
+    /**
+     * @param teacherId the teacherId to set
+     */
+    public void setTeacherId(int teacherId) {
+        this.teacherId = teacherId;
     }
     
 }
