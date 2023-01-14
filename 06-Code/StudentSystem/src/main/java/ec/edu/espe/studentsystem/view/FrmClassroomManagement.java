@@ -4,6 +4,7 @@ package ec.edu.espe.studentsystem.view;
 import ec.edu.espe.studentsystem.controller.Theme;
 import static ec.edu.espe.studentsystem.controller.Theme.setFlatLightLafTheme;
 import java.awt.EventQueue;
+import org.bson.Document;
 
 /**
  *
@@ -11,11 +12,15 @@ import java.awt.EventQueue;
  */
 public class FrmClassroomManagement extends javax.swing.JFrame {
 
+    private final Document teacher;
+
     /**
      * Creates new form FrmClassroom
+     * @param teacher
      */
-    public FrmClassroomManagement() {
+    public FrmClassroomManagement(Document teacher) {
         initComponents();
+        this.teacher=teacher;
     }
 
     /**
@@ -376,7 +381,7 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmClassroomManagement().setVisible(true);
+                new FrmClassroomManagement(null).setVisible(true);
             }
         });
     }
