@@ -1,10 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package ec.edu.espe.studentsystem.view;
 
-import ec.edu.espe.studentsystem.controller.IMongoConnection;
 import ec.edu.espe.studentsystem.controller.LogInController;
 import ec.edu.espe.studentsystem.controller.Theme;
 import java.awt.EventQueue;
@@ -289,6 +285,14 @@ public class FrmLogIn extends javax.swing.JFrame {
     private javax.swing.JTextField txtPassword;
     // End of variables declaration//GEN-END:variables
 
+    public int getTfId() {
+        return Integer.parseInt(tfId.getText());
+    }
+    
+    public String getPfPassword(){
+        return pfPassword.getText();
+    }
+    
     public boolean getStatusCbmiDarkMode() {
         return cbmiDarkMode.isSelected();
     }
