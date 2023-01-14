@@ -313,7 +313,8 @@ public class FrmLogIn extends javax.swing.JFrame {
     }
 
     private void createFrameTeacher() {
-       FrmTeacher frmTeacher = new FrmTeacher();
+        int teacherId = Integer.parseInt(tfId.getText());
+        FrmTeacher frmTeacher = new FrmTeacher(teacherId);
         frmTeacher.setVisible(true);
         if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
             frmTeacher.setStatusCbmiDarkMode(false);

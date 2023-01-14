@@ -1,9 +1,11 @@
 
 package ec.edu.espe.studentsystem.view;
 
+import static ec.edu.espe.studentsystem.controller.ClassroomController.findTeacher;
 import ec.edu.espe.studentsystem.controller.Theme;
 import java.awt.EventQueue;
 import javax.swing.UIManager;
+import org.bson.Document;
 
 /**
  *
@@ -11,11 +13,21 @@ import javax.swing.UIManager;
  */
 public class FrmTeacher extends javax.swing.JFrame {
 
+    private final int teacherId;
+    private final Document teacher;
     /**
      * Creates new form FrmTeacher
+     * @param teacherId
      */
-    public FrmTeacher() {
+    public FrmTeacher(int teacherId) {
         initComponents();
+        this.teacherId=teacherId;
+        this.teacher = findTeacher(teacherId);
+        if(teacher!=null){
+            String[] teacherName;
+            teacherName = teacher.getString("name").split(" ");
+            lbTeacherName.setText(teacherName[0]);
+        }
     }
 
     /**
@@ -28,7 +40,7 @@ public class FrmTeacher extends javax.swing.JFrame {
     private void initComponents() {
 
         pnlTeacher = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        lbTeacherName = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         brnClassrooms = new javax.swing.JButton();
         btnStudents = new javax.swing.JButton();
@@ -47,9 +59,9 @@ public class FrmTeacher extends javax.swing.JFrame {
 
         pnlTeacher.setPreferredSize(new java.awt.Dimension(1000, 562));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 60)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("...");
+        lbTeacherName.setFont(new java.awt.Font("Segoe UI", 1, 60)); // NOI18N
+        lbTeacherName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbTeacherName.setText("...");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 60)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -96,17 +108,17 @@ public class FrmTeacher extends javax.swing.JFrame {
                         .addComponent(btnStudents)
                         .addGap(145, 145, 145)
                         .addComponent(btnAttendance))
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 587, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lbTeacherName, javax.swing.GroupLayout.PREFERRED_SIZE, 587, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlTeacherLayout.setVerticalGroup(
             pnlTeacherLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlTeacherLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(108, 108, 108)
+                .addContainerGap(95, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbTeacherName, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(120, 120, 120)
                 .addGroup(pnlTeacherLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(brnClassrooms)
                     .addComponent(btnStudents)
@@ -247,7 +259,7 @@ public class FrmTeacher extends javax.swing.JFrame {
         
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmTeacher().setVisible(true);
+                new FrmTeacher(0).setVisible(true);
             }
         });
     }
@@ -257,9 +269,9 @@ public class FrmTeacher extends javax.swing.JFrame {
     private javax.swing.JButton btnAttendance;
     private javax.swing.JButton btnStudents;
     private javax.swing.JCheckBoxMenuItem cbmiDarkMode;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JLabel lbTeacherName;
     private javax.swing.JMenu menuHelp;
     private javax.swing.JMenu menuView;
     private javax.swing.JMenu mnManage;

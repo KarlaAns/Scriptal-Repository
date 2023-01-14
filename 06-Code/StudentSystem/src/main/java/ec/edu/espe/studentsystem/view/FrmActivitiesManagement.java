@@ -454,6 +454,9 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
         Document activityData = enterToActivity(activityName);
         
         if(activityData != null){
+            FrmActivity frmActivity = new FrmActivity(activityName);
+            frmActivity.setVisible(true);
+            this.dispose();
             System.out.println("YEIII");
         }else{
             JOptionPane.showMessageDialog(this,"We can't find the classroom inserted","Warning on input data",JOptionPane.WARNING_MESSAGE);

@@ -64,4 +64,18 @@ public class ClassroomController {
         System.out.println("---------->   " + dataActivity);
         return dataActivity;
     }
+    
+    public static Document findTeacher(int teacherId) {
+        Document dataTeacher;
+        
+        String uri = "mongodb+srv://laandrade:laandrade@cluster0.jcz1lsa.mongodb.net/test";
+
+        MongoDatabase db = MongoConection.getConnection(uri, "StudentControlSystem");
+
+        MongoCollection teacherCollection = db.getCollection("teachers");
+
+        Bson filter = Filters.and(Filters.eq("id", teacherId));
+        dataTeacher = (Document) teacherCollection.find(filter).first();
+        return dataTeacher;
+    }
 }
