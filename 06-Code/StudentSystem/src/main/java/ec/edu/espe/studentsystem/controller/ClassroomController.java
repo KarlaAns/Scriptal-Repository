@@ -33,13 +33,15 @@ public class ClassroomController {
 
                 MongoCollection teachersCollection = database.getCollection("teachers");
 
-                Bson filter = Filters.and(Filters.eq("id", 123));
+                Bson filter = Filters.and(Filters.eq("id", 50123));
                 dataTeacher = (Document) teachersCollection.find(filter).first();
-                String dataTeacherJson = dataTeacher.toJson();
                 
-                classrooms = (ArrayList<String>) dataTeacher.get("classrooms");
+                if(dataTeacher != null){
+                    return (ArrayList<String>) dataTeacher.get("classrooms");
+                }else{
+                    return null;
+                }
                 
-                return classrooms;
 
             } catch (MongoException me) {
                 System.err.println("An error occurred while attempting to connect: " + me);

@@ -9,12 +9,12 @@ import java.awt.EventQueue;
  *
  * @author Cristian Acalo, Scriptal, DCCO-ESPE
  */
-public class FrmClassroom extends javax.swing.JFrame {
+public class FrmClassroomManagement extends javax.swing.JFrame {
 
     /**
      * Creates new form FrmClassroom
      */
-    public FrmClassroom() {
+    public FrmClassroomManagement() {
         initComponents();
     }
 
@@ -376,7 +376,7 @@ public class FrmClassroom extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmClassroom().setVisible(true);
+                new FrmClassroomManagement().setVisible(true);
             }
         });
     }

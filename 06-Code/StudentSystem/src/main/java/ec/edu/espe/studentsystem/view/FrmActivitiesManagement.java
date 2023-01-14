@@ -21,12 +21,12 @@ import org.bson.Document;
  *
  * @author Cristian Acalo, Scriptal, DCCO-ESPE
  */
-public class FrmActivities extends javax.swing.JFrame {
+public class FrmActivitiesManagement extends javax.swing.JFrame {
 
     /**
      * Creates new form FrmAssignments
      */
-    public FrmActivities() {
+    public FrmActivitiesManagement() {
         initComponents();
         addClassroomsToCmb();
         if(cmbClassrooms.getSelectedItem()!="Classrooms"){
@@ -454,7 +454,7 @@ public class FrmActivities extends javax.swing.JFrame {
         Document activityData = enterToActivity(activityName);
         
         if(activityData != null){
-            
+            System.out.println("YEIII");
         }else{
             JOptionPane.showMessageDialog(this,"We can't find the classroom inserted","Warning on input data",JOptionPane.WARNING_MESSAGE);
         }
@@ -553,7 +553,7 @@ public class FrmActivities extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmActivities().setVisible(true);
+                new FrmActivitiesManagement().setVisible(true);
             }
         });
     }
@@ -601,5 +601,13 @@ public class FrmActivities extends javax.swing.JFrame {
         for (String classroom : classrooms) {
             cmbClassrooms.addItem(classroom);
         }
+    }
+    
+    public boolean getStatusCbmiDarkMode() {
+        return cbmiDarkMode.isSelected();
+    }
+
+    public void setStatusCbmiDarkMode(boolean isSelected) {
+        this.cbmiDarkMode.setSelected(isSelected);
     }
 }
