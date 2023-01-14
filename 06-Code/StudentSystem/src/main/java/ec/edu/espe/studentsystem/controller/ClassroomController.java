@@ -20,6 +20,7 @@ import org.bson.conversions.Bson;
  * @author Cristian Acalo, Scriptal, DCCO-ESPE
  */
 public class ClassroomController {
+
     public static ArrayList<String> readClassrooms() {
         Document dataTeacher;
         ArrayList<String> classrooms = new ArrayList<>();
@@ -35,13 +36,12 @@ public class ClassroomController {
 
                 Bson filter = Filters.and(Filters.eq("id", 50123));
                 dataTeacher = (Document) teachersCollection.find(filter).first();
-                
-                if(dataTeacher != null){
+
+                if (dataTeacher != null) {
                     return (ArrayList<String>) dataTeacher.get("classrooms");
-                }else{
+                } else {
                     return null;
                 }
-                
 
             } catch (MongoException me) {
                 System.err.println("An error occurred while attempting to connect: " + me);
@@ -49,28 +49,19 @@ public class ClassroomController {
         }
         return null;
     }
-    
+
     public static Document enterToActivity(String activityName) {
         Document dataActivity;
-        ArrayList<String> classrooms = new ArrayList<>();
+        
         String uri = "mongodb+srv://laandrade:laandrade@cluster0.jcz1lsa.mongodb.net/test";
-        try ( MongoClient mongoClient = MongoClients.create(uri)) {
-            MongoDatabase database = mongoClient.getDatabase("StudentControlSystem");
 
-            try {
-                System.out.println("Connected successfully to server.");
+        MongoDatabase db = MongoConection.getConnection(uri, "StudentControlSystem");
 
-                MongoCollection teachersCollection = database.getCollection("activities");
+        MongoCollection activityCollection = db.getCollection("activities");
 
-                Bson filter = Filters.and(Filters.eq("name", activityName));
-                dataActivity = (Document) teachersCollection.find(filter).first();
-                
-                return dataActivity;
-
-            } catch (MongoException me) {
-                System.err.println("An error occurred while attempting to connect: " + me);
-            }
-        }
-        return null;
+        Bson filter = Filters.and(Filters.eq("name", activityName));
+        dataActivity = (Document) activityCollection.find(filter).first();
+        System.out.println("---------->   " + dataActivity);
+        return dataActivity;
     }
 }
