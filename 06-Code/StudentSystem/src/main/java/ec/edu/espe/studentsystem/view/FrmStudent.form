@@ -33,11 +33,17 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Activity"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnActivityActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mnEnrollment">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Enrollment"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnEnrollmentActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -154,6 +160,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Enrollment"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEnrollmentActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

@@ -20,6 +20,7 @@ import org.bson.conversions.Bson;
  * @author Cristian Acalo, Scriptal, DCCO-ESPE
  */
 public class ClassroomController {
+
     public static ArrayList<String> readClassrooms() {
         Document dataTeacher;
         ArrayList<String> classrooms = new ArrayList<>();
@@ -33,18 +34,34 @@ public class ClassroomController {
 
                 MongoCollection teachersCollection = database.getCollection("teachers");
 
-                Bson filter = Filters.and(Filters.eq("id", 123));
+                Bson filter = Filters.and(Filters.eq("id", 50123));
                 dataTeacher = (Document) teachersCollection.find(filter).first();
-                String dataTeacherJson = dataTeacher.toJson();
-                
-                classrooms = (ArrayList<String>) dataTeacher.get("classrooms");
-                
-                return classrooms;
+
+                if (dataTeacher != null) {
+                    return (ArrayList<String>) dataTeacher.get("classrooms");
+                } else {
+                    return null;
+                }
 
             } catch (MongoException me) {
                 System.err.println("An error occurred while attempting to connect: " + me);
             }
         }
         return null;
+    }
+
+    public static Document enterToActivity(String activityName) {
+        Document dataActivity;
+        
+        String uri = "mongodb+srv://laandrade:laandrade@cluster0.jcz1lsa.mongodb.net/test";
+
+        MongoDatabase db = MongoConection.getConnection(uri, "StudentControlSystem");
+
+        MongoCollection activityCollection = db.getCollection("activities");
+
+        Bson filter = Filters.and(Filters.eq("name", activityName));
+        dataActivity = (Document) activityCollection.find(filter).first();
+        System.out.println("---------->   " + dataActivity);
+        return dataActivity;
     }
 }
