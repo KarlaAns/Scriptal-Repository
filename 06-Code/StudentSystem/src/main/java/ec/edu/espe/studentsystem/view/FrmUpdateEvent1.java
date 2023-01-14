@@ -14,7 +14,8 @@ import javax.swing.table.DefaultTableModel;
  * @author NW USER
  */
 public class FrmUpdateEvent1 extends javax.swing.JFrame {
- DefaultTableModel model = new DefaultTableModel();
+
+    DefaultTableModel model = new DefaultTableModel();
 
     private void mostTable() {
 
@@ -24,6 +25,7 @@ public class FrmUpdateEvent1 extends javax.swing.JFrame {
         model.addColumn("Description");
         this.table.setModel(model);
     }
+
     /**
      * Creates new form FrmUpdateEvent1
      */
@@ -51,14 +53,14 @@ public class FrmUpdateEvent1 extends javax.swing.JFrame {
         table = new javax.swing.JTable();
         lblNewName = new javax.swing.JLabel();
         txtNewName = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
+        lblNewID = new javax.swing.JLabel();
         txtNewID = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
+        lblNewDes = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        txtAreaDes = new javax.swing.JTextArea();
-        jLabel6 = new javax.swing.JLabel();
+        txtNewDes = new javax.swing.JTextArea();
+        lblNewDate = new javax.swing.JLabel();
         DcCalendar = new com.toedter.calendar.JDateChooser();
-        jButton1 = new javax.swing.JButton();
+        btnUpdate = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -89,7 +91,6 @@ public class FrmUpdateEvent1 extends javax.swing.JFrame {
         });
 
         lblFound.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        lblFound.setText("Event Found");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -141,18 +142,19 @@ public class FrmUpdateEvent1 extends javax.swing.JFrame {
         lblNewName.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         lblNewName.setText("New name of the event:");
 
-        jLabel4.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel4.setText("New Id of the event:");
+        lblNewID.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        lblNewID.setText("New Id of the event:");
 
-        jLabel5.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel5.setText("New Event Description:");
+        lblNewDes.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        lblNewDes.setText("New Event Description:");
 
-        txtAreaDes.setColumns(20);
-        txtAreaDes.setRows(5);
-        jScrollPane1.setViewportView(txtAreaDes);
+        txtNewDes.setColumns(20);
+        txtNewDes.setRows(5);
+        jScrollPane1.setViewportView(txtNewDes);
+        txtNewDes.setEnabled(false);
 
-        jLabel6.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel6.setText("New Date of the event:");
+        lblNewDate.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        lblNewDate.setText("New Date of the event:");
 
         DcCalendar.setDateFormatString("dd-MM-yyyy");
 
@@ -167,8 +169,8 @@ public class FrmUpdateEvent1 extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblNewName, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblNewID, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblNewDate, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtNewName, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -176,7 +178,7 @@ public class FrmUpdateEvent1 extends javax.swing.JFrame {
                             .addComponent(DcCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(68, 68, 68)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblNewDes, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(186, Short.MAX_VALUE))
         );
@@ -188,16 +190,16 @@ public class FrmUpdateEvent1 extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNewName)
                     .addComponent(txtNewName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
+                    .addComponent(lblNewDes))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
+                            .addComponent(lblNewID)
                             .addComponent(txtNewID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
+                            .addComponent(lblNewDate)
                             .addComponent(DcCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
@@ -206,8 +208,16 @@ public class FrmUpdateEvent1 extends javax.swing.JFrame {
                         .addContainerGap())))
         );
 
-        jButton1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jButton1.setText("Update");
+        lblNewName.setEnabled(false);
+        txtNewName.setEnabled(false);
+        lblNewID.setEnabled(false);
+        txtNewID.setEnabled(false);
+        lblNewDes.setEnabled(false);
+        lblNewDate.setEnabled(false);
+        DcCalendar.setEnabled(false);
+
+        btnUpdate.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        btnUpdate.setText("Update");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -217,7 +227,7 @@ public class FrmUpdateEvent1 extends javax.swing.JFrame {
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(btnUpdate)
                 .addGap(459, 459, 459))
         );
         layout.setVerticalGroup(
@@ -227,9 +237,11 @@ public class FrmUpdateEvent1 extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
+                .addComponent(btnUpdate)
                 .addContainerGap(97, Short.MAX_VALUE))
         );
+
+        btnUpdate.setEnabled(false);
 
         pack();
         setLocationRelativeTo(null);
@@ -251,23 +263,47 @@ public class FrmUpdateEvent1 extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, c + " is not accepted here", "Warning on input data", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_txtEventKeyTyped
-
+    public void makeWidgetsVisible(boolean eventFound) {
+        if (eventFound) {
+            lblNewName.setEnabled(true);
+            txtNewName.setEnabled(true);
+            lblNewID.setEnabled(true);
+            txtNewID.setEnabled(true);
+            lblNewDate.setEnabled(true);
+            DcCalendar.setEnabled(true);
+            lblNewDes.setEnabled(true);
+            txtNewDes.setEnabled(true);
+        } else {
+            lblNewName.setEnabled(false);
+            txtNewName.setEnabled(false);
+            lblNewID.setEnabled(false);
+            txtNewID.setEnabled(false);
+            lblNewDate.setEnabled(false);
+            DcCalendar.setEnabled(false);
+            lblNewDes.setEnabled(false);
+            txtNewDes.setEnabled(false);
+        }
+    }
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+
+        boolean eventFound = false;
         Event event = new Event(0, txtEvent.getText(), "", "");
         event = EventController.findEvent(event);
-        String[] Datos = new String[4];
-        Datos[0] = txtEvent.getText();
-        Datos[1] = DcCalendar.getDateFormatString();
-        Datos[2] = (txtNewID.getText());
-        Datos[3] = txtAreaDes.getText();
-        txtEvent.setText("");
-        model.addRow(Datos);
-        if(model!=null){
-           lblFound.setText("Event Found!");
-        this.dispose();
-        }else{
+        if (event != null) {
+            eventFound = true;
+            String[] Datos = new String[4];
+            Datos[0] = txtEvent.getText();
+            Datos[1] = DcCalendar.getDateFormatString();
+            Datos[2] = (txtNewID.getText());
+            Datos[3] = txtNewDes.getText();
+            txtEvent.setText("");
+            model.addRow(Datos);
+            lblFound.setText("Event Found!");
+            this.dispose();
+        } else {
             lblFound.setText("Event not Found!");
         }
+        makeWidgetsVisible(eventFound);
     }//GEN-LAST:event_btnSearchActionPerformed
 
     /**
@@ -308,21 +344,21 @@ public class FrmUpdateEvent1 extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JDateChooser DcCalendar;
     private javax.swing.JButton btnSearch;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnUpdate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblFound;
+    private javax.swing.JLabel lblNewDate;
+    private javax.swing.JLabel lblNewDes;
+    private javax.swing.JLabel lblNewID;
     private javax.swing.JLabel lblNewName;
     private javax.swing.JTable table;
-    private javax.swing.JTextArea txtAreaDes;
     private javax.swing.JTextField txtEvent;
+    private javax.swing.JTextArea txtNewDes;
     private javax.swing.JTextField txtNewID;
     private javax.swing.JTextField txtNewName;
     // End of variables declaration//GEN-END:variables
