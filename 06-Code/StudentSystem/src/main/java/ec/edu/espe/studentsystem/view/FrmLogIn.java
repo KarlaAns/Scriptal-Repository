@@ -331,6 +331,8 @@ public class FrmLogIn extends javax.swing.JFrame {
         }else{
             frmStudent.setStatusCbmiDarkMode(true);
         }
+        frmStudent.setId(getTfId());
+        frmStudent.setPassword(getPfPassword());
         this.dispose();
     }
 

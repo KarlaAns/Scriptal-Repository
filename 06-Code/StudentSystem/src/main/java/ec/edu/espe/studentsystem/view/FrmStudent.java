@@ -10,6 +10,9 @@ import javax.swing.UIManager;
  * @author Alejandro Andrade, Scriptal, DCCO_ESPE
  */
 public class FrmStudent extends javax.swing.JFrame {
+    
+    private int id = 0;
+    private String password = "";
 
     /**
      * Creates new form FrmStudent
@@ -188,7 +191,6 @@ public class FrmStudent extends javax.swing.JFrame {
     private void openFrmActivities() {
         FrmActivities frmActivities = new FrmActivities();
         frmActivities.setVisible(true);
-        System.out.println(UIManager.getLookAndFeel().getName());
         if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
             frmActivities.setStatusCbmiDarkMode(false);
         }else{
@@ -208,12 +210,14 @@ public class FrmStudent extends javax.swing.JFrame {
     private void openFrmEnrollment() {
         FrmEnrollment frmEnrollment = new FrmEnrollment();
         frmEnrollment.setVisible(true);
-        System.out.println(UIManager.getLookAndFeel().getName());
         if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
             frmEnrollment.setStatusCbmiDarkMode(false);
         }else{
             frmEnrollment.setStatusCbmiDarkMode(true);
         }
+        frmEnrollment.setId(id);
+        frmEnrollment.setPassword(password);
+        frmEnrollment.setLabelId(String.valueOf(id));
         this.dispose();
     }
 
@@ -247,11 +251,40 @@ public class FrmStudent extends javax.swing.JFrame {
     private javax.swing.JMenuItem mniAbout;
     private javax.swing.JMenuItem mniLogOut;
     // End of variables declaration//GEN-END:variables
+    
     public boolean getStatusCbmiDarkMode() {
         return cbmiDarkMode.isSelected();
     }
 
     public void setStatusCbmiDarkMode(boolean isSelected) {
         this.cbmiDarkMode.setSelected(isSelected);
+    }
+
+    /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    /**
+     * @return the password
+     */
+    public String getPassword() {
+        return password;
+    }
+
+    /**
+     * @param password the password to set
+     */
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
