@@ -4,6 +4,8 @@
  */
 package ec.edu.espe.studentsystem.view;
 
+import ec.edu.espe.studentsystem.controller.IMongoConnection;
+import ec.edu.espe.studentsystem.controller.LogInController;
 import ec.edu.espe.studentsystem.controller.Theme;
 import java.awt.EventQueue;
 import javax.swing.UIManager;
@@ -32,18 +34,17 @@ public class FrmLogIn extends javax.swing.JFrame {
 
         jPanel2 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
-        txtID2 = new javax.swing.JTextField();
-        txtPassword2 = new javax.swing.JTextField();
+        tfId = new javax.swing.JTextField();
         btnSubmit2 = new javax.swing.JButton();
         lblID2 = new javax.swing.JLabel();
         lblPass2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        pfPassword = new javax.swing.JPasswordField();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnStudentSystem = new javax.swing.JMenu();
         mniHome = new javax.swing.JMenuItem();
         mniAbout = new javax.swing.JMenuItem();
         mniLogOut = new javax.swing.JMenuItem();
-        mniLogOut1 = new javax.swing.JMenuItem();
         mnManage = new javax.swing.JMenu();
         menuView = new javax.swing.JMenu();
         cbmiDarkMode = new javax.swing.JCheckBoxMenuItem();
@@ -66,6 +67,11 @@ public class FrmLogIn extends javax.swing.JFrame {
 
         btnSubmit2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         btnSubmit2.setText("Submit");
+        btnSubmit2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSubmit2ActionPerformed(evt);
+            }
+        });
 
         lblID2.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         lblID2.setText("ID:");
@@ -81,15 +87,19 @@ public class FrmLogIn extends javax.swing.JFrame {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(59, 59, 59)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblID2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(txtID2)
-                        .addComponent(txtPassword2, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE))
-                    .addComponent(lblPass2, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSubmit2, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(59, 59, 59)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblID2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblPass2, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3)
+                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(pfPassword, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(tfId, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE))))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(96, 96, 96)
+                        .addComponent(btnSubmit2, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(73, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -100,11 +110,11 @@ public class FrmLogIn extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(lblID2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtID2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tfId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
                 .addComponent(lblPass2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtPassword2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pfPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
                 .addComponent(btnSubmit2)
                 .addContainerGap(74, Short.MAX_VALUE))
@@ -130,9 +140,6 @@ public class FrmLogIn extends javax.swing.JFrame {
 
         mniLogOut.setText("Log Out");
         mnStudentSystem.add(mniLogOut);
-
-        mniLogOut1.setText("Log Out");
-        mnStudentSystem.add(mniLogOut1);
 
         jMenuBar1.add(mnStudentSystem);
 
@@ -179,18 +186,6 @@ public class FrmLogIn extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void mniHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniHomeActionPerformed
-        FrmMain main = new FrmMain();
-        main.setVisible(true);
-        System.out.println(UIManager.getLookAndFeel().getName());
-        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
-            main.setStatusCbmiDarkMode(false);
-        }else{
-            main.setStatusCbmiDarkMode(true);
-        }
-        this.dispose();
-    }//GEN-LAST:event_mniHomeActionPerformed
-
     private void mniAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAboutActionPerformed
 
         FrmAboutUs mniAbout = new FrmAboutUs();
@@ -217,6 +212,42 @@ public class FrmLogIn extends javax.swing.JFrame {
             });
         }
     }//GEN-LAST:event_cbmiDarkModeActionPerformed
+
+    private void mniHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniHomeActionPerformed
+        FrmMain main = new FrmMain();
+        main.setVisible(true);
+        System.out.println(UIManager.getLookAndFeel().getName());
+        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+            main.setStatusCbmiDarkMode(false);
+        }else{
+            main.setStatusCbmiDarkMode(true);
+        }
+        this.dispose();
+    }//GEN-LAST:event_mniHomeActionPerformed
+
+    private void btnSubmit2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmit2ActionPerformed
+        if(Integer.parseInt(tfId.getText()) < 100000 && Integer.parseInt(tfId.getText()) > 99000){
+            int id = Integer.parseInt(tfId.getText());
+            String password = pfPassword.getText();
+            if(LogInController.matchInMongo(id, password)){
+                createFramePrincipal();
+            }
+        }
+        if(Integer.parseInt(tfId.getText()) < 99000 && Integer.parseInt(tfId.getText()) > 50000){
+            int id = Integer.parseInt(tfId.getText());
+            String password = pfPassword.getText();
+            if(LogInController.matchInMongo(id, password)){
+                createFrameTeacher();
+            }
+        }
+        if(Integer.parseInt(tfId.getText()) < 50000 && Integer.parseInt(tfId.getText()) > 10000){
+            int id = Integer.parseInt(tfId.getText());
+            String password = pfPassword.getText();
+            if(LogInController.matchInMongo(id, password)){
+                createFrameStudent();
+            }
+        }
+    }//GEN-LAST:event_btnSubmit2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -252,11 +283,10 @@ public class FrmLogIn extends javax.swing.JFrame {
     private javax.swing.JMenuItem mniAbout;
     private javax.swing.JMenuItem mniHome;
     private javax.swing.JMenuItem mniLogOut;
-    private javax.swing.JMenuItem mniLogOut1;
+    private javax.swing.JPasswordField pfPassword;
+    private javax.swing.JTextField tfId;
     private javax.swing.JTextField txtID;
-    private javax.swing.JTextField txtID2;
     private javax.swing.JTextField txtPassword;
-    private javax.swing.JTextField txtPassword2;
     // End of variables declaration//GEN-END:variables
 
     public boolean getStatusCbmiDarkMode() {
@@ -266,4 +296,38 @@ public class FrmLogIn extends javax.swing.JFrame {
     public void setStatusCbmiDarkMode(boolean isSelected) {
         this.cbmiDarkMode.setSelected(isSelected);
     }
+
+    private void createFramePrincipal() {
+        FrmPrincipal frmPrincipal = new FrmPrincipal();
+        frmPrincipal.setVisible(true);
+        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+            frmPrincipal.setStatusCbmiDarkMode(false);
+        }else{
+            frmPrincipal.setStatusCbmiDarkMode(true);
+        }
+        this.dispose();
+    }
+
+    private void createFrameTeacher() {
+       FrmTeacher frmTeacher = new FrmTeacher();
+        frmTeacher.setVisible(true);
+        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+            frmTeacher.setStatusCbmiDarkMode(false);
+        }else{
+            frmTeacher.setStatusCbmiDarkMode(true);
+        }
+        this.dispose();
+    }
+
+    private void createFrameStudent() {
+        FrmStudent frmStudent = new FrmStudent();
+        frmStudent.setVisible(true);
+        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+            frmStudent.setStatusCbmiDarkMode(false);
+        }else{
+            frmStudent.setStatusCbmiDarkMode(true);
+        }
+        this.dispose();
+    }
+
 }
