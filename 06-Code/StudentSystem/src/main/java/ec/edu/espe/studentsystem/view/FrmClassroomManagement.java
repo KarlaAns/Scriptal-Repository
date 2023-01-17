@@ -2,10 +2,16 @@
 package ec.edu.espe.studentsystem.view;
 
 import static ec.edu.espe.studentsystem.controller.TeacherController.createClassroom;
+import static ec.edu.espe.studentsystem.controller.TeacherController.findClassroom;
 import ec.edu.espe.studentsystem.controller.Theme;
 import static ec.edu.espe.studentsystem.controller.Theme.setFlatLightLafTheme;
+import ec.edu.espe.studentsystem.model.Classroom;
 import java.awt.EventQueue;
+import java.awt.HeadlessException;
+import java.util.ArrayList;
+import java.util.Vector;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import org.bson.Document;
 
 /**
@@ -14,6 +20,8 @@ import org.bson.Document;
  */
 public class FrmClassroomManagement extends javax.swing.JFrame {
 
+    DefaultTableModel dtm = new DefaultTableModel();
+    
     private final Document teacher;
 
     /**
@@ -23,8 +31,27 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
     public FrmClassroomManagement(Document teacher) {
         initComponents();
         this.teacher=teacher;
+        
+        String[] head = new String[]{"Name","Students"};
+        dtm.setColumnIdentifiers(head);
+        tblAssignments.setModel(dtm);
+        showClassrooms();
     }
 
+    final void showClassrooms(){
+        ArrayList<String> classrooms =  (ArrayList<String>) teacher.get("classrooms");
+        addToTable(classrooms);
+    }
+    
+    void addToTable(ArrayList classrooms){
+        dtm.setRowCount(0);
+        int nStudents;
+        for (Object classroom : classrooms) {
+            
+            dtm.addRow(new Object[]{classroom,0});
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -139,23 +166,23 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(pnlSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnFind)
-                    .addComponent(btnNew))
+                    .addComponent(btnNew, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(62, Short.MAX_VALUE))
         );
 
         tblAssignments.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 0));
         tblAssignments.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "Name", "Shipping", "Deadine"
+                "Name", "N Students"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -238,6 +265,11 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
 
         btnClean.setBackground(new java.awt.Color(204, 255, 255));
         btnClean.setText("Clean");
+        btnClean.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCleanActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlFormLayout = new javax.swing.GroupLayout(pnlForm);
         pnlForm.setLayout(pnlFormLayout);
@@ -263,7 +295,7 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
         pnlFormLayout.setVerticalGroup(
             pnlFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFormLayout.createSequentialGroup()
-                .addContainerGap(23, Short.MAX_VALUE)
+                .addContainerGap(22, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addGroup(pnlFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -356,15 +388,23 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {
             createClassroom(txtName.getText(),teacher);
-            JOptionPane.showMessageDialog(this,"An error has occurred","Data insertion",JOptionPane.WARNING_MESSAGE);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this,"An error has occurred","Data insertion",JOptionPane.WARNING_MESSAGE);
+            showClassrooms();
+            JOptionPane.showMessageDialog(this,txtName.getText()+" class added succesfully!","Classroom insertion",JOptionPane.INFORMATION_MESSAGE);
+        } catch (HeadlessException e) {
+            JOptionPane.showMessageDialog(this,"An error has occurred","Classroom insertion",JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btnNewActionPerformed
 
     private void btnFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindActionPerformed
         // TODO add your handling code here:
-
+        ArrayList<String> classroom = findClassroom(txtName.getText(),teacher);
+        
+        if(classroom!=null){
+            addToTable(classroom);
+        }else{
+            JOptionPane.showMessageDialog(this,txtName.getText()+" classroom not found","Classroom serch",JOptionPane.WARNING_MESSAGE);
+        }
+        
     }//GEN-LAST:event_btnFindActionPerformed
 
     private void txtNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNameFocusGained
@@ -377,6 +417,11 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
         mniAbout.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_mniAboutActionPerformed
+
+    private void btnCleanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCleanActionPerformed
+        // TODO add your handling code here:
+        showClassrooms();
+    }//GEN-LAST:event_btnCleanActionPerformed
 
     /**
      * @param args the command line arguments
