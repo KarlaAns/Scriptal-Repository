@@ -216,7 +216,7 @@ public class FrmDeleteEvent extends javax.swing.JFrame {
         event = EventController.findEvent(event);
         String[] Datos = new String[4];
         Datos[0] = event.getName();
-        Datos[1] = Integer.parseInt(.getId());
+       // Datos[1] = Integer.parseInt(.getId());
         Datos[2] = event.getDate();
         Datos[4] = event.getDescription();
         txtNameToDelete.setText("");
