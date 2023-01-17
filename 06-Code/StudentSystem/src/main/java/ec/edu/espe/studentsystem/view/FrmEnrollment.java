@@ -163,8 +163,8 @@ public class FrmEnrollment extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void mniAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAboutActionPerformed
-        //frmAboutUs newMniAbout = new frmAboutUs();
-        //newMniAbout.setVisible(true);
+        FrmAboutUs newMniAbout = new FrmAboutUs();
+        newMniAbout.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_mniAboutActionPerformed
 
