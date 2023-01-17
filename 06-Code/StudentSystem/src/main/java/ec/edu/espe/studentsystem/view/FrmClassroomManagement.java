@@ -1,9 +1,11 @@
 
 package ec.edu.espe.studentsystem.view;
 
+import static ec.edu.espe.studentsystem.controller.TeacherController.createClassroom;
 import ec.edu.espe.studentsystem.controller.Theme;
 import static ec.edu.espe.studentsystem.controller.Theme.setFlatLightLafTheme;
 import java.awt.EventQueue;
+import javax.swing.JOptionPane;
 import org.bson.Document;
 
 /**
@@ -352,8 +354,12 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
 
     private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
         // TODO add your handling code here:
-
-
+        try {
+            createClassroom(txtName.getText(),teacher);
+            JOptionPane.showMessageDialog(this,"An error has occurred","Data insertion",JOptionPane.WARNING_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this,"An error has occurred","Data insertion",JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_btnNewActionPerformed
 
     private void btnFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindActionPerformed

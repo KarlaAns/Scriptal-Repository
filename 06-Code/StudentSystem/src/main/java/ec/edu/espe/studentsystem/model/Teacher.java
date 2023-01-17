@@ -9,11 +9,11 @@ import java.util.ArrayList;
  */
 public class Teacher extends HighSchoolUser{
     
-    private ArrayList<String> classroms;
+    private ArrayList<Classroom> classroms;
 
-    public Teacher(int id, String name, String password, String email, ArrayList<String> classrooms) {
+    public Teacher(ArrayList<Classroom> classroms, int id, String name, String password, String email) {
         super(id, name, password, email);
-        this.classroms = classrooms;
+        this.classroms = classroms;
     }
 
     @Override
@@ -24,16 +24,16 @@ public class Teacher extends HighSchoolUser{
     /**
      * @return the classroms
      */
-    public ArrayList<String> getClassroms() {
+    public ArrayList<Classroom> getClassroms() {
         return classroms;
     }
 
     /**
      * @param classroms the classroms to set
      */
-    public void setClassroms(ArrayList<String> classroms) {
+    public void setClassroms(ArrayList<Classroom> classroms) {
         this.classroms = classroms;
     }
-    
+
     
 }

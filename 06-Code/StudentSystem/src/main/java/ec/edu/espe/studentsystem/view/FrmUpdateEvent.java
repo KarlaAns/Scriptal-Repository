@@ -312,7 +312,7 @@ public class FrmUpdateEvent extends javax.swing.JFrame {
         if (event != null) {
             eventFound = true;
             String[] Datos = new String[4];
-            Datos[0] = event.getId();
+            //Datos[0] = event.getId();
             Datos[1] = DcCalendar.getDateFormatString();
             Datos[2] = (txtNewID.getText());
             Datos[3] = txtNewDes.getText();
