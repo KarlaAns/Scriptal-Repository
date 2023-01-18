@@ -108,4 +108,14 @@ public class TeacherController {
         }
         return null;
     }
+    
+    public static void deleteClassroom(String classroomName,Document teacher){
+        MongoCollection teacherCollection = getConnection("teachers");
+
+        ArrayList<String> actualClassrooms = (ArrayList<String>) teacher.get("classrooms");
+        actualClassrooms.remove(classroomName);
+        Document idToSearchDocument = new Document("id", teacher.getInteger("id"));
+        Document updatedClassroomsDocument = new Document("$set", new Document("classrooms", actualClassrooms));
+        teacherCollection.updateOne(idToSearchDocument, updatedClassroomsDocument);
+    }
 }

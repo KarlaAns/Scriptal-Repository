@@ -1,6 +1,7 @@
 package ec.edu.espe.studentsystem.view;
 
 import static ec.edu.espe.studentsystem.controller.ClassroomController.countNumberStudents;
+import static ec.edu.espe.studentsystem.controller.ClassroomController.findTeacher;
 import static ec.edu.espe.studentsystem.controller.TeacherController.createClassroom;
 import static ec.edu.espe.studentsystem.controller.TeacherController.enterToClassroom;
 import static ec.edu.espe.studentsystem.controller.TeacherController.findClassroom;
@@ -87,12 +88,16 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
         tblAssignmentsContainer = new javax.swing.JScrollPane();
         tblAssignments = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
+        btnBack = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnStudentSystem = new javax.swing.JMenu();
         mniAbout = new javax.swing.JMenuItem();
         mniLogOut = new javax.swing.JMenuItem();
         menuView = new javax.swing.JMenu();
         cbmiDarkMode = new javax.swing.JCheckBoxMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        mnItmClassrooms = new javax.swing.JMenuItem();
+        mnItmStudents = new javax.swing.JMenuItem();
         menuHelp = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
 
@@ -126,6 +131,11 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
         btnDelete.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnDelete.setForeground(new java.awt.Color(255, 204, 204));
         btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel1.setText("Actions to a Classroom");
@@ -327,6 +337,13 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Cascadia Code", 1, 24)); // NOI18N
         jLabel2.setText("Classrooms");
 
+        btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
+
         mnStudentSystem.setText("StudentSystem");
 
         mniAbout.setText("About");
@@ -359,6 +376,26 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
 
         jMenuBar1.add(menuView);
 
+        jMenu1.setText("Management");
+
+        mnItmClassrooms.setText("Classrooms");
+        mnItmClassrooms.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnItmClassroomsActionPerformed(evt);
+            }
+        });
+        jMenu1.add(mnItmClassrooms);
+
+        mnItmStudents.setText("Students");
+        mnItmStudents.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnItmStudentsActionPerformed(evt);
+            }
+        });
+        jMenu1.add(mnItmStudents);
+
+        jMenuBar1.add(jMenu1);
+
         menuHelp.setText("Help");
 
         jMenuItem1.setText("Mail");
@@ -384,7 +421,9 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
                 .addComponent(pnlTable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(91, 91, 91))
             .addGroup(layout.createSequentialGroup()
-                .addGap(423, 423, 423)
+                .addContainerGap()
+                .addComponent(btnBack)
+                .addGap(342, 342, 342)
                 .addComponent(jLabel2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -392,7 +431,9 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(btnBack))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pnlForm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -505,6 +546,48 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+        FrmTeacher teacherMain = new FrmTeacher((int)teacher.get("id"));
+        teacherMain.setVisible(true);
+        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+            teacherMain.setStatusCbmiDarkMode(false);
+        }else{
+            teacherMain.setStatusCbmiDarkMode(true);
+        }
+        this.dispose();
+    }//GEN-LAST:event_btnBackActionPerformed
+
+    private void mnItmClassroomsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnItmClassroomsActionPerformed
+        // TODO add your handling code here:
+        Document teacherId = findTeacher((int)teacher.get("id"));
+        FrmClassroomManagement classroomManagement = new FrmClassroomManagement(teacherId);
+        classroomManagement.setVisible(true);
+        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+            classroomManagement.setStatusCbmiDarkMode(false);
+        }else{
+            classroomManagement.setStatusCbmiDarkMode(true);
+        }
+        this.dispose();
+    }//GEN-LAST:event_mnItmClassroomsActionPerformed
+
+    private void mnItmStudentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnItmStudentsActionPerformed
+        // TODO add your handling code here:
+        FrmStudentManagement studentManagement = new FrmStudentManagement();
+        studentManagement.setVisible(true);
+        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+            studentManagement.setStatusCbmiDarkMode(false);
+        }else{
+            studentManagement.setStatusCbmiDarkMode(true);
+        }
+        this.dispose();
+    }//GEN-LAST:event_mnItmStudentsActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -520,6 +603,7 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBack;
     private javax.swing.JButton btnClean;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnFind;
@@ -531,10 +615,13 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenu menuHelp;
     private javax.swing.JMenu menuView;
+    private javax.swing.JMenuItem mnItmClassrooms;
+    private javax.swing.JMenuItem mnItmStudents;
     private javax.swing.JMenu mnStudentSystem;
     private javax.swing.JMenuItem mniAbout;
     private javax.swing.JMenuItem mniLogOut;
