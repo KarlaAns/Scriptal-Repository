@@ -7,12 +7,14 @@ package ec.edu.espe.studentsystem.view;
 import static ec.edu.espe.studentsystem.controller.ActivityController.establishAssignation;
 import static ec.edu.espe.studentsystem.controller.ClassroomController.enterToActivity;
 import static ec.edu.espe.studentsystem.controller.ClassroomController.readClassrooms;
+import static ec.edu.espe.studentsystem.controller.TeacherController.createActivity;
 import ec.edu.espe.studentsystem.controller.Theme;
 import static ec.edu.espe.studentsystem.controller.Theme.setFlatLightLafTheme;
 import ec.edu.espe.studentsystem.model.Activity;
 import ec.edu.espe.studentsystem.model.Assignation;
 
 import java.awt.EventQueue;
+import java.awt.HeadlessException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -31,17 +33,16 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
 
     /**
      * Creates new form FrmAssignments
+     *
      * @param classroomName
      * @param teacher
      */
     public FrmActivitiesManagement(String classroomName, Document teacher) {
         initComponents();
         addClassroomsToCmb();
-        this.teacher=teacher;
-        if(cmbClassrooms.getSelectedItem()!="Classrooms"){
-            
-        }
-        this.classroomName=classroomName;
+        this.teacher = teacher;
+        cmbClassrooms.setSelectedItem(classroomName);
+        this.classroomName = classroomName;
     }
 
     /**
@@ -68,6 +69,11 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtAComment = new javax.swing.JTextArea();
+        jLabel2 = new javax.swing.JLabel();
+        cmbType = new javax.swing.JComboBox<>();
+        btnChangeAct = new javax.swing.JButton();
+        cmbClassrooms = new javax.swing.JComboBox<>();
+        pnlTable = new javax.swing.JPanel();
         tblAssignmentsContainer = new javax.swing.JScrollPane();
         tblAssignments = new javax.swing.JTable();
         pnlActions = new javax.swing.JLayeredPane();
@@ -76,8 +82,6 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
         txtAction = new javax.swing.JTextField();
         btnDelete = new javax.swing.JButton();
         btnClean = new javax.swing.JButton();
-        cmbClassrooms = new javax.swing.JComboBox<>();
-        btnChangeAct = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnStudentSystem = new javax.swing.JMenu();
         mniAbout = new javax.swing.JMenuItem();
@@ -151,6 +155,15 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
         txtAComment.setEnabled(false);
         jScrollPane2.setViewportView(txtAComment);
 
+        jLabel2.setText("(Insert Name)");
+
+        cmbType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Homework", "Exam", "Workshop" }));
+        cmbType.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbTypeActionPerformed(evt);
+            }
+        });
+
         pnlSearch.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
         pnlSearch.setLayer(jLabel4, javax.swing.JLayeredPane.DEFAULT_LAYER);
         pnlSearch.setLayer(jLabel5, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -161,57 +174,119 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
         pnlSearch.setLayer(btnNewAssignment, javax.swing.JLayeredPane.DEFAULT_LAYER);
         pnlSearch.setLayer(jLabel6, javax.swing.JLayeredPane.DEFAULT_LAYER);
         pnlSearch.setLayer(jScrollPane2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        pnlSearch.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        pnlSearch.setLayer(cmbType, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout pnlSearchLayout = new javax.swing.GroupLayout(pnlSearch);
         pnlSearch.setLayout(pnlSearchLayout);
         pnlSearchLayout.setHorizontalGroup(
             pnlSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlSearchLayout.createSequentialGroup()
-                .addContainerGap(16, Short.MAX_VALUE)
+            .addGroup(pnlSearchLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
                 .addGroup(pnlSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtName)
+                    .addComponent(dtShipping, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
+                    .addComponent(dtDeadline, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlSearchLayout.createSequentialGroup()
+                        .addComponent(cmbType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)))
+                .addGap(48, 48, 48)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlSearchLayout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(pnlSearchLayout.createSequentialGroup()
                         .addComponent(btnFind)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 168, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnNewAssignment))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlSearchLayout.createSequentialGroup()
-                        .addGroup(pnlSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(pnlSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane2)
-                            .addComponent(dtDeadline, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtName, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
-                            .addComponent(dtShipping, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addGap(14, 14, 14))
+                    .addGroup(pnlSearchLayout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         pnlSearchLayout.setVerticalGroup(
             pnlSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlSearchLayout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addGroup(pnlSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtName)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(dtShipping, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(dtDeadline, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(22, 22, 22)
+                .addGap(6, 6, 6)
                 .addGroup(pnlSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                    .addGroup(pnlSearchLayout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(pnlSearchLayout.createSequentialGroup()
+                        .addGroup(pnlSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtName)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(pnlSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(dtShipping, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(pnlSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(dtDeadline, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(42, 42, 42)))
                 .addGroup(pnlSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnNewAssignment)
+                    .addComponent(btnNewAssignment, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
+                    .addComponent(cmbType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnFind))
-                .addGap(17, 17, 17))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel2)
+                .addContainerGap())
         );
+
+        javax.swing.GroupLayout pnlFormLayout = new javax.swing.GroupLayout(pnlForm);
+        pnlForm.setLayout(pnlFormLayout);
+        pnlFormLayout.setHorizontalGroup(
+            pnlFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlFormLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFormLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lbClassroomName, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(210, 210, 210))
+            .addGroup(pnlFormLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(pnlSearch)
+                .addGap(32, 32, 32))
+        );
+        pnlFormLayout.setVerticalGroup(
+            pnlFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFormLayout.createSequentialGroup()
+                .addGap(11, 11, 11)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbClassroomName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(pnlSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        btnChangeAct.setText("Change");
+        btnChangeAct.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnChangeActMouseClicked(evt);
+            }
+        });
+        btnChangeAct.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnChangeActActionPerformed(evt);
+            }
+        });
+
+        cmbClassrooms.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbClassroomsActionPerformed(evt);
+            }
+        });
 
         tblAssignments.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 0));
         tblAssignments.setModel(new javax.swing.table.DefaultTableModel(
@@ -288,7 +363,7 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
                             .addComponent(txtAction)
                             .addGroup(pnlActionsLayout.createSequentialGroup()
                                 .addComponent(btnOpen)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                                 .addComponent(btnDelete)))
                         .addGap(16, 16, 16))))
         );
@@ -303,86 +378,35 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
                 .addGroup(pnlActionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnOpen)
                     .addComponent(btnDelete))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout pnlTableLayout = new javax.swing.GroupLayout(pnlTable);
+        pnlTable.setLayout(pnlTableLayout);
+        pnlTableLayout.setHorizontalGroup(
+            pnlTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlTableLayout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(pnlActions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(tblAssignmentsContainer)
+                .addContainerGap())
+        );
+        pnlTableLayout.setVerticalGroup(
+            pnlTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTableLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(tblAssignmentsContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10))
+            .addGroup(pnlTableLayout.createSequentialGroup()
+                .addGap(48, 48, 48)
+                .addComponent(pnlActions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         btnClean.setBackground(new java.awt.Color(204, 255, 255));
         btnClean.setText("Clean");
         btnClean.setEnabled(false);
-
-        cmbClassrooms.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbClassroomsActionPerformed(evt);
-            }
-        });
-
-        btnChangeAct.setText("Change");
-        btnChangeAct.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnChangeActMouseClicked(evt);
-            }
-        });
-        btnChangeAct.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnChangeActActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout pnlFormLayout = new javax.swing.GroupLayout(pnlForm);
-        pnlForm.setLayout(pnlFormLayout);
-        pnlFormLayout.setHorizontalGroup(
-            pnlFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFormLayout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addGroup(pnlFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(cmbClassrooms, 0, 126, Short.MAX_VALUE)
-                    .addComponent(btnChangeAct, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGroup(pnlFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlFormLayout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addGroup(pnlFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(tblAssignmentsContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 671, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlFormLayout.createSequentialGroup()
-                                .addComponent(pnlSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addGroup(pnlFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(pnlActions)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFormLayout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(btnClean))))))
-                    .addGroup(pnlFormLayout.createSequentialGroup()
-                        .addGap(282, 282, 282)
-                        .addComponent(jLabel1))
-                    .addGroup(pnlFormLayout.createSequentialGroup()
-                        .addGap(197, 197, 197)
-                        .addComponent(lbClassroomName, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(151, Short.MAX_VALUE))
-        );
-        pnlFormLayout.setVerticalGroup(
-            pnlFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFormLayout.createSequentialGroup()
-                .addGap(11, 11, 11)
-                .addGroup(pnlFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cmbClassrooms, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlFormLayout.createSequentialGroup()
-                        .addComponent(lbClassroomName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addGroup(pnlFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(pnlSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(pnlFormLayout.createSequentialGroup()
-                                .addComponent(pnlActions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnClean))))
-                    .addGroup(pnlFormLayout.createSequentialGroup()
-                        .addComponent(btnChangeAct)
-                        .addGap(0, 318, Short.MAX_VALUE)))
-                .addGap(18, 18, 18)
-                .addComponent(tblAssignmentsContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14))
-        );
 
         mnStudentSystem.setText("StudentSystem");
 
@@ -423,57 +447,53 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlForm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(pnlTable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cmbClassrooms, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnChangeAct, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(27, 27, 27)
+                        .addComponent(pnlForm, javax.swing.GroupLayout.PREFERRED_SIZE, 703, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                        .addComponent(btnClean)
+                        .addGap(15, 15, 15))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlForm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pnlForm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(cmbClassrooms, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnChangeAct))
+                    .addComponent(btnClean, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pnlTable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNameFocusGained
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNameFocusGained
-
-    private void btnFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindActionPerformed
-        // TODO add your handling code here:
-        String name = txtName.getText();
-
-
-    }//GEN-LAST:event_btnFindActionPerformed
-
-    private void btnNewAssignmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewAssignmentActionPerformed
-        // TODO add your handling code here:
-        Activity activity;
-        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        Date shipping = dtShipping.getDate();
-        Date deadline = dtDeadline.getDate();
-
-        String shippingStr = dateFormat.format(shipping);
-        String deadlineStr = dateFormat.format(deadline);
-        
-        //ArrayList<Assignation> activityReport = establishAssignation();
-        
-        //activity = new Activity(cmbClassrooms.getSelectedItem(),teacher.getInteger("id"),shippingStr,deadlineStr,txtAComment.getText(),"",);
-        
-        //createActivity();
-    }//GEN-LAST:event_btnNewAssignmentActionPerformed
-
     private void btnOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenActionPerformed
         // TODO add your handling code here:
         String activityName = txtAction.getText();
         Document activityData = enterToActivity(activityName);
-        
-        if(activityData != null){
+
+        if (activityData != null) {
             FrmActivity frmActivity = new FrmActivity(activityName);
             frmActivity.setVisible(true);
             this.dispose();
             System.out.println("YEIII");
-        }else{
-            JOptionPane.showMessageDialog(this,"We can't find the activity inserted","Activity insertion",JOptionPane.WARNING_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "We can't find the activity inserted", "Activity insertion", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btnOpenActionPerformed
 
@@ -515,9 +535,9 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
         Date date = new Date();
         String selectedClassroom = (String) cmbClassrooms.getSelectedItem();
         emptyInputs(date);
-        if ("Classrooms".equals(selectedClassroom)){
+        if ("Classrooms".equals(selectedClassroom)) {
             disableInputs();
-        }else{
+        } else {
             enableInputs(selectedClassroom);
         }
     }//GEN-LAST:event_btnChangeActActionPerformed
@@ -525,6 +545,7 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
     public void enableInputs(String selectedClassroom) {
         lbClassroomName.setText(selectedClassroom);
         txtName.setEnabled(true);
+        cmbType.setEnabled(true);
         dtShipping.setEnabled(true);
         dtDeadline.setEnabled(true);
         txtAComment.setEnabled(true);
@@ -537,6 +558,7 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
     public void disableInputs() {
         lbClassroomName.setText("...");
         txtName.setEnabled(false);
+        cmbType.setEnabled(false);
         dtShipping.setEnabled(false);
         dtDeadline.setEnabled(false);
         txtAComment.setEnabled(false);
@@ -560,15 +582,55 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
 
     private void txtActionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtActionKeyReleased
         // TODO add your handling code here:
-        
-        if (txtAction.getText()!= null ||!" ".equals(txtAction.getText())) {
+
+        if (txtAction.getText() != null || !" ".equals(txtAction.getText())) {
             btnOpen.setEnabled(true);
             btnDelete.setEnabled(true);
-        }else{
+        } else {
             btnOpen.setEnabled(false);
             btnDelete.setEnabled(false);
         }
     }//GEN-LAST:event_txtActionKeyReleased
+
+    private void btnNewAssignmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewAssignmentActionPerformed
+        // TODO add your handling code here:
+        Activity activity;
+        try {
+            DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+            Date shipping = dtShipping.getDate();
+            Date deadline = dtDeadline.getDate();
+
+            String shippingStr = dateFormat.format(shipping);
+            String deadlineStr = dateFormat.format(deadline);
+
+            ArrayList<Assignation> activityReport = establishAssignation((String) cmbClassrooms.getSelectedItem());
+            String actName = (String) cmbClassrooms.getSelectedItem();
+            String actType = (String) cmbType.getSelectedItem();
+            int teacherId = teacher.getInteger("id");
+
+            activity = new Activity(actName, teacherId, txtName.getText(), shippingStr, deadlineStr, txtAComment.getText(), actType, activityReport);
+            System.out.println(activity.getActivityReport().get(0));
+            createActivity(activity);
+            JOptionPane.showMessageDialog(this,txtName.getText()+" activity added succesfully!","Activity insertion",JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (HeadlessException e) {
+            JOptionPane.showMessageDialog(this, "An Error has occurred", "Activity insertion", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_btnNewAssignmentActionPerformed
+
+    private void btnFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindActionPerformed
+        // TODO add your handling code here:
+        String name = txtName.getText();
+
+    }//GEN-LAST:event_btnFindActionPerformed
+
+    private void txtNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNameFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNameFocusGained
+
+    private void cmbTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTypeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbTypeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -594,9 +656,11 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
     private javax.swing.JButton btnOpen;
     private javax.swing.JCheckBoxMenuItem cbmiDarkMode;
     private javax.swing.JComboBox<String> cmbClassrooms;
+    private javax.swing.JComboBox<String> cmbType;
     private com.toedter.calendar.JDateChooser dtDeadline;
     private com.toedter.calendar.JDateChooser dtShipping;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -614,6 +678,7 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
     private javax.swing.JLayeredPane pnlActions;
     private javax.swing.JPanel pnlForm;
     private javax.swing.JLayeredPane pnlSearch;
+    private javax.swing.JPanel pnlTable;
     private javax.swing.JTable tblAssignments;
     private javax.swing.JScrollPane tblAssignmentsContainer;
     private javax.swing.JTextArea txtAComment;
@@ -629,7 +694,7 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
             cmbClassrooms.addItem(classroom);
         }
     }
-    
+
     public boolean getStatusCbmiDarkMode() {
         return cbmiDarkMode.isSelected();
     }

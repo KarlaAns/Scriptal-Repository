@@ -198,13 +198,8 @@ public class FrmTeacher extends javax.swing.JFrame {
 
     private void btnStudentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStudentsActionPerformed
         // TODO add your handling code here:
-        FrmStudent students = new FrmStudent();
+        FrmStudentManagement students = new FrmStudentManagement();
         students.setVisible(true);
-        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
-            students.setStatusCbmiDarkMode(false);
-        }else{
-            students.setStatusCbmiDarkMode(true);
-        }
         this.dispose();
     }//GEN-LAST:event_btnStudentsActionPerformed
 

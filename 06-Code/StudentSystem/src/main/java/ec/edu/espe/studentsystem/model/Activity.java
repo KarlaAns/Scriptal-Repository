@@ -29,7 +29,10 @@ public class Activity {
         this.activityReport = activityReport;
     }
 
-    
+    @Override
+    public String toString() {
+        return "Activity{" + "subjectName=" + subjectName + ", teacherId=" + teacherId + ", name=" + name + ", shipping=" + shipping + ", deadline=" + deadline + ", comment=" + comment + ", activityType=" + activityType + ", activityReport=" + activityReport + '}';
+    }
     
     /**
      * @return the name
