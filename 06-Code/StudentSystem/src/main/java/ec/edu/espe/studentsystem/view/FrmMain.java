@@ -2,7 +2,6 @@ package ec.edu.espe.studentsystem.view;
 
 import com.formdev.flatlaf.FlatLaf;
 import ec.edu.espe.studentsystem.controller.Theme;
-import static ec.edu.espe.studentsystem.controller.Theme.setFlatLightLafTheme;
 import java.awt.EventQueue;
 import javax.swing.UIManager;
 
@@ -194,11 +193,12 @@ public class FrmMain extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        setFlatLightLafTheme();
+        Theme.setFlatLightLafTheme();
         FlatLaf.updateUI();
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new FrmMain().setVisible(true);
             }

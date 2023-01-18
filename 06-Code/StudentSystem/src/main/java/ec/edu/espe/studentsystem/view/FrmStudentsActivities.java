@@ -12,12 +12,16 @@ import javax.swing.UIManager;
  *
  * @author Alejandro Andrade, Scriptal, DCCO_ESPE
  */
-public class FrmActivities extends javax.swing.JFrame {
+public class FrmStudentsActivities extends javax.swing.JFrame {
 
+    private int id = 0;
+    private String password = "";
+    
     /**
      * Creates new form FrmActivities
      */
-    public FrmActivities() {
+    public FrmStudentsActivities(int id) {
+        this.id = id;
         initComponents();
     }
 
@@ -126,7 +130,7 @@ public class FrmActivities extends javax.swing.JFrame {
     }//GEN-LAST:event_mniAboutActionPerformed
 
     private void mnEnrollmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnEnrollmentActionPerformed
-        FrmEnrollment frmEnrollment = new FrmEnrollment();
+        FrmEnrollment frmEnrollment = new FrmEnrollment(id);
         frmEnrollment.setVisible(true);
         System.out.println(UIManager.getLookAndFeel().getName());
         if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
@@ -163,7 +167,7 @@ public class FrmActivities extends javax.swing.JFrame {
         
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmActivities().setVisible(true);
+                new FrmStudentsActivities(0).setVisible(true);
             }
         });
     }

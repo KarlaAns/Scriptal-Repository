@@ -17,6 +17,11 @@ public class Subject {
         this.gradesReport = gradesReport;
     }
 
+    @Override
+    public String toString() {
+        return "Subject{" + "studentId=" + studentId + ", gradesReport=" + gradesReport + '}';
+    }
+
     /**
      * @return the studentId
      */
