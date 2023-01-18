@@ -4,12 +4,15 @@
  */
 package ec.edu.espe.studentsystem.controller;
 
+import com.google.gson.Gson;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
 import com.mongodb.client.model.Filters;
 import static ec.edu.espe.studentsystem.controller.MongoConection.getConnection;
 import ec.edu.espe.studentsystem.model.Activity;
 import ec.edu.espe.studentsystem.model.Assignation;
 import ec.edu.espe.studentsystem.model.Classroom;
+import ec.edu.espe.studentsystem.model.Enrollment;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import org.bson.Document;
@@ -83,11 +86,27 @@ public class TeacherController {
         activitiesCollection.insertOne(activityDoc);
     }
     
-    public static Document findActivity(String name){
-        MongoCollection activityCollection = getConnection("activities");
-        Bson filter = Filters.and(Filters.eq("name", name));
-        Document dataActivity = (Document) activityCollection.find(filter).first();
-        
-        return dataActivity;
+    public static Activity findActivity(int id,String name){
+        MongoCollection enrollmentsCollection = getConnection("activities");
+
+        Bson filter = Filters.and(Filters.all("teacherId", id));
+        MongoCursor<Document> activities = enrollmentsCollection.find(filter).iterator();
+        Gson gson = new Gson();
+        ArrayList<Activity> activitiesFiltred = new ArrayList<>();
+        Activity activity;
+        try {
+            while (activities.hasNext()) {
+                
+                String activityDoc = activities.next().toJson();
+                activity = gson.fromJson(activityDoc, Activity.class);
+                
+                if(activity.getName().equals(name)){
+                    return activity;
+                }
+            }
+        } finally {
+            activities.close();
+        }
+        return null;
     }
 }

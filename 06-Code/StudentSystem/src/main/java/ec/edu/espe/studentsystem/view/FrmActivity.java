@@ -6,6 +6,7 @@ package ec.edu.espe.studentsystem.view;
 
 import ec.edu.espe.studentsystem.controller.Theme;
 import static ec.edu.espe.studentsystem.controller.Theme.setFlatLightLafTheme;
+import ec.edu.espe.studentsystem.model.Activity;
 import java.awt.EventQueue;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -21,7 +22,7 @@ import org.bson.Document;
  */
 public class FrmActivity extends javax.swing.JFrame {
 
-    private final Document activityData;
+    private final Activity activityData;
     private final Document teacher;
 
     /**
@@ -30,11 +31,11 @@ public class FrmActivity extends javax.swing.JFrame {
      * @param activityData
      * @param teacher
      */
-    public FrmActivity(Document activityData, Document teacher) {
+    public FrmActivity(Activity activityData, Document teacher) {
         initComponents();
         this.activityData = activityData;
         this.teacher = teacher;
-        txtActivityName.setText((String) activityData.get("name"));
+        txtActivityName.setText((String) activityData.getName());
         fillInputs();
     }
 
@@ -42,13 +43,13 @@ public class FrmActivity extends javax.swing.JFrame {
         SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
         Date shipping;
         try {
-            shipping = formato.parse((String) activityData.get("shipping"));
-            Date deadline = formato.parse((String) activityData.get("deadline"));
-            txtName.setText((String) activityData.get("name"));
+            shipping = formato.parse(activityData.getShipping());
+            Date deadline = formato.parse(activityData.getDeadline());
+            txtName.setText(activityData.getName());
             dtShipping.setDate(shipping);
             dtDeadline.setDate(deadline);
-            txtAComment.setText((String) activityData.get("comment"));
-            cmbType.setSelectedItem(activityData.get("activityType"));
+            txtAComment.setText(activityData.getComment());
+            cmbType.setSelectedItem(activityData.getActivityType());
         } catch (ParseException ex) {
             Logger.getLogger(FrmActivity.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -77,7 +78,7 @@ public class FrmActivity extends javax.swing.JFrame {
         txtAComment = new javax.swing.JTextArea();
         cmbType = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblStudentsAct = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnStudentSystem = new javax.swing.JMenu();
         mniAbout = new javax.swing.JMenuItem();
@@ -207,7 +208,7 @@ public class FrmActivity extends javax.swing.JFrame {
                 .addContainerGap(30, Short.MAX_VALUE))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblStudentsAct.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -218,7 +219,7 @@ public class FrmActivity extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblStudentsAct);
 
         mnStudentSystem.setText("StudentSystem");
 
@@ -364,7 +365,6 @@ public class FrmActivity extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     private javax.swing.JMenu menuHelp;
     private javax.swing.JMenu menuView;
     private javax.swing.JMenu mnManage;
@@ -372,6 +372,7 @@ public class FrmActivity extends javax.swing.JFrame {
     private javax.swing.JMenuItem mniAbout;
     private javax.swing.JMenuItem mniLogOut;
     private javax.swing.JLayeredPane pnlSearch;
+    private javax.swing.JTable tblStudentsAct;
     private javax.swing.JTextArea txtAComment;
     private javax.swing.JLabel txtActivityName;
     private javax.swing.JTextField txtName;

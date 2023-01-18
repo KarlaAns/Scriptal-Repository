@@ -84,7 +84,6 @@ public class ActivityController {
         Gson gson = new Gson();
         ArrayList<Activity> activitiesFiltred = new ArrayList<>();
         Activity activity;
-        
         try {
             while (activities.hasNext()) {
                 
