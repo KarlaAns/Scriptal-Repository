@@ -2,8 +2,11 @@ package ec.edu.espe.studentsystem.view;
 
 
 import ec.edu.espe.studentsystem.controller.EventController;
+import ec.edu.espe.studentsystem.controller.Theme;
 import ec.edu.espe.studentsystem.model.Event;
+import java.awt.EventQueue;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -11,9 +14,11 @@ import javax.swing.table.DefaultTableModel;
  * @author NW USER
  */
 public class FrmSearchEvent extends javax.swing.JFrame {
+    
  public void setStatusCbmiDarkMode(boolean isSelected) {
         this.cbmiDarkMode.setSelected(isSelected);
     }
+ 
     DefaultTableModel model = new DefaultTableModel();
 
     /**
@@ -50,6 +55,19 @@ public class FrmSearchEvent extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtID = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        mnStudentSystem = new javax.swing.JMenu();
+        mniHome = new javax.swing.JMenuItem();
+        mniAbout = new javax.swing.JMenuItem();
+        mniLogOut = new javax.swing.JMenuItem();
+        mnManage = new javax.swing.JMenu();
+        MnItmAdd = new javax.swing.JMenuItem();
+        MnItmSearch = new javax.swing.JMenuItem();
+        MnItmUpd = new javax.swing.JMenuItem();
+        MnItmDelete = new javax.swing.JMenuItem();
+        menuView = new javax.swing.JMenu();
+        cbmiDarkMode = new javax.swing.JCheckBoxMenuItem();
+        menuHelp = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -111,7 +129,7 @@ public class FrmSearchEvent extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(btnBack))
-                .addContainerGap(100, Short.MAX_VALUE))
+                .addContainerGap(79, Short.MAX_VALUE))
         );
 
         jLabel2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
@@ -137,6 +155,87 @@ public class FrmSearchEvent extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
+
+        mnStudentSystem.setText("StudentSystem");
+
+        mniHome.setText("Home");
+        mniHome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniHomeActionPerformed(evt);
+            }
+        });
+        mnStudentSystem.add(mniHome);
+
+        mniAbout.setText("About");
+        mniAbout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniAboutActionPerformed(evt);
+            }
+        });
+        mnStudentSystem.add(mniAbout);
+
+        mniLogOut.setText("Log Out");
+        mniLogOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniLogOutActionPerformed(evt);
+            }
+        });
+        mnStudentSystem.add(mniLogOut);
+
+        jMenuBar1.add(mnStudentSystem);
+
+        mnManage.setText("Manage");
+
+        MnItmAdd.setText("Add Event");
+        MnItmAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MnItmAddActionPerformed(evt);
+            }
+        });
+        mnManage.add(MnItmAdd);
+
+        MnItmSearch.setText("Search Event");
+        MnItmSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MnItmSearchActionPerformed(evt);
+            }
+        });
+        mnManage.add(MnItmSearch);
+
+        MnItmUpd.setText("Update Event");
+        MnItmUpd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MnItmUpdActionPerformed(evt);
+            }
+        });
+        mnManage.add(MnItmUpd);
+
+        MnItmDelete.setText("Delete Event");
+        MnItmDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MnItmDeleteActionPerformed(evt);
+            }
+        });
+        mnManage.add(MnItmDelete);
+
+        jMenuBar1.add(mnManage);
+
+        menuView.setText("View");
+
+        cbmiDarkMode.setText("Dark Mode");
+        cbmiDarkMode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbmiDarkModeActionPerformed(evt);
+            }
+        });
+        menuView.add(cbmiDarkMode);
+
+        jMenuBar1.add(menuView);
+
+        menuHelp.setText("Help");
+        jMenuBar1.add(menuHelp);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -207,6 +306,104 @@ public class FrmSearchEvent extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtIDKeyTyped
 
+    private void mniHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniHomeActionPerformed
+        FrmEventMng main = new FrmEventMng();
+        main.setVisible(true);
+        System.out.println(UIManager.getLookAndFeel().getName());
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+            main.setStatusCbmiDarkMode(false);
+        } else {
+            main.setStatusCbmiDarkMode(true);
+        }
+        this.dispose();
+    }//GEN-LAST:event_mniHomeActionPerformed
+
+    private void mniAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAboutActionPerformed
+
+        FrmAboutUs mniAbout = new FrmAboutUs();
+        mniAbout.setVisible(true);
+
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+            mniAbout.setStatusCbmiDarkMode(false);
+        } else {
+            mniAbout.setStatusCbmiDarkMode(true);
+        }
+        this.dispose();
+    }//GEN-LAST:event_mniAboutActionPerformed
+
+    private void mniLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniLogOutActionPerformed
+        // TODO add your handling code here:
+        FrmLogIn login = new FrmLogIn();
+        login.setVisible(true);
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+            login.setStatusCbmiDarkMode(false);
+        } else {
+            login.setStatusCbmiDarkMode(true);
+        }
+        this.dispose();
+    }//GEN-LAST:event_mniLogOutActionPerformed
+
+    private void MnItmAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnItmAddActionPerformed
+        // TODO add your handling code here:
+        FrmCreateEvent btnAdd = new FrmCreateEvent();
+        btnAdd.setVisible(true);
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+            btnAdd.setStatusCbmiDarkMode(false);
+        } else {
+            btnAdd.setStatusCbmiDarkMode(true);
+        }
+        this.dispose();
+    }//GEN-LAST:event_MnItmAddActionPerformed
+
+    private void MnItmSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnItmSearchActionPerformed
+        // TODO add your handling code here:
+        FrmSearchEvent btnSearch = new FrmSearchEvent();
+        btnSearch.setVisible(true);
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+            btnSearch.setStatusCbmiDarkMode(false);
+        } else {
+            btnSearch.setStatusCbmiDarkMode(true);
+        }
+        this.dispose();
+    }//GEN-LAST:event_MnItmSearchActionPerformed
+
+    private void MnItmUpdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnItmUpdActionPerformed
+        // TODO add your handling code here:
+        FrmUpdateEvent mniUpdate = new FrmUpdateEvent();
+        mniUpdate.setVisible(true);
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+            mniUpdate.setStatusCbmiDarkMode(false);
+        } else {
+            mniUpdate.setStatusCbmiDarkMode(true);
+        }
+        this.dispose();
+    }//GEN-LAST:event_MnItmUpdActionPerformed
+
+    private void MnItmDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnItmDeleteActionPerformed
+        // TODO add your handling code here:
+        FrmDeleteEvent mniDelete = new FrmDeleteEvent();
+        mniDelete.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_MnItmDeleteActionPerformed
+
+    private void cbmiDarkModeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbmiDarkModeActionPerformed
+        if (cbmiDarkMode.isSelected()) {
+            EventQueue.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    Theme.setDarkTheme();
+                }
+            });
+        } else {
+            EventQueue.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    Theme.setFlatLightLafTheme();
+                }
+            });
+        }
+    }//GEN-LAST:event_cbmiDarkModeActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -246,13 +443,26 @@ public class FrmSearchEvent extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem MnItmAdd;
+    private javax.swing.JMenuItem MnItmDelete;
+    private javax.swing.JMenuItem MnItmSearch;
+    private javax.swing.JMenuItem MnItmUpd;
     private javax.swing.JButton btnBack;
+    private javax.swing.JCheckBoxMenuItem cbmiDarkMode;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JMenu menuHelp;
+    private javax.swing.JMenu menuView;
+    private javax.swing.JMenu mnManage;
+    private javax.swing.JMenu mnStudentSystem;
+    private javax.swing.JMenuItem mniAbout;
+    private javax.swing.JMenuItem mniHome;
+    private javax.swing.JMenuItem mniLogOut;
     private javax.swing.JTable table;
     private javax.swing.JTextField txtID;
     // End of variables declaration//GEN-END:variables

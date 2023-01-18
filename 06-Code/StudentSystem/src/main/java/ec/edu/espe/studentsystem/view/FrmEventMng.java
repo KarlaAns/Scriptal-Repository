@@ -354,6 +354,11 @@ public class FrmEventMng extends javax.swing.JFrame {
         // TODO add your handling code here:
         FrmDeleteEvent mniDelete = new FrmDeleteEvent();
         mniDelete.setVisible(true);
+                if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+            mniDelete.setStatusCbmiDarkMode(false);
+        } else {
+            mniDelete.setStatusCbmiDarkMode(true);
+        }
         this.dispose();
     }//GEN-LAST:event_MnItmDeleteActionPerformed
 
