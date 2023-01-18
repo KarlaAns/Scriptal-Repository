@@ -12,9 +12,12 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
+import static com.mongodb.client.model.Filters.eq;
 import com.mongodb.client.model.Updates;
 import com.mongodb.client.result.UpdateResult;
 import ec.edu.espe.studentsystem.model.Event;
+import java.util.Scanner;
+import javax.swing.JOptionPane;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
@@ -24,7 +27,11 @@ import org.bson.types.ObjectId;
  * @author NW USER
  */
 public class EventController {
- public static void insertEvent(Event event) {
+
+    private static final Scanner sc = new Scanner(System.in);
+
+    public static void insertEvent(Event event) {
+
         String uri = "mongodb+srv://laandrade:laandrade@cluster0.jcz1lsa.mongodb.net/test";
         try ( MongoClient mongoClient = MongoClients.create(uri)) {
 
@@ -47,6 +54,7 @@ public class EventController {
 
         }
     }
+
     public static Event findEvent(Event event) {
 
         String Data;
@@ -116,5 +124,29 @@ public class EventController {
         }
     }
 
-   
+    public class CancelEvent {
+    }
+
+    public void cancelEvent(Event event) {
+        MongoClient mongoClient = MongoClients.create("mongodb+srv://laandrade:laandrade@cluster0.jcz1lsa.mongodb.net/test");
+        MongoDatabase database = mongoClient.getDatabase("StudentControlSystem");
+        MongoCollection<Document> collectionEvent = database.getCollection("Event");
+        MongoCollection<Document> collectionCancelEvent = database.getCollection("Cancelled Event");
+        Bson filter = Filters.eq("id", event.getId());
+        collectionEvent.deleteOne(filter);
+
+        Document eventDoc = collectionEvent.find(eq("_id", event.getId())).first();
+        if (eventDoc != null) {
+            eventDoc.put("description", "Event Canceled");
+            collectionEvent.replaceOne(eq("_id", event.getId()), eventDoc);
+            //move the event to the cancelled events collection
+            collectionCancelEvent.insertOne(eventDoc);
+            //remove the event from the original collection
+            collectionEvent.deleteOne(eq("_id", event.getId()));
+            JOptionPane.showMessageDialog(this, "Event Cancelled");
+
+        } else {
+
+        }
+    }
 }

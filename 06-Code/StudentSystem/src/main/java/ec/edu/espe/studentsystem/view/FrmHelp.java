@@ -4,6 +4,7 @@
  */
 package ec.edu.espe.studentsystem.view;
 
+import com.formdev.flatlaf.FlatLaf;
 import ec.edu.espe.studentsystem.controller.Theme;
 import java.awt.EventQueue;
 import java.util.Properties;
@@ -19,9 +20,11 @@ import javax.swing.JOptionPane;
  * @author NW USER
  */
 public class FrmHelp extends javax.swing.JFrame {
-  public void setStatusCbmiDarkMode(boolean isSelected) {
+
+    public void setStatusCbmiDarkMode(boolean isSelected) {
         this.cbmiDarkMode.setSelected(isSelected);
     }
+
     /**
      * Creates new form FrmHelp
      */
@@ -214,7 +217,7 @@ public class FrmHelp extends javax.swing.JFrame {
             transport.connect(emissorEmail, emissorPasscode);
             transport.sendMessage(mimicMessage, mimicMessage.getRecipients(Message.RecipientType.TO));
             transport.close();
-            JOptionPane.showMessageDialog(this,"The message has been sent! We will contact you as soon as we can.", "Done", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "The message has been sent! We will contact you as soon as we can.", "Done", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -222,7 +225,7 @@ public class FrmHelp extends javax.swing.JFrame {
 
     private void txtIssueKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIssueKeyTyped
         // TODO add your handling code here:
-         char c = evt.getKeyChar();
+        char c = evt.getKeyChar();
 
         if ((Character.isLetter(c)) || (Character.isWhitespace(c)) || (Character.isISOControl(c))) {
             txtIssue.setEditable(true);
@@ -241,16 +244,14 @@ public class FrmHelp extends javax.swing.JFrame {
     }//GEN-LAST:event_mniAboutActionPerformed
 
     private void cbmiDarkModeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbmiDarkModeActionPerformed
-        if (cbmiDarkMode.isSelected())
-        {
+        if (cbmiDarkMode.isSelected()) {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     Theme.setDarkTheme();
                 }
             });
-        } else
-        {
+        } else {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
@@ -264,7 +265,8 @@ public class FrmHelp extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
+        Theme.setFlatLightLafTheme();
+        FlatLaf.updateUI();
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
