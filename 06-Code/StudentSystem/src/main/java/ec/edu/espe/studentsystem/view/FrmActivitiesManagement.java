@@ -5,9 +5,10 @@
 package ec.edu.espe.studentsystem.view;
 
 import static ec.edu.espe.studentsystem.controller.ActivityController.establishAssignation;
-import static ec.edu.espe.studentsystem.controller.ClassroomController.enterToActivity;
+import static ec.edu.espe.studentsystem.controller.ActivityController.findAllActivities;
 import static ec.edu.espe.studentsystem.controller.ClassroomController.readClassrooms;
 import static ec.edu.espe.studentsystem.controller.TeacherController.createActivity;
+import static ec.edu.espe.studentsystem.controller.TeacherController.findActivity;
 import ec.edu.espe.studentsystem.controller.Theme;
 import static ec.edu.espe.studentsystem.controller.Theme.setFlatLightLafTheme;
 import ec.edu.espe.studentsystem.model.Activity;
@@ -16,10 +17,16 @@ import ec.edu.espe.studentsystem.model.Assignation;
 import java.awt.EventQueue;
 import java.awt.HeadlessException;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import org.bson.Document;
 
 /**
@@ -28,6 +35,8 @@ import org.bson.Document;
  */
 public class FrmActivitiesManagement extends javax.swing.JFrame {
 
+    DefaultTableModel dtm = new DefaultTableModel();
+    
     private final String classroomName;
     private final Document teacher;
 
@@ -42,7 +51,38 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
         addClassroomsToCmb();
         this.teacher = teacher;
         cmbClassrooms.setSelectedItem(classroomName);
+        String selectedItem = (String) cmbClassrooms.getSelectedItem();
+        if (!selectedItem.equals("ID")) {
+            enableInputs(selectedItem);
+        }
         this.classroomName = classroomName;
+        
+        String[] head = new String[]{"Name","Type","Shipping","Deadline"};
+        dtm.setColumnIdentifiers(head);
+        tblAssignments.setModel(dtm);
+        
+        DefaultTableCellRenderer Alinear = new DefaultTableCellRenderer();
+        Alinear.setHorizontalAlignment(SwingConstants.CENTER);
+        tblAssignments.getColumnModel().getColumn(0).setCellRenderer(Alinear);
+        
+        showActivities(selectedItem);
+    }
+
+    final void showActivities(String selectedItem) {
+        
+        ArrayList<Activity> activities = findAllActivities(teacher.getInteger("id"),selectedItem);
+        addToTable(activities);
+    }
+
+    void addToTable(ArrayList<Activity> activities) {
+        dtm.setRowCount(0);
+        for (Activity activity : activities) {
+            dtm.addRow(new Object[]{activity.getName()
+                    ,activity.getActivityType()
+                    ,activity.getShipping()
+                    ,activity.getDeadline()
+            });
+        }
     }
 
     /**
@@ -407,6 +447,11 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
         btnClean.setBackground(new java.awt.Color(204, 255, 255));
         btnClean.setText("Clean");
         btnClean.setEnabled(false);
+        btnClean.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCleanActionPerformed(evt);
+            }
+        });
 
         mnStudentSystem.setText("StudentSystem");
 
@@ -485,13 +530,12 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
     private void btnOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenActionPerformed
         // TODO add your handling code here:
         String activityName = txtAction.getText();
-        Document activityData = enterToActivity(activityName);
+        Document activityData = findActivity(activityName);
 
         if (activityData != null) {
-            FrmActivity frmActivity = new FrmActivity(activityName);
+            FrmActivity frmActivity = new FrmActivity(activityData, teacher);
             frmActivity.setVisible(true);
             this.dispose();
-            System.out.println("YEIII");
         } else {
             JOptionPane.showMessageDialog(this, "We can't find the activity inserted", "Activity insertion", JOptionPane.WARNING_MESSAGE);
         }
@@ -539,10 +583,11 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
             disableInputs();
         } else {
             enableInputs(selectedClassroom);
+            showActivities(selectedClassroom);
         }
     }//GEN-LAST:event_btnChangeActActionPerformed
 
-    public void enableInputs(String selectedClassroom) {
+    public final void enableInputs(String selectedClassroom) {
         lbClassroomName.setText(selectedClassroom);
         txtName.setEnabled(true);
         cmbType.setEnabled(true);
@@ -611,16 +656,34 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
             activity = new Activity(actName, teacherId, txtName.getText(), shippingStr, deadlineStr, txtAComment.getText(), actType, activityReport);
             System.out.println(activity.getActivityReport().get(0));
             createActivity(activity);
-            JOptionPane.showMessageDialog(this,txtName.getText()+" activity added succesfully!","Activity insertion",JOptionPane.INFORMATION_MESSAGE);
-
+            JOptionPane.showMessageDialog(this, txtName.getText() + " activity added succesfully!", "Activity insertion", JOptionPane.INFORMATION_MESSAGE);
+            showActivities((String) cmbClassrooms.getSelectedItem());
         } catch (HeadlessException e) {
-            JOptionPane.showMessageDialog(this, "An Error has occurred", "Activity insertion", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "We can't find the activity inserted", txtName.getText() + " activity doesn't exist", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btnNewAssignmentActionPerformed
 
     private void btnFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindActionPerformed
         // TODO add your handling code here:
+        SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
+
         String name = txtName.getText();
+        Document activityData = findActivity(name);
+        if (activityData != null) {
+            try {
+                Date shipping = formato.parse((String) activityData.get("shipping"));
+                Date deadline = formato.parse((String) activityData.get("deadline"));
+                txtName.setText(name);
+                dtShipping.setDate(shipping);
+                dtDeadline.setDate(deadline);
+                txtAComment.setText((String) activityData.get("comment"));
+                cmbType.setSelectedItem(activityData.get("activityType"));
+            } catch (ParseException ex) {
+                Logger.getLogger(FrmActivitiesManagement.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "We can't find the activity inserted", txtName.getText() + "Activity doesn't exist", JOptionPane.WARNING_MESSAGE);
+        }
 
     }//GEN-LAST:event_btnFindActionPerformed
 
@@ -631,6 +694,11 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
     private void cmbTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTypeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbTypeActionPerformed
+
+    private void btnCleanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCleanActionPerformed
+        // TODO add your handling code here:
+        showActivities((String) cmbClassrooms.getSelectedItem());
+    }//GEN-LAST:event_btnCleanActionPerformed
 
     /**
      * @param args the command line arguments

@@ -23,52 +23,48 @@ import org.bson.conversions.Bson;
  * @author Cristian Acalo, Scriptal, DCCO-ESPE
  */
 public class ActivityController {
-    
+
     public static Document findDataStudent(int id) {
         Document dataStudent;
-        
+
         MongoCollection activityCollection = getConnection("students");
 
         Bson filter = Filters.and(Filters.eq("id", id));
         dataStudent = (Document) activityCollection.find(filter).first();
-        
-        if(dataStudent!=null){
+
+        if (dataStudent != null) {
             return dataStudent;
-        }else{
+        } else {
             return null;
         }
     }
-    
-    public static void createActivity(){
-        
-    }
-    
-    public static ArrayList<Assignation> establishAssignation(String className){
+
+    public static ArrayList<Assignation> establishAssignation(String className) {
         Gson gson = new Gson();
         ArrayList<Assignation> activityReport = new ArrayList<>();
-        
+
         MongoCollection enrollmentsCollection = getConnection("enrollments");
 
         Bson filter = Filters.and(Filters.gt("studentId", 0));
 
         MongoCursor<Document> enrollments = enrollmentsCollection.find(filter).iterator();
         ArrayList<String> subjects = new ArrayList<String>();
-        
+
         Assignation assignation;
         Enrollment enrollment;
         int studentId;
-        
+
         try {
             while (enrollments.hasNext()) {
-                
+
                 String enrollmentDoc = enrollments.next().toJson();
                 enrollment = gson.fromJson(enrollmentDoc, Enrollment.class);
-                subjects=enrollment.getSubjects();
-                
+                subjects = enrollment.getSubjects();
+
                 for (String subject : subjects) {
-                    if(subject.equals(className)){
-                        studentId= enrollment.getStudentId();
-                        assignation = new Assignation(studentId,0);
+                    if (subject.equals(className)) {
+                        studentId = enrollment.getStudentId();
+                        assignation = new Assignation(studentId, 0);
                         activityReport.add(assignation);
                     }
                 }
@@ -76,8 +72,33 @@ public class ActivityController {
         } finally {
             enrollments.close();
         }
-        
+
         return activityReport;
     }
-    
+
+    public static ArrayList<Activity> findAllActivities(int id, String subjectName) {
+        MongoCollection enrollmentsCollection = getConnection("activities");
+
+        Bson filter = Filters.and(Filters.all("teacherId", id));
+        MongoCursor<Document> activities = enrollmentsCollection.find(filter).iterator();
+        Gson gson = new Gson();
+        ArrayList<Activity> activitiesFiltred = new ArrayList<>();
+        Activity activity;
+        
+        try {
+            while (activities.hasNext()) {
+                
+                String activityDoc = activities.next().toJson();
+                activity = gson.fromJson(activityDoc, Activity.class);
+                
+                if(activity.getSubjectName().equals(subjectName)){
+                    activitiesFiltred.add(activity);
+                }
+            }
+        } finally {
+            activities.close();
+        }
+        return activitiesFiltred;
+    }
+
 }

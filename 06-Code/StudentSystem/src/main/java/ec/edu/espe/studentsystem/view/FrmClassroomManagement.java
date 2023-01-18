@@ -2,7 +2,6 @@
 package ec.edu.espe.studentsystem.view;
 
 import static ec.edu.espe.studentsystem.controller.ClassroomController.countNumberStudents;
-import static ec.edu.espe.studentsystem.controller.ClassroomController.enterToActivity;
 import static ec.edu.espe.studentsystem.controller.TeacherController.createClassroom;
 import static ec.edu.espe.studentsystem.controller.TeacherController.enterToClassroom;
 import static ec.edu.espe.studentsystem.controller.TeacherController.findClassroom;
@@ -55,10 +54,7 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
     
     void addToTable(ArrayList classrooms){
         dtm.setRowCount(0);
-        //int nStudents=0;
-        
         for (Object classroom : classrooms) {
-            //nStudents = countNumberStudents((String) classroom);
             dtm.addRow(new Object[]{classroom});
         }
     }
@@ -457,8 +453,8 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
     private void btnOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenActionPerformed
         // TODO add your handling code here:
         String classroomName = txtActionName.getText();
-        
-        if(!enterToClassroom(classroomName)){
+        int teacherId = teacher.getInteger("id");
+        if(enterToClassroom(classroomName,teacherId)){
             FrmActivitiesManagement frmActivity = new FrmActivitiesManagement(classroomName,teacher);
             frmActivity.setVisible(true);
             this.dispose();

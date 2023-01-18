@@ -580,6 +580,9 @@
         <Property name="text" type="java.lang.String" value="Clean"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCleanActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
