@@ -2,7 +2,9 @@
 package ec.edu.espe.studentsystem.view;
 
 import static ec.edu.espe.studentsystem.controller.ClassroomController.countNumberStudents;
+import static ec.edu.espe.studentsystem.controller.ClassroomController.enterToActivity;
 import static ec.edu.espe.studentsystem.controller.TeacherController.createClassroom;
+import static ec.edu.espe.studentsystem.controller.TeacherController.enterToClassroom;
 import static ec.edu.espe.studentsystem.controller.TeacherController.findClassroom;
 import ec.edu.espe.studentsystem.controller.Theme;
 import static ec.edu.espe.studentsystem.controller.Theme.setFlatLightLafTheme;
@@ -454,6 +456,15 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
 
     private void btnOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenActionPerformed
         // TODO add your handling code here:
+        String classroomName = txtActionName.getText();
+        
+        if(!enterToClassroom(classroomName)){
+            FrmActivitiesManagement frmActivity = new FrmActivitiesManagement(classroomName,teacher);
+            frmActivity.setVisible(true);
+            this.dispose();
+        }else{
+            JOptionPane.showMessageDialog(this,"We can't find the classroom inserted","Warning on input data",JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_btnOpenActionPerformed
 
     private void btnCleanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCleanActionPerformed

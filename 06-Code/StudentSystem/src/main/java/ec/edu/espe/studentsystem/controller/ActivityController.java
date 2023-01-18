@@ -8,6 +8,8 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import static ec.edu.espe.studentsystem.controller.MongoConection.getConnection;
+import ec.edu.espe.studentsystem.model.Assignation;
+import java.util.ArrayList;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
@@ -30,6 +32,18 @@ public class ActivityController {
         }else{
             return null;
         }
+    }
+    
+    public static void createActivity(){
+        
+    }
+    
+    public static ArrayList<Assignation> establishAssignation(String className){
+        ArrayList<Assignation> activityReport = new ArrayList<>();
+        
+        
+        
+        return activityReport;
     }
     
 }

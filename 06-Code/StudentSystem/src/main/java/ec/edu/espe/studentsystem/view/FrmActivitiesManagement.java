@@ -4,10 +4,13 @@
  */
 package ec.edu.espe.studentsystem.view;
 
+import static ec.edu.espe.studentsystem.controller.ActivityController.establishAssignation;
 import static ec.edu.espe.studentsystem.controller.ClassroomController.enterToActivity;
 import static ec.edu.espe.studentsystem.controller.ClassroomController.readClassrooms;
 import ec.edu.espe.studentsystem.controller.Theme;
 import static ec.edu.espe.studentsystem.controller.Theme.setFlatLightLafTheme;
+import ec.edu.espe.studentsystem.model.Activity;
+import ec.edu.espe.studentsystem.model.Assignation;
 
 import java.awt.EventQueue;
 import java.text.DateFormat;
@@ -23,15 +26,22 @@ import org.bson.Document;
  */
 public class FrmActivitiesManagement extends javax.swing.JFrame {
 
+    private final String classroomName;
+    private final Document teacher;
+
     /**
      * Creates new form FrmAssignments
+     * @param classroomName
+     * @param teacher
      */
-    public FrmActivitiesManagement() {
+    public FrmActivitiesManagement(String classroomName, Document teacher) {
         initComponents();
         addClassroomsToCmb();
+        this.teacher=teacher;
         if(cmbClassrooms.getSelectedItem()!="Classrooms"){
             
         }
+        this.classroomName=classroomName;
     }
 
     /**
@@ -67,7 +77,7 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
         btnDelete = new javax.swing.JButton();
         btnClean = new javax.swing.JButton();
         cmbClassrooms = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        btnChangeAct = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnStudentSystem = new javax.swing.JMenu();
         mniAbout = new javax.swing.JMenuItem();
@@ -306,15 +316,15 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Change");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnChangeAct.setText("Change");
+        btnChangeAct.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
+                btnChangeActMouseClicked(evt);
             }
         });
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnChangeAct.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnChangeActActionPerformed(evt);
             }
         });
 
@@ -326,7 +336,7 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
                 .addGap(27, 27, 27)
                 .addGroup(pnlFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(cmbClassrooms, 0, 126, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnChangeAct, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGroup(pnlFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlFormLayout.createSequentialGroup()
                         .addGap(25, 25, 25)
@@ -367,7 +377,7 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnClean))))
                     .addGroup(pnlFormLayout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(btnChangeAct)
                         .addGap(0, 318, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
                 .addComponent(tblAssignmentsContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -437,15 +447,19 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
 
     private void btnNewAssignmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewAssignmentActionPerformed
         // TODO add your handling code here:
-
+        Activity activity;
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-
         Date shipping = dtShipping.getDate();
         Date deadline = dtDeadline.getDate();
 
         String shippingStr = dateFormat.format(shipping);
         String deadlineStr = dateFormat.format(deadline);
-
+        
+        //ArrayList<Assignation> activityReport = establishAssignation();
+        
+        //activity = new Activity(cmbClassrooms.getSelectedItem(),teacher.getInteger("id"),shippingStr,deadlineStr,txtAComment.getText(),"",);
+        
+        //createActivity();
     }//GEN-LAST:event_btnNewAssignmentActionPerformed
 
     private void btnOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenActionPerformed
@@ -459,7 +473,7 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
             this.dispose();
             System.out.println("YEIII");
         }else{
-            JOptionPane.showMessageDialog(this,"We can't find the classroom inserted","Warning on input data",JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this,"We can't find the activity inserted","Activity insertion",JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btnOpenActionPerformed
 
@@ -496,43 +510,53 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cbmiDarkModeActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnChangeActActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeActActionPerformed
         // TODO add your handling code here:
         Date date = new Date();
         String selectedClassroom = (String) cmbClassrooms.getSelectedItem();
+        emptyInputs(date);
+        if ("Classrooms".equals(selectedClassroom)){
+            disableInputs();
+        }else{
+            enableInputs(selectedClassroom);
+        }
+    }//GEN-LAST:event_btnChangeActActionPerformed
+
+    public void enableInputs(String selectedClassroom) {
+        lbClassroomName.setText(selectedClassroom);
+        txtName.setEnabled(true);
+        dtShipping.setEnabled(true);
+        dtDeadline.setEnabled(true);
+        txtAComment.setEnabled(true);
+        btnFind.setEnabled(true);
+        btnNewAssignment.setEnabled(true);
+        btnClean.setEnabled(true);
+        txtAction.setEnabled(true);
+    }
+
+    public void disableInputs() {
+        lbClassroomName.setText("...");
+        txtName.setEnabled(false);
+        dtShipping.setEnabled(false);
+        dtDeadline.setEnabled(false);
+        txtAComment.setEnabled(false);
+        btnFind.setEnabled(false);
+        btnNewAssignment.setEnabled(false);
+        btnClean.setEnabled(false);
+        txtAction.setEnabled(false);
+    }
+
+    private void emptyInputs(Date date) {
         txtName.setText("");
         dtShipping.setDate(date);
         dtDeadline.setDate(date);
         txtAComment.setText("");
         txtAction.setText("");
-        if ("Classrooms".equals(selectedClassroom)){
-            lbClassroomName.setText("...");
-            txtName.setEnabled(false);
-            dtShipping.setEnabled(false);
-            dtDeadline.setEnabled(false);
-            txtAComment.setEnabled(false);
-            btnFind.setEnabled(false);
-            btnNewAssignment.setEnabled(false);
-            btnClean.setEnabled(false);
-            
-            txtAction.setEnabled(false);
-        }else{
-            lbClassroomName.setText(selectedClassroom);
-            txtName.setEnabled(true);
-            dtShipping.setEnabled(true);
-            dtDeadline.setEnabled(true);
-            txtAComment.setEnabled(true);
-            btnFind.setEnabled(true);
-            btnNewAssignment.setEnabled(true);
-            btnClean.setEnabled(true);
-            
-            txtAction.setEnabled(true);
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+    private void btnChangeActMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnChangeActMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1MouseClicked
+    }//GEN-LAST:event_btnChangeActMouseClicked
 
     private void txtActionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtActionKeyReleased
         // TODO add your handling code here:
@@ -556,12 +580,13 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmActivitiesManagement().setVisible(true);
+                new FrmActivitiesManagement("", null).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnChangeAct;
     private javax.swing.JButton btnClean;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnFind;
@@ -571,7 +596,6 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cmbClassrooms;
     private com.toedter.calendar.JDateChooser dtDeadline;
     private com.toedter.calendar.JDateChooser dtShipping;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

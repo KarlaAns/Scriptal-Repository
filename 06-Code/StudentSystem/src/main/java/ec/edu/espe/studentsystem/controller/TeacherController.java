@@ -43,4 +43,12 @@ public class TeacherController {
         }
         return null;
     }
+    
+    public static boolean enterToClassroom(String classroomName){
+        MongoCollection classroomsCollection = getConnection("classrooms");
+        Bson filter = Filters.and(Filters.eq("name", classroomName));
+        Document dataExistance = (Document) classroomsCollection.find(filter).first();
+        
+        return dataExistance!=null;
+    }
 }
