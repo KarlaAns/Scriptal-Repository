@@ -154,16 +154,14 @@ public class FrmMain extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cbmiDarkModeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbmiDarkModeActionPerformed
-        if (cbmiDarkMode.isSelected())
-        {
+        if (cbmiDarkMode.isSelected()) {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     Theme.setDarkTheme();
                 }
             });
-        } else
-        {
+        } else {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
@@ -175,12 +173,12 @@ public class FrmMain extends javax.swing.JFrame {
 
 
     private void btnLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogInActionPerformed
-        
+
         FrmLogIn logIn = new FrmLogIn();
         logIn.setVisible(true);
-        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
             logIn.setStatusCbmiDarkMode(false);
-        }else{
+        } else {
             logIn.setStatusCbmiDarkMode(true);
         }
         this.dispose();
@@ -194,17 +192,15 @@ public class FrmMain extends javax.swing.JFrame {
     }//GEN-LAST:event_mniAboutActionPerformed
 
     private void menuHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuHelpActionPerformed
-        // TODO add your handling code here:
         FrmHelp newHelp = new FrmHelp();
         newHelp.setVisible(true);
-        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
             newHelp.setStatusCbmiDarkMode(false);
-        }else{
+        } else {
             newHelp.setStatusCbmiDarkMode(true);
         }
         this.dispose();
     }//GEN-LAST:event_menuHelpActionPerformed
-
 
     /**
      * @param args the command line arguments
