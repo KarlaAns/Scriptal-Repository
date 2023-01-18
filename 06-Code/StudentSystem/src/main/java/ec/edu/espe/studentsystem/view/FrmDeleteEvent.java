@@ -190,7 +190,6 @@ public class FrmDeleteEvent extends javax.swing.JFrame {
                 .addContainerGap(91, Short.MAX_VALUE))
         );
 
-        txtNewDes.setEnabled(false);
 
         mnStudentSystem.setText("StudentSystem");
 
