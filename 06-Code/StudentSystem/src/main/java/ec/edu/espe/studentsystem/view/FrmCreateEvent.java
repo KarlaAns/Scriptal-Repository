@@ -17,7 +17,7 @@ import org.bson.Document;
 
 /**
  *
- * @author NW USER
+ * @author Karla Ansatuña
  */
 public class FrmCreateEvent extends javax.swing.JFrame {
 
@@ -315,11 +315,11 @@ public class FrmCreateEvent extends javax.swing.JFrame {
         String[] Datos = new String[4];
         Datos[0] = txtEvent.getText();
         Datos[1] = DcCalendar.getDateFormatString();
-        Datos[2] = (txtID.getText());
+        Datos[2] = txtID.getText();
         Datos[3] = txtAreaDescription.getText();
         model.addRow(Datos);
-        int id=Integer.parseInt(txtID.getText());
-        Event event = new Event(id, Datos[0], Datos[3], Datos[1]);
+
+        Event event = new Event(Datos[2], Datos[0], Datos[3], Datos[1]);
         EventController.updateEvent(event);
         txtID.setText("");
         txtEvent.setText("");
