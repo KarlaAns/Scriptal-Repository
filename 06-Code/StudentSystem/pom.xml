@@ -39,11 +39,5 @@
             <version>1.4</version>
             <type>jar</type>
         </dependency>
-        <dependency>
-            <groupId>espe.edu.ec</groupId>
-            <artifactId>StudentSystem</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <type>jar</type>
-        </dependency>
     </dependencies>
 </project>
