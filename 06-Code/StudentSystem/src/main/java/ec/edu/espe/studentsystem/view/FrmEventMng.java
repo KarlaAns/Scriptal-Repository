@@ -40,8 +40,11 @@ public class FrmEventMng extends javax.swing.JFrame {
         mniHome = new javax.swing.JMenuItem();
         mniAbout = new javax.swing.JMenuItem();
         mniLogOut = new javax.swing.JMenuItem();
-        mniLogOut1 = new javax.swing.JMenuItem();
         mnManage = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
         menuView = new javax.swing.JMenu();
         cbmiDarkMode = new javax.swing.JCheckBoxMenuItem();
         menuHelp = new javax.swing.JMenu();
@@ -61,6 +64,11 @@ public class FrmEventMng extends javax.swing.JFrame {
 
         btnSearch.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         btnSearch.setText("Search");
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchActionPerformed(evt);
+            }
+        });
 
         btnUpload.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         btnUpload.setText("Update");
@@ -113,7 +121,9 @@ public class FrmEventMng extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(btnBack))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnBack)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -146,12 +156,22 @@ public class FrmEventMng extends javax.swing.JFrame {
         mniLogOut.setText("Log Out");
         mnStudentSystem.add(mniLogOut);
 
-        mniLogOut1.setText("Log Out");
-        mnStudentSystem.add(mniLogOut1);
-
         jMenuBar1.add(mnStudentSystem);
 
         mnManage.setText("Manage");
+
+        jMenuItem1.setText("Add Event");
+        mnManage.add(jMenuItem1);
+
+        jMenuItem2.setText("Search Event");
+        mnManage.add(jMenuItem2);
+
+        jMenuItem3.setText("Update Event");
+        mnManage.add(jMenuItem3);
+
+        jMenuItem4.setText("Delete Event");
+        mnManage.add(jMenuItem4);
+
         jMenuBar1.add(mnManage);
 
         menuView.setText("View");
@@ -183,9 +203,8 @@ public class FrmEventMng extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 486, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addGap(0, 55, Short.MAX_VALUE))
         );
 
         pack();
@@ -250,6 +269,13 @@ public class FrmEventMng extends javax.swing.JFrame {
         //this.dispose();
     }//GEN-LAST:event_btnUploadActionPerformed
 
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        // TODO add your handling code here:
+        FrmSearchEvent btnSearch = new FrmSearchEvent();
+        btnSearch.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnSearchActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -282,6 +308,10 @@ public class FrmEventMng extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JMenu menuHelp;
     private javax.swing.JMenu menuView;
@@ -290,6 +320,5 @@ public class FrmEventMng extends javax.swing.JFrame {
     private javax.swing.JMenuItem mniAbout;
     private javax.swing.JMenuItem mniHome;
     private javax.swing.JMenuItem mniLogOut;
-    private javax.swing.JMenuItem mniLogOut1;
     // End of variables declaration//GEN-END:variables
 }

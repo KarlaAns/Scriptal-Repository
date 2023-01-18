@@ -32,10 +32,11 @@
             <artifactId>flatlaf</artifactId>
             <version>3.0</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/javax.mail/mail -->
         <dependency>
-            <groupId>com.formdev</groupId>
-            <artifactId>flatlaf-intellij-themes</artifactId>
-            <version>3.0</version>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>1.4</version>
         </dependency>
     </dependencies>
 </project>

@@ -31,7 +31,7 @@ public class EventController {
             MongoDatabase database = mongoClient.getDatabase("StudentControlSystem");
             try {
                 System.out.println("Connected successfully to the server.");
-                MongoCollection<Document> collectionResident = database.getCollection("Event");
+                MongoCollection<Document> collectionEvent = database.getCollection("Event");
 
                 Document events = new Document("_id", new ObjectId())
                         .append("id", event.getId())
@@ -39,7 +39,7 @@ public class EventController {
                         .append("date", event.getDate())
                         .append("description", event.getDescription());
 
-                collectionResident.insertOne(events);
+                collectionEvent.insertOne(events);
 
             } catch (MongoException me) {
                 System.out.println("An error occurred while attempting to connect: " + me);
@@ -104,10 +104,10 @@ public class EventController {
         try ( MongoClient mongoClient = MongoClients.create(uri)) {
             MongoDatabase database = mongoClient.getDatabase("StudentControlSystem");
             try {
-                MongoCollection collectionResident = database.getCollection("Event");
+                MongoCollection collectionEvent = database.getCollection("Event");
 
                 Bson filter = Filters.eq("name", event.getName());
-                collectionResident.deleteOne(filter);
+                collectionEvent.deleteOne(filter);
 
             } catch (MongoException me) {
                 System.out.println("An error occurred while attempting to connect: " + me);

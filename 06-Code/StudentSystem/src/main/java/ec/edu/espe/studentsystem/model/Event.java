@@ -7,12 +7,12 @@ package ec.edu.espe.studentsystem.model;
  */
 public class Event {
     
-    private int id;
+    private String id;
     private String name;
     private String description;
     private String date;
 
-    public Event(int id, String name, String description, String date) {
+    public Event(String id, String name, String description, String date) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -22,14 +22,14 @@ public class Event {
     /**
      * @return the id
      */
-    public int getId() {
+    public String getId() {
         return id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

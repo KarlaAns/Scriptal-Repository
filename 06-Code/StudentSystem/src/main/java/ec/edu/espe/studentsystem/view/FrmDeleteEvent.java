@@ -1,4 +1,3 @@
-
 package ec.edu.espe.studentsystem.view;
 
 import ec.edu.espe.studentsystem.controller.EventController;
@@ -8,17 +7,20 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author NW USER
+ * @author Karla Ansatuña
  */
 public class FrmDeleteEvent extends javax.swing.JFrame {
-   DefaultTableModel model = new DefaultTableModel();
+
+    DefaultTableModel model = new DefaultTableModel();
+
     /**
      * Creates new form NewJFrame
      */
     public FrmDeleteEvent() {
         initComponents();
-         mostTable();
+        mostTable();
     }
+
     private void mostTable() {
 
         model.addColumn("Id");
@@ -27,6 +29,7 @@ public class FrmDeleteEvent extends javax.swing.JFrame {
         model.addColumn("Description");
         this.table.setModel(model);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -154,7 +157,9 @@ public class FrmDeleteEvent extends javax.swing.JFrame {
                 .addContainerGap(192, Short.MAX_VALUE))
         );
 
+
         //txtNewDes.setEnabled(false);
+
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -181,7 +186,7 @@ public class FrmDeleteEvent extends javax.swing.JFrame {
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         int option = JOptionPane.showConfirmDialog(this, "Do you want to continue?");
         if (option == 0) {
-            Event event=new Event( 0, txtNameToDelete.getText(), "", "");
+            Event event = new Event("", txtNameToDelete.getText(), "", "");
             EventController.deleteEvent(event);
             JOptionPane.showMessageDialog(this, "Event Delete");
             txtNameToDelete.setText("");
@@ -212,13 +217,14 @@ public class FrmDeleteEvent extends javax.swing.JFrame {
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
 
-        Event event = new Event(0, txtNameToDelete.getText(), "", "");
+        Event event = new Event("", txtNameToDelete.getText(), "", "");
         event = EventController.findEvent(event);
         String[] Datos = new String[4];
+        Datos[0] = event.getId();
+        Datos[1] = event.getName();
         Datos[0] = event.getName();
-        //Datos[1] = Integer.parseInt(.getId());
         Datos[2] = event.getDate();
-        Datos[4] = event.getDescription();
+        Datos[3] = event.getDescription();
         txtNameToDelete.setText("");
         model.addRow(Datos);
     }//GEN-LAST:event_btnSearchActionPerformed
