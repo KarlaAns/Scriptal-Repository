@@ -11,7 +11,9 @@ import javax.swing.table.DefaultTableModel;
  * @author NW USER
  */
 public class FrmSearchEvent extends javax.swing.JFrame {
-
+ public void setStatusCbmiDarkMode(boolean isSelected) {
+        this.cbmiDarkMode.setSelected(isSelected);
+    }
     DefaultTableModel model = new DefaultTableModel();
 
     /**

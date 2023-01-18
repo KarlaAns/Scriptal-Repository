@@ -20,7 +20,11 @@ import org.bson.Document;
  * @author Karla Ansatuña
  */
 public class FrmCreateEvent extends javax.swing.JFrame {
-
+    
+ public void setStatusCbmiDarkMode(boolean isSelected) {
+        this.cbmiDarkMode.setSelected(isSelected);
+    }
+ 
     DefaultTableModel model = new DefaultTableModel();
 
     private void mostTable() {
