@@ -10,6 +10,7 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
+import static ec.edu.espe.studentsystem.controller.MongoConection.getConnection;
 import ec.edu.espe.studentsystem.model.Teacher;
 import java.util.ArrayList;
 import org.bson.Document;
@@ -52,12 +53,7 @@ public class ClassroomController {
 
     public static Document enterToActivity(String activityName) {
         Document dataActivity;
-        
-        String uri = "mongodb+srv://laandrade:laandrade@cluster0.jcz1lsa.mongodb.net/test";
-
-        MongoDatabase db = MongoConection.getConnection(uri, "StudentControlSystem");
-
-        MongoCollection activityCollection = db.getCollection("activities");
+        MongoCollection activityCollection = getConnection("activities");
 
         Bson filter = Filters.and(Filters.eq("name", activityName));
         dataActivity = (Document) activityCollection.find(filter).first();
@@ -67,12 +63,7 @@ public class ClassroomController {
     
     public static Document findTeacher(int teacherId) {
         Document dataTeacher;
-        
-        String uri = "mongodb+srv://laandrade:laandrade@cluster0.jcz1lsa.mongodb.net/test";
-
-        MongoDatabase db = MongoConection.getConnection(uri, "StudentControlSystem");
-
-        MongoCollection teacherCollection = db.getCollection("teachers");
+        MongoCollection teacherCollection = getConnection("teachers");
 
         Bson filter = Filters.and(Filters.eq("id", teacherId));
         dataTeacher = (Document) teacherCollection.find(filter).first();

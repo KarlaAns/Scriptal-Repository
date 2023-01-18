@@ -157,6 +157,11 @@ public class FrmDeleteEvent extends javax.swing.JFrame {
                 .addContainerGap(192, Short.MAX_VALUE))
         );
 
+<<<<<<< HEAD
+=======
+        //txtNewDes.setEnabled(false);
+
+>>>>>>> 5479a7d3df37388b8691823ca29c84ddfd3e33a4
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -216,8 +221,13 @@ public class FrmDeleteEvent extends javax.swing.JFrame {
         Event event = new Event("", txtNameToDelete.getText(), "", "");
         event = EventController.findEvent(event);
         String[] Datos = new String[4];
+<<<<<<< HEAD
         Datos[0] = event.getId();
         Datos[1] = event.getName();
+=======
+        Datos[0] = event.getName();
+        //Datos[1] = Integer.parseInt(.getId());
+>>>>>>> 5479a7d3df37388b8691823ca29c84ddfd3e33a4
         Datos[2] = event.getDate();
         Datos[3] = event.getDescription();
         txtNameToDelete.setText("");
