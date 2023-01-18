@@ -11,7 +11,9 @@ import java.awt.EventQueue;
  * @author Alejandro Andrade, Scriptal, DCCO_ESPE
  */
 public class FrmAboutUs extends javax.swing.JFrame {
-
+ public void setStatusCbmiDarkMode(boolean isSelected) {
+        this.cbmiDarkMode.setSelected(isSelected);
+    }
     /**
      * Creates new form FrmAboutUs
      */

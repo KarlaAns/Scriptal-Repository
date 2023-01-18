@@ -240,7 +240,9 @@ public class FrmEventMng extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+ public void setStatusCbmiDarkMode(boolean isSelected) {
+        this.cbmiDarkMode.setSelected(isSelected);
+    }
     private void mniHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniHomeActionPerformed
         FrmEventMng main = new FrmEventMng();
         main.setVisible(true);
@@ -257,7 +259,7 @@ public class FrmEventMng extends javax.swing.JFrame {
 
         FrmAboutUs mniAbout = new FrmAboutUs();
         mniAbout.setVisible(true);
-        this.dispose();
+
         if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
             mniAbout.setStatusCbmiDarkMode(false);
         } else {
@@ -316,6 +318,11 @@ public class FrmEventMng extends javax.swing.JFrame {
         // TODO add your handling code here:
         FrmCreateEvent btnAdd = new FrmCreateEvent();
         btnAdd.setVisible(true);
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+            btnAdd.setStatusCbmiDarkMode(false);
+        } else {
+            btnAdd.setStatusCbmiDarkMode(true);
+        }
         this.dispose();
     }//GEN-LAST:event_MnItmAddActionPerformed
 
@@ -323,6 +330,11 @@ public class FrmEventMng extends javax.swing.JFrame {
         // TODO add your handling code here:
         FrmSearchEvent btnSearch = new FrmSearchEvent();
         btnSearch.setVisible(true);
+    if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+            btnSearch.setStatusCbmiDarkMode(false);
+        } else {
+            btnSearch.setStatusCbmiDarkMode(true);
+        }
         this.dispose();
     }//GEN-LAST:event_MnItmSearchActionPerformed
 
@@ -330,6 +342,11 @@ public class FrmEventMng extends javax.swing.JFrame {
         // TODO add your handling code here:
         FrmUpdateEvent mniUpdate = new FrmUpdateEvent();
         mniUpdate.setVisible(true);
+                if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+            mniUpdate.setStatusCbmiDarkMode(false);
+        } else {
+            mniUpdate.setStatusCbmiDarkMode(true);
+        }
         this.dispose();
     }//GEN-LAST:event_MnItmUpdActionPerformed
 
@@ -337,6 +354,11 @@ public class FrmEventMng extends javax.swing.JFrame {
         // TODO add your handling code here:
         FrmDeleteEvent mniDelete = new FrmDeleteEvent();
         mniDelete.setVisible(true);
+                if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+            mniDelete.setStatusCbmiDarkMode(false);
+        } else {
+            mniDelete.setStatusCbmiDarkMode(true);
+        }
         this.dispose();
     }//GEN-LAST:event_MnItmDeleteActionPerformed
 
@@ -349,6 +371,14 @@ public class FrmEventMng extends javax.swing.JFrame {
 
     private void mniLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniLogOutActionPerformed
         // TODO add your handling code here:
+        FrmLogIn login = new FrmLogIn();
+        login.setVisible(true);
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+            login.setStatusCbmiDarkMode(false);
+        } else {
+            login.setStatusCbmiDarkMode(true);
+        }
+        this.dispose();
     }//GEN-LAST:event_mniLogOutActionPerformed
 
     /**

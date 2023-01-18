@@ -1,8 +1,11 @@
 package ec.edu.espe.studentsystem.view;
 
 import ec.edu.espe.studentsystem.controller.EventController;
+import ec.edu.espe.studentsystem.controller.Theme;
 import ec.edu.espe.studentsystem.model.Event;
+import java.awt.EventQueue;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -10,7 +13,10 @@ import javax.swing.table.DefaultTableModel;
  * @author Karla Ansatuña
  */
 public class FrmDeleteEvent extends javax.swing.JFrame {
-
+    
+ public void setStatusCbmiDarkMode(boolean isSelected) {
+        this.cbmiDarkMode.setSelected(isSelected);
+    }
     DefaultTableModel model = new DefaultTableModel();
 
     /**
@@ -48,6 +54,20 @@ public class FrmDeleteEvent extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
         btnSearch = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        mnStudentSystem = new javax.swing.JMenu();
+        mniHome = new javax.swing.JMenuItem();
+        mniAbout = new javax.swing.JMenuItem();
+        mniLogOut = new javax.swing.JMenuItem();
+        mnManage = new javax.swing.JMenu();
+        MnItmAdd = new javax.swing.JMenuItem();
+        MnItmSearch = new javax.swing.JMenuItem();
+        MnItmUpd = new javax.swing.JMenuItem();
+        MnItmDelete = new javax.swing.JMenuItem();
+        menuView = new javax.swing.JMenu();
+        cbmiDarkMode = new javax.swing.JCheckBoxMenuItem();
+        menuHelp = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -104,24 +124,27 @@ public class FrmDeleteEvent extends javax.swing.JFrame {
             }
         });
 
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 20, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 231, Short.MAX_VALUE)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 599, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(158, 158, 158))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 226, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 487, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -132,20 +155,27 @@ public class FrmDeleteEvent extends javax.swing.JFrame {
                                 .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(202, 202, 202))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtNameToDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(377, 377, 377))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(390, 390, 390))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(txtNameToDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(377, 377, 377))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 599, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(158, 158, 158))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(390, 390, 390))))))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnBack)
-                .addGap(4, 4, 4)
-                .addComponent(jLabel1)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(btnBack))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -156,10 +186,89 @@ public class FrmDeleteEvent extends javax.swing.JFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnDelete)
-                .addContainerGap(145, Short.MAX_VALUE))
+                .addContainerGap(126, Short.MAX_VALUE))
         );
 
-        txtNewDes.setEnabled(false);
+        mnStudentSystem.setText("StudentSystem");
+
+        mniHome.setText("Home");
+        mniHome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniHomeActionPerformed(evt);
+            }
+        });
+        mnStudentSystem.add(mniHome);
+
+        mniAbout.setText("About");
+        mniAbout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniAboutActionPerformed(evt);
+            }
+        });
+        mnStudentSystem.add(mniAbout);
+
+        mniLogOut.setText("Log Out");
+        mniLogOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniLogOutActionPerformed(evt);
+            }
+        });
+        mnStudentSystem.add(mniLogOut);
+
+        jMenuBar1.add(mnStudentSystem);
+
+        mnManage.setText("Manage");
+
+        MnItmAdd.setText("Add Event");
+        MnItmAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MnItmAddActionPerformed(evt);
+            }
+        });
+        mnManage.add(MnItmAdd);
+
+        MnItmSearch.setText("Search Event");
+        MnItmSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MnItmSearchActionPerformed(evt);
+            }
+        });
+        mnManage.add(MnItmSearch);
+
+        MnItmUpd.setText("Update Event");
+        MnItmUpd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MnItmUpdActionPerformed(evt);
+            }
+        });
+        mnManage.add(MnItmUpd);
+
+        MnItmDelete.setText("Delete Event");
+        MnItmDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MnItmDeleteActionPerformed(evt);
+            }
+        });
+        mnManage.add(MnItmDelete);
+
+        jMenuBar1.add(mnManage);
+
+        menuView.setText("View");
+
+        cbmiDarkMode.setText("Dark Mode");
+        cbmiDarkMode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbmiDarkModeActionPerformed(evt);
+            }
+        });
+        menuView.add(cbmiDarkMode);
+
+        jMenuBar1.add(menuView);
+
+        menuHelp.setText("Help");
+        jMenuBar1.add(menuHelp);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -229,6 +338,104 @@ public class FrmDeleteEvent extends javax.swing.JFrame {
         model.addRow(Datos);
     }//GEN-LAST:event_btnSearchActionPerformed
 
+    private void mniHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniHomeActionPerformed
+        FrmEventMng main = new FrmEventMng();
+        main.setVisible(true);
+        System.out.println(UIManager.getLookAndFeel().getName());
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+            main.setStatusCbmiDarkMode(false);
+        } else {
+            main.setStatusCbmiDarkMode(true);
+        }
+        this.dispose();
+    }//GEN-LAST:event_mniHomeActionPerformed
+
+    private void mniAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAboutActionPerformed
+
+        FrmAboutUs mniAbout = new FrmAboutUs();
+        mniAbout.setVisible(true);
+
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+            mniAbout.setStatusCbmiDarkMode(false);
+        } else {
+            mniAbout.setStatusCbmiDarkMode(true);
+        }
+        this.dispose();
+    }//GEN-LAST:event_mniAboutActionPerformed
+
+    private void mniLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniLogOutActionPerformed
+        // TODO add your handling code here:
+        FrmLogIn login = new FrmLogIn();
+        login.setVisible(true);
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+            login.setStatusCbmiDarkMode(false);
+        } else {
+            login.setStatusCbmiDarkMode(true);
+        }
+        this.dispose();
+    }//GEN-LAST:event_mniLogOutActionPerformed
+
+    private void MnItmAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnItmAddActionPerformed
+        // TODO add your handling code here:
+        FrmCreateEvent btnAdd = new FrmCreateEvent();
+        btnAdd.setVisible(true);
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+            btnAdd.setStatusCbmiDarkMode(false);
+        } else {
+            btnAdd.setStatusCbmiDarkMode(true);
+        }
+        this.dispose();
+    }//GEN-LAST:event_MnItmAddActionPerformed
+
+    private void MnItmSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnItmSearchActionPerformed
+        // TODO add your handling code here:
+        FrmSearchEvent btnSearch = new FrmSearchEvent();
+        btnSearch.setVisible(true);
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+            btnSearch.setStatusCbmiDarkMode(false);
+        } else {
+            btnSearch.setStatusCbmiDarkMode(true);
+        }
+        this.dispose();
+    }//GEN-LAST:event_MnItmSearchActionPerformed
+
+    private void MnItmUpdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnItmUpdActionPerformed
+        // TODO add your handling code here:
+        FrmUpdateEvent mniUpdate = new FrmUpdateEvent();
+        mniUpdate.setVisible(true);
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+            mniUpdate.setStatusCbmiDarkMode(false);
+        } else {
+            mniUpdate.setStatusCbmiDarkMode(true);
+        }
+        this.dispose();
+    }//GEN-LAST:event_MnItmUpdActionPerformed
+
+    private void MnItmDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnItmDeleteActionPerformed
+        // TODO add your handling code here:
+        FrmDeleteEvent mniDelete = new FrmDeleteEvent();
+        mniDelete.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_MnItmDeleteActionPerformed
+
+    private void cbmiDarkModeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbmiDarkModeActionPerformed
+        if (cbmiDarkMode.isSelected()) {
+            EventQueue.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    Theme.setDarkTheme();
+                }
+            });
+        } else {
+            EventQueue.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    Theme.setFlatLightLafTheme();
+                }
+            });
+        }
+    }//GEN-LAST:event_cbmiDarkModeActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -268,13 +475,27 @@ public class FrmDeleteEvent extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem MnItmAdd;
+    private javax.swing.JMenuItem MnItmDelete;
+    private javax.swing.JMenuItem MnItmSearch;
+    private javax.swing.JMenuItem MnItmUpd;
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnSearch;
+    private javax.swing.JCheckBoxMenuItem cbmiDarkMode;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JMenu menuHelp;
+    private javax.swing.JMenu menuView;
+    private javax.swing.JMenu mnManage;
+    private javax.swing.JMenu mnStudentSystem;
+    private javax.swing.JMenuItem mniAbout;
+    private javax.swing.JMenuItem mniHome;
+    private javax.swing.JMenuItem mniLogOut;
     private javax.swing.JTable table;
     private javax.swing.JTextField txtNameToDelete;
     // End of variables declaration//GEN-END:variables
