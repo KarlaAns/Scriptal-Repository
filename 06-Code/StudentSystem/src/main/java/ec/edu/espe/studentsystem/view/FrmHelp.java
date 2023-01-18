@@ -4,19 +4,24 @@
  */
 package ec.edu.espe.studentsystem.view;
 
+import ec.edu.espe.studentsystem.controller.Theme;
+import java.awt.EventQueue;
 import java.util.Properties;
 import javax.mail.Message;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author NW USER
  */
 public class FrmHelp extends javax.swing.JFrame {
-
+  public void setStatusCbmiDarkMode(boolean isSelected) {
+        this.cbmiDarkMode.setSelected(isSelected);
+    }
     /**
      * Creates new form FrmHelp
      */
@@ -43,6 +48,14 @@ public class FrmHelp extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        mnStudentSystem = new javax.swing.JMenu();
+        mniAbout = new javax.swing.JMenuItem();
+        mniLogOut = new javax.swing.JMenuItem();
+        mnManage = new javax.swing.JMenu();
+        menuView = new javax.swing.JMenu();
+        cbmiDarkMode = new javax.swing.JCheckBoxMenuItem();
+        menuHelp = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -58,6 +71,11 @@ public class FrmHelp extends javax.swing.JFrame {
         jScrollPane1.setViewportView(txtMessage);
 
         txtIssue.setToolTipText("The name of the problem");
+        txtIssue.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIssueKeyTyped(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 60)); // NOI18N
         jLabel1.setText("Need help?");
@@ -113,8 +131,43 @@ public class FrmHelp extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnSend)
-                .addContainerGap(140, Short.MAX_VALUE))
+                .addContainerGap(119, Short.MAX_VALUE))
         );
+
+        mnStudentSystem.setText("StudentSystem");
+
+        mniAbout.setText("About");
+        mniAbout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniAboutActionPerformed(evt);
+            }
+        });
+        mnStudentSystem.add(mniAbout);
+
+        mniLogOut.setText("Log Out");
+        mnStudentSystem.add(mniLogOut);
+
+        jMenuBar1.add(mnStudentSystem);
+
+        mnManage.setText("Manage");
+        jMenuBar1.add(mnManage);
+
+        menuView.setText("View");
+
+        cbmiDarkMode.setText("Dark Mode");
+        cbmiDarkMode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbmiDarkModeActionPerformed(evt);
+            }
+        });
+        menuView.add(cbmiDarkMode);
+
+        jMenuBar1.add(menuView);
+
+        menuHelp.setText("Help");
+        jMenuBar1.add(menuHelp);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -128,6 +181,7 @@ public class FrmHelp extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendActionPerformed
@@ -160,10 +214,51 @@ public class FrmHelp extends javax.swing.JFrame {
             transport.connect(emissorEmail, emissorPasscode);
             transport.sendMessage(mimicMessage, mimicMessage.getRecipients(Message.RecipientType.TO));
             transport.close();
+            JOptionPane.showMessageDialog(this,"The message has been sent! We will contact you as soon as we can.", "Done", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception e) {
             System.out.println(e);
         }
     }//GEN-LAST:event_btnSendActionPerformed
+
+    private void txtIssueKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIssueKeyTyped
+        // TODO add your handling code here:
+         char c = evt.getKeyChar();
+
+        if ((Character.isLetter(c)) || (Character.isWhitespace(c)) || (Character.isISOControl(c))) {
+            txtIssue.setEditable(true);
+
+        } else {
+            txtIssue.setEditable(false);
+            JOptionPane.showMessageDialog(this, c + " is not accepted here", "Warning on input data", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_txtIssueKeyTyped
+
+    private void mniAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAboutActionPerformed
+
+        FrmAboutUs newMniAbout = new FrmAboutUs();
+        newMniAbout.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_mniAboutActionPerformed
+
+    private void cbmiDarkModeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbmiDarkModeActionPerformed
+        if (cbmiDarkMode.isSelected())
+        {
+            EventQueue.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    Theme.setDarkTheme();
+                }
+            });
+        } else
+        {
+            EventQueue.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    Theme.setFlatLightLafTheme();
+                }
+            });
+        }
+    }//GEN-LAST:event_cbmiDarkModeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -202,12 +297,20 @@ public class FrmHelp extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSend;
+    private javax.swing.JCheckBoxMenuItem cbmiDarkMode;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JMenu menuHelp;
+    private javax.swing.JMenu menuView;
+    private javax.swing.JMenu mnManage;
+    private javax.swing.JMenu mnStudentSystem;
+    private javax.swing.JMenuItem mniAbout;
+    private javax.swing.JMenuItem mniLogOut;
     private javax.swing.JTextField txtIssue;
     private javax.swing.JTextArea txtMessage;
     // End of variables declaration//GEN-END:variables
