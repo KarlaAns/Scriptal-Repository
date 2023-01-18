@@ -10,12 +10,10 @@ import java.util.ArrayList;
 public class GradeReport {
     
     private String subject;
-    private ArrayList<String> grades;
     private double average;
 
     public GradeReport(String subject, ArrayList<String> grades, double average) {
         this.subject = subject;
-        this.grades = grades;
         this.average = average;
     }
 
@@ -31,20 +29,6 @@ public class GradeReport {
      */
     public void setSubject(String subject) {
         this.subject = subject;
-    }
-
-    /**
-     * @return the grades
-     */
-    public ArrayList<String> getGrades() {
-        return grades;
-    }
-
-    /**
-     * @param grades the grades to set
-     */
-    public void setGrades(ArrayList<String> grades) {
-        this.grades = grades;
     }
 
     /**

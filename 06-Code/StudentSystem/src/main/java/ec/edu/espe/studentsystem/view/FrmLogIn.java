@@ -325,15 +325,13 @@ public class FrmLogIn extends javax.swing.JFrame {
     }
 
     private void createFrameStudent() {
-        FrmStudent frmStudent = new FrmStudent();
+        FrmStudent frmStudent = new FrmStudent(getTfId(), getPfPassword());
         frmStudent.setVisible(true);
         if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
             frmStudent.setStatusCbmiDarkMode(false);
         }else{
             frmStudent.setStatusCbmiDarkMode(true);
         }
-        frmStudent.setId(getTfId());
-        frmStudent.setPassword(getPfPassword());
         this.dispose();
     }
 
