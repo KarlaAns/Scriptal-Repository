@@ -52,8 +52,6 @@ public class FrmAboutUs extends javax.swing.JFrame {
         lblAboutUs.setFont(new java.awt.Font("Corrupted File", 1, 72)); // NOI18N
         lblAboutUs.setText(" ABOUT US");
 
-        lblScriptal.setText("jLabel3");
-
         btnBack.setText("< Back");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -107,7 +105,6 @@ public class FrmAboutUs extends javax.swing.JFrame {
         );
 
         txtAreaDes.setEditable(false);
-        txtAreaDes.setBackground(javax.swing.UIManager.getDefaults().getColor("Panel.background"));
         txtAreaDes.setColumns(20);
         txtAreaDes.setFont(new java.awt.Font("Coolvetica Rg", 0, 18)); // NOI18N
         txtAreaDes.setRows(5);

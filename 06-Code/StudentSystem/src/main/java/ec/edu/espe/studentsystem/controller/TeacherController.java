@@ -86,13 +86,12 @@ public class TeacherController {
         activitiesCollection.insertOne(activityDoc);
     }
     
-    public static Activity findActivity(int id,String name){
+    public static Document findActivity(int id,String name){
         MongoCollection enrollmentsCollection = getConnection("activities");
 
         Bson filter = Filters.and(Filters.all("teacherId", id));
         MongoCursor<Document> activities = enrollmentsCollection.find(filter).iterator();
         Gson gson = new Gson();
-        ArrayList<Activity> activitiesFiltred = new ArrayList<>();
         Activity activity;
         try {
             while (activities.hasNext()) {
@@ -101,7 +100,7 @@ public class TeacherController {
                 activity = gson.fromJson(activityDoc, Activity.class);
                 
                 if(activity.getName().equals(name)){
-                    return activity;
+                    return activities.next();
                 }
             }
         } finally {

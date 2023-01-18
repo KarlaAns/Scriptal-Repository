@@ -15,6 +15,11 @@ public class Assignation {
         this.grade = grade;
     }
 
+    @Override
+    public String toString() {
+        return "Assignation{" + "StudentId=" + StudentId + ", grade=" + grade + '}';
+    }
+    
     /**
      * @return the StudentId
      */

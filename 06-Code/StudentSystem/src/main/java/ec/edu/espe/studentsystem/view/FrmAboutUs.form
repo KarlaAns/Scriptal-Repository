@@ -149,9 +149,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblScriptal">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="jLabel3"/>
-          </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btnBack">
           <Properties>
@@ -202,9 +199,6 @@
         <Component class="javax.swing.JTextArea" name="txtAreaDes">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="37" green="33" id="Panel.background" palette="3" red="33" type="palette"/>
-            </Property>
             <Property name="columns" type="int" value="20"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Coolvetica Rg" size="18" style="0"/>

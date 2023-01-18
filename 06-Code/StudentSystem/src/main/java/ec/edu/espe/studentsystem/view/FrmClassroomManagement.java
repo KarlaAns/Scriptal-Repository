@@ -339,6 +339,11 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
         mnStudentSystem.add(mniAbout);
 
         mniLogOut.setText("Log Out");
+        mniLogOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniLogOutActionPerformed(evt);
+            }
+        });
         mnStudentSystem.add(mniLogOut);
 
         jMenuBar1.add(mnStudentSystem);
@@ -413,7 +418,7 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
     }//GEN-LAST:event_cbmiDarkModeActionPerformed
 
     private void mniAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAboutActionPerformed
-
+        
         FrmAboutUs mniAbout = new FrmAboutUs();
         mniAbout.setVisible(true);
         this.dispose();
@@ -467,6 +472,10 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
         // TODO add your handling code here:
         showClassrooms();
     }//GEN-LAST:event_btnCleanActionPerformed
+
+    private void mniLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniLogOutActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mniLogOutActionPerformed
 
     /**
      * @param args the command line arguments

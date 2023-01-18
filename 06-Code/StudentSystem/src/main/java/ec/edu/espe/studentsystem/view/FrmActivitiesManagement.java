@@ -545,7 +545,7 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
     private void btnOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenActionPerformed
         // TODO add your handling code here:
         String activityName = txtAction.getText();
-        Activity activityData = findActivity((int)teacher.get("id"),activityName);
+        Document activityData = findActivity((int)teacher.get("id"),activityName);
 
         if (activityData != null) {
             FrmActivity frmActivity = new FrmActivity(activityData, teacher);
@@ -681,11 +681,19 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
     private void btnFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindActionPerformed
         // TODO add your handling code here:
         ArrayList<Activity> newActivity = new ArrayList<>();
-        
+        Activity activity;
         String name = txtName.getText();
-        Activity activityData = findActivity((int)teacher.get("id"),name);
+        Document activityData = findActivity((int)teacher.get("id"),name);
+        ArrayList<Assignation> acivityReport = new ArrayList<>();
+        Assignation asignationObj;
         if (activityData != null) {
-            newActivity.add(activityData);
+            ArrayList<Document> assignations = (ArrayList<Document>) activityData.get("activityReport");
+            for (Document assignation : assignations) {
+                asignationObj = new Assignation((int) assignation.get("studentId"), (double) assignation.get("grade"));
+                acivityReport.add(asignationObj);
+            }
+            activity = new Activity((String)activityData.get("subjectName"),(int)activityData.get("teacherId"),(String)activityData.get("name"),(String)activityData.get("shipping"),(String)activityData.get("deadline"),(String)activityData.get("comment"), (String) activityData.get("activityType"),acivityReport);
+            newActivity.add(activity);
             addToTable(newActivity);
         } else {
             JOptionPane.showMessageDialog(this, "We can't find the activity inserted", txtName.getText() + "Activity doesn't exist", JOptionPane.WARNING_MESSAGE);

@@ -4,17 +4,28 @@
  */
 package ec.edu.espe.studentsystem.view;
 
+import com.google.gson.Gson;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.model.Filters;
+import static ec.edu.espe.studentsystem.controller.ActivityController.findAllActivities;
+import static ec.edu.espe.studentsystem.controller.MongoConection.getConnection;
 import ec.edu.espe.studentsystem.controller.Theme;
 import static ec.edu.espe.studentsystem.controller.Theme.setFlatLightLafTheme;
 import ec.edu.espe.studentsystem.model.Activity;
+import ec.edu.espe.studentsystem.model.Assignation;
 import java.awt.EventQueue;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import org.bson.Document;
+import org.bson.conversions.Bson;
 
 /**
  *
@@ -22,7 +33,9 @@ import org.bson.Document;
  */
 public class FrmActivity extends javax.swing.JFrame {
 
-    private final Activity activityData;
+    DefaultTableModel dtm = new DefaultTableModel();
+
+    private final Document activityData;
     private final Document teacher;
 
     /**
@@ -31,27 +44,63 @@ public class FrmActivity extends javax.swing.JFrame {
      * @param activityData
      * @param teacher
      */
-    public FrmActivity(Activity activityData, Document teacher) {
+    public FrmActivity(Document activityData, Document teacher) {
         initComponents();
         this.activityData = activityData;
         this.teacher = teacher;
-        txtActivityName.setText((String) activityData.getName());
+        txtActivityName.setText((String) activityData.get("name"));
         fillInputs();
+
+        String[] head = new String[]{"ID", "Name", "Grade"};
+        dtm.setColumnIdentifiers(head);
+        tblStudentsAct.setModel(dtm);
+
+        DefaultTableCellRenderer Alinear = new DefaultTableCellRenderer();
+        Alinear.setHorizontalAlignment(SwingConstants.CENTER);
+        tblStudentsAct.getColumnModel().getColumn(0).setCellRenderer(Alinear);
+
+        showActivities();
     }
 
     public final void fillInputs() {
         SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
         Date shipping;
         try {
-            shipping = formato.parse(activityData.getShipping());
-            Date deadline = formato.parse(activityData.getDeadline());
-            txtName.setText(activityData.getName());
+            shipping = formato.parse((String) activityData.get("shipping"));
+            Date deadline = formato.parse((String) activityData.get("deadline"));
+            txtName.setText((String) activityData.get("name"));
             dtShipping.setDate(shipping);
             dtDeadline.setDate(deadline);
-            txtAComment.setText(activityData.getComment());
-            cmbType.setSelectedItem(activityData.getActivityType());
+            txtAComment.setText((String) activityData.get("comment"));
+            cmbType.setSelectedItem(activityData.get("activityType"));
+            
         } catch (ParseException ex) {
             Logger.getLogger(FrmActivity.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    final void showActivities() {
+
+        ArrayList<Document> assignations = (ArrayList<Document>) activityData.get("activityReport");
+        
+        addToTable(assignations);
+    }
+
+    void addToTable(ArrayList<Document> assignations) {
+        dtm.setRowCount(0);
+        MongoCollection studentsCollection = getConnection("students");
+        String studentName;
+        for (Document assignation : assignations) {
+
+            Bson filter = Filters.and(Filters.eq("id", (int)assignation.get("studentId")));
+            Document studentData = (Document) studentsCollection.find(filter).first();
+            if (studentData != null) {
+                studentName = (String) studentData.get("name");
+                dtm.addRow(new Object[]{assignation.get("studentId"),
+                    studentName,
+                    assignation.get("grade")
+                });
+            }
         }
     }
 
