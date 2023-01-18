@@ -80,6 +80,7 @@ public class FrmCreateEvent extends javax.swing.JFrame {
         menuView = new javax.swing.JMenu();
         cbmiDarkMode = new javax.swing.JCheckBoxMenuItem();
         menuHelp = new javax.swing.JMenu();
+        mnMail = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Event Managment");
@@ -265,6 +266,15 @@ public class FrmCreateEvent extends javax.swing.JFrame {
         jMenuBar1.add(menuView);
 
         menuHelp.setText("Help");
+
+        mnMail.setText("Mail");
+        mnMail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnMailActionPerformed(evt);
+            }
+        });
+        menuHelp.add(mnMail);
+
         jMenuBar1.add(menuHelp);
 
         setJMenuBar(jMenuBar1);
@@ -402,6 +412,17 @@ public class FrmCreateEvent extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cbmiDarkModeActionPerformed
 
+    private void mnMailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnMailActionPerformed
+        FrmHelp newHelp = new FrmHelp();
+        newHelp.setVisible(true);
+        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+            newHelp.setStatusCbmiDarkMode(false);
+        }else{
+            newHelp.setStatusCbmiDarkMode(true);
+        }
+        this.dispose();
+    }//GEN-LAST:event_mnMailActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -441,6 +462,7 @@ public class FrmCreateEvent extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JMenu menuHelp;
     private javax.swing.JMenu menuView;
+    private javax.swing.JMenuItem mnMail;
     private javax.swing.JMenu mnManage;
     private javax.swing.JMenu mnStudentSystem;
     private javax.swing.JMenuItem mniAbout;

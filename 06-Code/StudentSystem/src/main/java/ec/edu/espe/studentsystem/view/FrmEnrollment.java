@@ -2,15 +2,12 @@
 package ec.edu.espe.studentsystem.view;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
 import ec.edu.espe.studentsystem.controller.MongoConection;
 import ec.edu.espe.studentsystem.controller.Theme;
-import ec.edu.espe.studentsystem.model.GradeReport;
 import ec.edu.espe.studentsystem.model.Subject;
 import java.awt.EventQueue;
-import java.util.ArrayList;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import org.bson.Document;
@@ -63,6 +60,7 @@ public class FrmEnrollment extends javax.swing.JFrame {
         menuView = new javax.swing.JMenu();
         cbmiDarkMode = new javax.swing.JCheckBoxMenuItem();
         menuHelp = new javax.swing.JMenu();
+        mnMail = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -85,15 +83,13 @@ public class FrmEnrollment extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(267, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(362, Short.MAX_VALUE)
                         .addComponent(jLabel1)
                         .addGap(69, 69, 69)
                         .addComponent(lblAverageTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(33, 267, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(269, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -119,6 +115,11 @@ public class FrmEnrollment extends javax.swing.JFrame {
         mnStudentSystem.add(mniAbout);
 
         mniLogOut.setText("Log Out");
+        mniLogOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniLogOutActionPerformed(evt);
+            }
+        });
         mnStudentSystem.add(mniLogOut);
 
         jMenuBar1.add(mnStudentSystem);
@@ -148,6 +149,20 @@ public class FrmEnrollment extends javax.swing.JFrame {
         jMenuBar1.add(menuView);
 
         menuHelp.setText("Help");
+        menuHelp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuHelpActionPerformed(evt);
+            }
+        });
+
+        mnMail.setText("Mail");
+        mnMail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnMailActionPerformed(evt);
+            }
+        });
+        menuHelp.add(mnMail);
+
         jMenuBar1.add(menuHelp);
 
         setJMenuBar(jMenuBar1);
@@ -174,8 +189,13 @@ public class FrmEnrollment extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void mniAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAboutActionPerformed
-        FrmAboutUs newMniAbout = new FrmAboutUs();
-        newMniAbout.setVisible(true);
+        FrmAboutUs aboutUs = new FrmAboutUs();
+        aboutUs.setVisible(true);
+        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+            aboutUs.setStatusCbmiDarkMode(false);
+        }else{
+            aboutUs.setStatusCbmiDarkMode(true);
+        }
         this.dispose();
     }//GEN-LAST:event_mniAboutActionPerformed
 
@@ -209,6 +229,39 @@ public class FrmEnrollment extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_mnActivityActionPerformed
 
+    private void menuHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuHelpActionPerformed
+        FrmHelp newHelp = new FrmHelp();
+        newHelp.setVisible(true);
+        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+            newHelp.setStatusCbmiDarkMode(false);
+        }else{
+            newHelp.setStatusCbmiDarkMode(true);
+        }
+        this.dispose();
+    }//GEN-LAST:event_menuHelpActionPerformed
+
+    private void mniLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniLogOutActionPerformed
+        FrmMain main = new FrmMain();
+        main.setVisible(true);
+        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+            main.setStatusCbmiDarkMode(false);
+        }else{
+            main.setStatusCbmiDarkMode(true);
+        }
+        this.dispose();
+    }//GEN-LAST:event_mniLogOutActionPerformed
+
+    private void mnMailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnMailActionPerformed
+        FrmHelp newHelp = new FrmHelp();
+        newHelp.setVisible(true);
+        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+            newHelp.setStatusCbmiDarkMode(false);
+        }else{
+            newHelp.setStatusCbmiDarkMode(true);
+        }
+        this.dispose();
+    }//GEN-LAST:event_mnMailActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -233,6 +286,7 @@ public class FrmEnrollment extends javax.swing.JFrame {
     private javax.swing.JMenu menuHelp;
     private javax.swing.JMenu menuView;
     private javax.swing.JMenuItem mnActivity;
+    private javax.swing.JMenuItem mnMail;
     private javax.swing.JMenu mnManage;
     private javax.swing.JMenu mnStudentSystem;
     private javax.swing.JMenuItem mniAbout;

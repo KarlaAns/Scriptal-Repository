@@ -217,6 +217,11 @@ public class FrmEventMng extends javax.swing.JFrame {
         jMenuBar1.add(menuView);
 
         menuHelp.setText("Help");
+        menuHelp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuHelpActionPerformed(evt);
+            }
+        });
         jMenuBar1.add(menuHelp);
 
         setJMenuBar(jMenuBar1);
@@ -330,7 +335,7 @@ public class FrmEventMng extends javax.swing.JFrame {
         // TODO add your handling code here:
         FrmSearchEvent btnSearch = new FrmSearchEvent();
         btnSearch.setVisible(true);
-    if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
             btnSearch.setStatusCbmiDarkMode(false);
         } else {
             btnSearch.setStatusCbmiDarkMode(true);
@@ -342,7 +347,7 @@ public class FrmEventMng extends javax.swing.JFrame {
         // TODO add your handling code here:
         FrmUpdateEvent mniUpdate = new FrmUpdateEvent();
         mniUpdate.setVisible(true);
-                if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
             mniUpdate.setStatusCbmiDarkMode(false);
         } else {
             mniUpdate.setStatusCbmiDarkMode(true);
@@ -354,7 +359,7 @@ public class FrmEventMng extends javax.swing.JFrame {
         // TODO add your handling code here:
         FrmDeleteEvent mniDelete = new FrmDeleteEvent();
         mniDelete.setVisible(true);
-                if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
             mniDelete.setStatusCbmiDarkMode(false);
         } else {
             mniDelete.setStatusCbmiDarkMode(true);
@@ -380,6 +385,17 @@ public class FrmEventMng extends javax.swing.JFrame {
         }
         this.dispose();
     }//GEN-LAST:event_mniLogOutActionPerformed
+
+    private void menuHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuHelpActionPerformed
+        FrmHelp newHelp = new FrmHelp();
+        newHelp.setVisible(true);
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+            newHelp.setStatusCbmiDarkMode(false);
+        } else {
+            newHelp.setStatusCbmiDarkMode(true);
+        }
+        this.dispose();
+    }//GEN-LAST:event_menuHelpActionPerformed
 
     /**
      * @param args the command line arguments
