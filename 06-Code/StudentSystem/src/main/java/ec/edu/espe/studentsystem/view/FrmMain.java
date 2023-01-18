@@ -212,7 +212,6 @@ public class FrmMain extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_menuHelpActionPerformed
 
-<<<<<<< HEAD
     private void mnMailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnMailActionPerformed
         FrmHelp newHelp = new FrmHelp();
         newHelp.setVisible(true);
@@ -224,9 +223,6 @@ public class FrmMain extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_mnMailActionPerformed
 
-
-=======
->>>>>>> 71a18870003d2e10e88a61e3c4d5afb14bb604c3
     /**
      * @param args the command line arguments
      */
