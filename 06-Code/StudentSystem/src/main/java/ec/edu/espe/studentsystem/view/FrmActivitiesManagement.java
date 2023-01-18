@@ -25,6 +25,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import org.bson.Document;
@@ -78,9 +79,9 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
         dtm.setRowCount(0);
         for (Activity activity : activities) {
             dtm.addRow(new Object[]{activity.getName(),
-                 activity.getActivityType(),
-                 activity.getShipping(),
-                 activity.getDeadline()
+                activity.getActivityType(),
+                activity.getShipping(),
+                activity.getDeadline()
             });
         }
     }
@@ -128,10 +129,10 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
         mnStudentSystem = new javax.swing.JMenu();
         mniAbout = new javax.swing.JMenuItem();
         mniLogOut = new javax.swing.JMenuItem();
-        mnManage = new javax.swing.JMenu();
         menuView = new javax.swing.JMenu();
         cbmiDarkMode = new javax.swing.JCheckBoxMenuItem();
         menuHelp = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -468,12 +469,14 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
         mnStudentSystem.add(mniAbout);
 
         mniLogOut.setText("Log Out");
+        mniLogOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniLogOutActionPerformed(evt);
+            }
+        });
         mnStudentSystem.add(mniLogOut);
 
         jMenuBar1.add(mnStudentSystem);
-
-        mnManage.setText("Manage");
-        jMenuBar1.add(mnManage);
 
         menuView.setText("View");
 
@@ -488,6 +491,15 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
         jMenuBar1.add(menuView);
 
         menuHelp.setText("Help");
+
+        jMenuItem1.setText("Mail");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        menuHelp.add(jMenuItem1);
+
         jMenuBar1.add(menuHelp);
 
         setJMenuBar(jMenuBar1);
@@ -545,7 +557,7 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
     private void btnOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenActionPerformed
         // TODO add your handling code here:
         String activityName = txtAction.getText();
-        Document activityData = findActivity((int)teacher.get("id"),activityName);
+        Document activityData = findActivity((int) teacher.get("id"), activityName);
 
         if (activityData != null) {
             FrmActivity frmActivity = new FrmActivity(activityData, teacher);
@@ -568,7 +580,14 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
 
     private void mniAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAboutActionPerformed
         // TODO add your handling code here:
-
+        FrmAboutUs aboutUs = new FrmAboutUs();
+        aboutUs.setVisible(true);
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+            aboutUs.setStatusCbmiDarkMode(false);
+        } else {
+            aboutUs.setStatusCbmiDarkMode(true);
+        }
+        this.dispose();
     }//GEN-LAST:event_mniAboutActionPerformed
 
     private void cbmiDarkModeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbmiDarkModeActionPerformed
@@ -683,7 +702,7 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
         ArrayList<Activity> newActivity = new ArrayList<>();
         Activity activity;
         String name = txtName.getText();
-        Document activityData = findActivity((int)teacher.get("id"),name);
+        Document activityData = findActivity((int) teacher.get("id"), name);
         ArrayList<Assignation> acivityReport = new ArrayList<>();
         Assignation asignationObj;
         if (activityData != null) {
@@ -692,7 +711,7 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
                 asignationObj = new Assignation((int) assignation.get("studentId"), (double) assignation.get("grade"));
                 acivityReport.add(asignationObj);
             }
-            activity = new Activity((String)activityData.get("subjectName"),(int)activityData.get("teacherId"),(String)activityData.get("name"),(String)activityData.get("shipping"),(String)activityData.get("deadline"),(String)activityData.get("comment"), (String) activityData.get("activityType"),acivityReport);
+            activity = new Activity((String) activityData.get("subjectName"), (int) activityData.get("teacherId"), (String) activityData.get("name"), (String) activityData.get("shipping"), (String) activityData.get("deadline"), (String) activityData.get("comment"), (String) activityData.get("activityType"), acivityReport);
             newActivity.add(activity);
             addToTable(newActivity);
         } else {
@@ -713,6 +732,30 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
         // TODO add your handling code here:
         showActivities((String) cmbClassrooms.getSelectedItem());
     }//GEN-LAST:event_btnCleanActionPerformed
+
+    private void mniLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniLogOutActionPerformed
+        // TODO add your handling code here:
+        FrmMain main = new FrmMain();
+        main.setVisible(true);
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+            main.setStatusCbmiDarkMode(false);
+        } else {
+            main.setStatusCbmiDarkMode(true);
+        }
+        this.dispose();
+    }//GEN-LAST:event_mniLogOutActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        FrmHelp newHelp = new FrmHelp();
+        newHelp.setVisible(true);
+        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+            newHelp.setStatusCbmiDarkMode(false);
+        }else{
+            newHelp.setStatusCbmiDarkMode(true);
+        }
+        this.dispose();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -751,11 +794,11 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lbClassroomName;
     private javax.swing.JMenu menuHelp;
     private javax.swing.JMenu menuView;
-    private javax.swing.JMenu mnManage;
     private javax.swing.JMenu mnStudentSystem;
     private javax.swing.JMenuItem mniAbout;
     private javax.swing.JMenuItem mniLogOut;

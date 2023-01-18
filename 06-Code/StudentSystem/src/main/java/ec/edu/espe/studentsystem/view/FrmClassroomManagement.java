@@ -1,4 +1,3 @@
-
 package ec.edu.espe.studentsystem.view;
 
 import static ec.edu.espe.studentsystem.controller.ClassroomController.countNumberStudents;
@@ -14,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import org.bson.Document;
@@ -25,42 +25,41 @@ import org.bson.Document;
 public class FrmClassroomManagement extends javax.swing.JFrame {
 
     DefaultTableModel dtm = new DefaultTableModel();
-    
+
     private final Document teacher;
 
     /**
      * Creates new form FrmClassroom
+     *
      * @param teacher
      */
     public FrmClassroomManagement(Document teacher) {
         initComponents();
-        this.teacher=teacher;
-        
+        this.teacher = teacher;
+
         String[] head = new String[]{"Name"};
         dtm.setColumnIdentifiers(head);
         tblAssignments.setModel(dtm);
-        
+
         DefaultTableCellRenderer Alinear = new DefaultTableCellRenderer();
         Alinear.setHorizontalAlignment(SwingConstants.CENTER);
         tblAssignments.getColumnModel().getColumn(0).setCellRenderer(Alinear);
-        
+
         showClassrooms();
     }
 
-    final void showClassrooms(){
-        ArrayList<String> classrooms =  (ArrayList<String>) teacher.get("classrooms");
+    final void showClassrooms() {
+        ArrayList<String> classrooms = (ArrayList<String>) teacher.get("classrooms");
         addToTable(classrooms);
     }
-    
-    void addToTable(ArrayList classrooms){
+
+    void addToTable(ArrayList classrooms) {
         dtm.setRowCount(0);
         for (Object classroom : classrooms) {
             dtm.addRow(new Object[]{classroom});
         }
     }
-    
-    
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -92,10 +91,10 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
         mnStudentSystem = new javax.swing.JMenu();
         mniAbout = new javax.swing.JMenuItem();
         mniLogOut = new javax.swing.JMenuItem();
-        mnManage = new javax.swing.JMenu();
         menuView = new javax.swing.JMenu();
         cbmiDarkMode = new javax.swing.JCheckBoxMenuItem();
         menuHelp = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -348,9 +347,6 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
 
         jMenuBar1.add(mnStudentSystem);
 
-        mnManage.setText("Manage");
-        jMenuBar1.add(mnManage);
-
         menuView.setText("View");
 
         cbmiDarkMode.setText("Dark Mode");
@@ -364,6 +360,15 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
         jMenuBar1.add(menuView);
 
         menuHelp.setText("Help");
+
+        jMenuItem1.setText("Mail");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        menuHelp.add(jMenuItem1);
+
         jMenuBar1.add(menuHelp);
 
         setJMenuBar(jMenuBar1);
@@ -418,31 +423,35 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
     }//GEN-LAST:event_cbmiDarkModeActionPerformed
 
     private void mniAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAboutActionPerformed
-        
-        FrmAboutUs mniAbout = new FrmAboutUs();
-        mniAbout.setVisible(true);
+        FrmAboutUs aboutUs = new FrmAboutUs();
+        aboutUs.setVisible(true);
+        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+            aboutUs.setStatusCbmiDarkMode(false);
+        }else{
+            aboutUs.setStatusCbmiDarkMode(true);
+        }
         this.dispose();
     }//GEN-LAST:event_mniAboutActionPerformed
 
     private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
         // TODO add your handling code here:
         try {
-            createClassroom(txtName.getText(),teacher);
+            createClassroom(txtName.getText(), teacher);
             showClassrooms();
-            JOptionPane.showMessageDialog(this,txtName.getText()+" class added succesfully!","Classroom insertion",JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, txtName.getText() + " class added succesfully!", "Classroom insertion", JOptionPane.INFORMATION_MESSAGE);
         } catch (HeadlessException e) {
-            JOptionPane.showMessageDialog(this,"An error has occurred","Classroom insertion",JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "An error has occurred", "Classroom insertion", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btnNewActionPerformed
 
     private void btnFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindActionPerformed
         // TODO add your handling code here:
-        ArrayList<String> classroom = findClassroom(txtName.getText(),teacher);
+        ArrayList<String> classroom = findClassroom(txtName.getText(), teacher);
 
-        if(classroom!=null){
+        if (classroom != null) {
             addToTable(classroom);
-        }else{
-            JOptionPane.showMessageDialog(this,txtName.getText()+" classroom not found","Classroom serch",JOptionPane.WARNING_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, txtName.getText() + " classroom not found", "Classroom serch", JOptionPane.WARNING_MESSAGE);
         }
 
     }//GEN-LAST:event_btnFindActionPerformed
@@ -459,12 +468,12 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
         // TODO add your handling code here:
         String classroomName = txtActionName.getText();
         int teacherId = teacher.getInteger("id");
-        if(enterToClassroom(classroomName,teacherId)){
-            FrmActivitiesManagement frmActivity = new FrmActivitiesManagement(classroomName,teacher);
+        if (enterToClassroom(classroomName, teacherId)) {
+            FrmActivitiesManagement frmActivity = new FrmActivitiesManagement(classroomName, teacher);
             frmActivity.setVisible(true);
             this.dispose();
-        }else{
-            JOptionPane.showMessageDialog(this,"We can't find the classroom inserted","Warning on input data",JOptionPane.WARNING_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "We can't find the classroom inserted", "Warning on input data", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btnOpenActionPerformed
 
@@ -475,7 +484,26 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
 
     private void mniLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniLogOutActionPerformed
         // TODO add your handling code here:
+        FrmMain main = new FrmMain();
+        main.setVisible(true);
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+            main.setStatusCbmiDarkMode(false);
+        } else {
+            main.setStatusCbmiDarkMode(true);
+        }
+        this.dispose();
     }//GEN-LAST:event_mniLogOutActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        FrmHelp newHelp = new FrmHelp();
+        newHelp.setVisible(true);
+        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+            newHelp.setStatusCbmiDarkMode(false);
+        }else{
+            newHelp.setStatusCbmiDarkMode(true);
+        }
+        this.dispose();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -504,9 +532,9 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenu menuHelp;
     private javax.swing.JMenu menuView;
-    private javax.swing.JMenu mnManage;
     private javax.swing.JMenu mnStudentSystem;
     private javax.swing.JMenuItem mniAbout;
     private javax.swing.JMenuItem mniLogOut;
@@ -519,7 +547,7 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
     private javax.swing.JTextField txtActionName;
     private javax.swing.JTextField txtName;
     // End of variables declaration//GEN-END:variables
-    
+
     public boolean getStatusCbmiDarkMode() {
         return cbmiDarkMode.isSelected();
     }
