@@ -8,6 +8,7 @@ import static ec.edu.espe.studentsystem.controller.ActivityController.establishA
 import static ec.edu.espe.studentsystem.controller.ClassroomController.enterToActivity;
 import static ec.edu.espe.studentsystem.controller.ClassroomController.readClassrooms;
 import static ec.edu.espe.studentsystem.controller.TeacherController.createActivity;
+import static ec.edu.espe.studentsystem.controller.TeacherController.findActivity;
 import ec.edu.espe.studentsystem.controller.Theme;
 import static ec.edu.espe.studentsystem.controller.Theme.setFlatLightLafTheme;
 import ec.edu.espe.studentsystem.model.Activity;
@@ -16,9 +17,12 @@ import ec.edu.espe.studentsystem.model.Assignation;
 import java.awt.EventQueue;
 import java.awt.HeadlessException;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import org.bson.Document;
 
@@ -42,6 +46,11 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
         addClassroomsToCmb();
         this.teacher = teacher;
         cmbClassrooms.setSelectedItem(classroomName);
+        String selectedItem = (String) cmbClassrooms.getSelectedItem();
+        if (!selectedItem.equals("Classrooms")) {
+            enableInputs(selectedItem);
+        }
+
         this.classroomName = classroomName;
     }
 
@@ -491,7 +500,6 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
             FrmActivity frmActivity = new FrmActivity(activityName);
             frmActivity.setVisible(true);
             this.dispose();
-            System.out.println("YEIII");
         } else {
             JOptionPane.showMessageDialog(this, "We can't find the activity inserted", "Activity insertion", JOptionPane.WARNING_MESSAGE);
         }
@@ -542,7 +550,7 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnChangeActActionPerformed
 
-    public void enableInputs(String selectedClassroom) {
+    public final void enableInputs(String selectedClassroom) {
         lbClassroomName.setText(selectedClassroom);
         txtName.setEnabled(true);
         cmbType.setEnabled(true);
@@ -611,16 +619,34 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
             activity = new Activity(actName, teacherId, txtName.getText(), shippingStr, deadlineStr, txtAComment.getText(), actType, activityReport);
             System.out.println(activity.getActivityReport().get(0));
             createActivity(activity);
-            JOptionPane.showMessageDialog(this,txtName.getText()+" activity added succesfully!","Activity insertion",JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, txtName.getText() + " activity added succesfully!", "Activity insertion", JOptionPane.INFORMATION_MESSAGE);
 
         } catch (HeadlessException e) {
-            JOptionPane.showMessageDialog(this, "An Error has occurred", "Activity insertion", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this,"We can't find the activity inserted",txtName.getText()+" activity doesn't exist",JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btnNewAssignmentActionPerformed
 
     private void btnFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindActionPerformed
         // TODO add your handling code here:
+        SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
+
         String name = txtName.getText();
+        Document activityData = findActivity(name);
+        if (activityData != null) {
+            try {
+                Date shipping = formato.parse((String) activityData.get("shipping"));
+                Date deadline = formato.parse((String) activityData.get("deadline"));
+                txtName.setText(name);
+                dtShipping.setDate(shipping);
+                dtDeadline.setDate(deadline);
+                txtAComment.setText((String) activityData.get("comment"));
+                cmbType.setSelectedItem(activityData.get("activityType"));
+            } catch (ParseException ex) {
+                Logger.getLogger(FrmActivitiesManagement.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            
+        }
 
     }//GEN-LAST:event_btnFindActionPerformed
 

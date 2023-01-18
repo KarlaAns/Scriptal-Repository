@@ -39,10 +39,6 @@ public class ActivityController {
         }
     }
     
-    public static void createActivity(){
-        
-    }
-    
     public static ArrayList<Assignation> establishAssignation(String className){
         Gson gson = new Gson();
         ArrayList<Assignation> activityReport = new ArrayList<>();

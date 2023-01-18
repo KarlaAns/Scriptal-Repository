@@ -47,12 +47,18 @@ public class TeacherController {
         return null;
     }
     
-    public static boolean enterToClassroom(String classroomName){
-        MongoCollection classroomsCollection = getConnection("classrooms");
-        Bson filter = Filters.and(Filters.eq("name", classroomName));
-        Document dataExistance = (Document) classroomsCollection.find(filter).first();
+    public static boolean enterToClassroom(String classroomName, int teacherId){
+        MongoCollection teacherCollection = getConnection("teachers");
+        Bson filter = Filters.and(Filters.eq("id", teacherId));
+        Document teacherData = (Document) teacherCollection.find(filter).first();
+        ArrayList <String> classrooms = (ArrayList <String>) teacherData.get("classrooms");
         
-        return dataExistance!=null;
+        for (String classroom : classrooms) {
+            if(classroom.equals(classroomName)){
+                return true;
+            }
+        }
+        return false;
     }
     
     public static void createActivity(Activity activity){
@@ -75,5 +81,13 @@ public class TeacherController {
                                              .append("activityType", activity.getActivityType())
                                              .append("activityReport", activityReportDoc);
         activitiesCollection.insertOne(activityDoc);
+    }
+    
+    public static Document findActivity(String name){
+        MongoCollection activityCollection = getConnection("activities");
+        Bson filter = Filters.and(Filters.eq("name", name));
+        Document dataActivity = (Document) activityCollection.find(filter).first();
+        
+        return dataActivity;
     }
 }

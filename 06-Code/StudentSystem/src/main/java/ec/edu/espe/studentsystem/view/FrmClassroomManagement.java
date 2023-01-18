@@ -457,8 +457,8 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
     private void btnOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenActionPerformed
         // TODO add your handling code here:
         String classroomName = txtActionName.getText();
-        
-        if(!enterToClassroom(classroomName)){
+        int teacherId = teacher.getInteger("id");
+        if(enterToClassroom(classroomName,teacherId)){
             FrmActivitiesManagement frmActivity = new FrmActivitiesManagement(classroomName,teacher);
             frmActivity.setVisible(true);
             this.dispose();
