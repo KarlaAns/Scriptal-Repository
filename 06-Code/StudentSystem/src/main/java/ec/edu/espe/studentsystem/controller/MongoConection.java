@@ -25,7 +25,7 @@ public class MongoConection {
             MongoClient mc = MongoClients.create(url);
             MongoDatabase database = mc.getDatabase(dataBase);
             MongoCollection<Document> c = database.getCollection(collection);
-            System.out.println("Successfully connected to MongoDB Atlas");
+            
             return c;
         } catch (MongoClientException e) {
             System.out.println("Error connecting to MongoDB Atlas: " + e.getMessage());
