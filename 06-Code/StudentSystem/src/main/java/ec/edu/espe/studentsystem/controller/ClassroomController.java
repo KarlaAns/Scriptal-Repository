@@ -54,16 +54,6 @@ public class ClassroomController {
         return null;
     }
 
-    public static Document enterToActivity(String activityName) {
-        Document dataActivity;
-        MongoCollection activityCollection = getConnection("activities");
-
-        Bson filter = Filters.and(Filters.eq("name", activityName));
-        dataActivity = (Document) activityCollection.find(filter).first();
-        System.out.println("---------->   " + dataActivity);
-        return dataActivity;
-    }
-
     public static Document findTeacher(int teacherId) {
         Document dataTeacher;
         MongoCollection teacherCollection = getConnection("teachers");
