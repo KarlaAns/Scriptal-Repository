@@ -1,24 +1,36 @@
-
 package ec.edu.espe.studentsystem.view;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.model.Filters;
+import ec.edu.espe.studentsystem.controller.MongoConection;
 import ec.edu.espe.studentsystem.controller.Theme;
+import ec.edu.espe.studentsystem.model.Student;
 import java.awt.EventQueue;
 import javax.swing.UIManager;
+import org.bson.Document;
+import org.bson.conversions.Bson;
 
 /**
  *
  * @author Alejandro Andrade, Scriptal, DCCO_ESPE
  */
 public class FrmStudent extends javax.swing.JFrame {
-    
+
     private int id = 0;
     private String password = "";
 
     /**
      * Creates new form FrmStudent
+     * @param id
+     * @param password
      */
-    public FrmStudent() {
+    public FrmStudent(int id, String password) {
+        this.id = id;
+        this.password = password;
         initComponents();
+        lblStudent.setText(getStudentName());
     }
 
     /**
@@ -126,17 +138,19 @@ public class FrmStudent extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblStudent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblStudent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(351, 351, 351)
+                        .addComponent(btnActivity)
+                        .addGap(147, 147, 147)
+                        .addComponent(btnEnrollment)
+                        .addGap(0, 336, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(351, 351, 351)
-                .addComponent(btnActivity)
-                .addGap(147, 147, 147)
-                .addComponent(btnEnrollment)
-                .addContainerGap(342, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -157,14 +171,16 @@ public class FrmStudent extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cbmiDarkModeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbmiDarkModeActionPerformed
-        if (cbmiDarkMode.isSelected()) {
+        if (cbmiDarkMode.isSelected())
+        {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     Theme.setDarkTheme();
                 }
             });
-        } else {
+        } else
+        {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
@@ -189,11 +205,13 @@ public class FrmStudent extends javax.swing.JFrame {
     }//GEN-LAST:event_mnActivityActionPerformed
 
     private void openFrmActivities() {
-        FrmActivities frmActivities = new FrmActivities();
+        FrmStudentsActivities frmActivities = new FrmStudentsActivities(id);
         frmActivities.setVisible(true);
-        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName()))
+        {
             frmActivities.setStatusCbmiDarkMode(false);
-        }else{
+        } else
+        {
             frmActivities.setStatusCbmiDarkMode(true);
         }
         this.dispose();
@@ -208,16 +226,17 @@ public class FrmStudent extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEnrollmentActionPerformed
 
     private void openFrmEnrollment() {
-        FrmEnrollment frmEnrollment = new FrmEnrollment();
+        FrmEnrollment frmEnrollment = new FrmEnrollment(id);
         frmEnrollment.setVisible(true);
-        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName()))
+        {
             frmEnrollment.setStatusCbmiDarkMode(false);
-        }else{
+        } else
+        {
             frmEnrollment.setStatusCbmiDarkMode(true);
         }
         frmEnrollment.setId(id);
         frmEnrollment.setPassword(password);
-        frmEnrollment.setLabelId(String.valueOf(id));
         this.dispose();
     }
 
@@ -230,7 +249,7 @@ public class FrmStudent extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmStudent().setVisible(true);
+                new FrmStudent(0, "").setVisible(true);
             }
         });
     }
@@ -251,7 +270,7 @@ public class FrmStudent extends javax.swing.JFrame {
     private javax.swing.JMenuItem mniAbout;
     private javax.swing.JMenuItem mniLogOut;
     // End of variables declaration//GEN-END:variables
-    
+
     public boolean getStatusCbmiDarkMode() {
         return cbmiDarkMode.isSelected();
     }
@@ -286,5 +305,22 @@ public class FrmStudent extends javax.swing.JFrame {
      */
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    private String getStudentName() {
+        String collection = "students";
+        String studentName = "";
+        Gson gson = new Gson();
+
+        MongoCollection<Document> studentsCollection = MongoConection.getConnection(collection);
+        Bson bsonFilter = Filters.eq("id", id);
+        Document doc = studentsCollection.find(Filters.and(bsonFilter)).first();
+        String studentDoc = doc.toJson();
+        TypeToken<Student> type = new TypeToken<Student>() {};
+        Student student = gson.fromJson(studentDoc, type.getType());
+        studentName = student.getName();
+
+        return studentName;
+    
     }
 }
