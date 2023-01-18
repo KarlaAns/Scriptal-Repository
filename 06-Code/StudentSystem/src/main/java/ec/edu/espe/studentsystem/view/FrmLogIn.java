@@ -40,11 +40,11 @@ public class FrmLogIn extends javax.swing.JFrame {
         mnStudentSystem = new javax.swing.JMenu();
         mniHome = new javax.swing.JMenuItem();
         mniAbout = new javax.swing.JMenuItem();
-        mniLogOut = new javax.swing.JMenuItem();
         mnManage = new javax.swing.JMenu();
         menuView = new javax.swing.JMenu();
         cbmiDarkMode = new javax.swing.JCheckBoxMenuItem();
         menuHelp = new javax.swing.JMenu();
+        mnMail = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -134,9 +134,6 @@ public class FrmLogIn extends javax.swing.JFrame {
         });
         mnStudentSystem.add(mniAbout);
 
-        mniLogOut.setText("Log Out");
-        mnStudentSystem.add(mniLogOut);
-
         jMenuBar1.add(mnStudentSystem);
 
         mnManage.setText("Manage");
@@ -155,6 +152,20 @@ public class FrmLogIn extends javax.swing.JFrame {
         jMenuBar1.add(menuView);
 
         menuHelp.setText("Help");
+        menuHelp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuHelpActionPerformed(evt);
+            }
+        });
+
+        mnMail.setText("Mail");
+        mnMail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnMailActionPerformed(evt);
+            }
+        });
+        menuHelp.add(mnMail);
+
         jMenuBar1.add(menuHelp);
 
         setJMenuBar(jMenuBar1);
@@ -184,8 +195,13 @@ public class FrmLogIn extends javax.swing.JFrame {
 
     private void mniAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAboutActionPerformed
 
-        FrmAboutUs mniAbout = new FrmAboutUs();
-        mniAbout.setVisible(true);
+        FrmAboutUs aboutUs = new FrmAboutUs();
+        aboutUs.setVisible(true);
+        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+            aboutUs.setStatusCbmiDarkMode(false);
+        }else{
+            aboutUs.setStatusCbmiDarkMode(true);
+        }
         this.dispose();
     }//GEN-LAST:event_mniAboutActionPerformed
 
@@ -245,6 +261,28 @@ public class FrmLogIn extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnSubmit2ActionPerformed
 
+    private void menuHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuHelpActionPerformed
+        FrmHelp newHelp = new FrmHelp();
+        newHelp.setVisible(true);
+        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+            newHelp.setStatusCbmiDarkMode(false);
+        }else{
+            newHelp.setStatusCbmiDarkMode(true);
+        }
+        this.dispose();
+    }//GEN-LAST:event_menuHelpActionPerformed
+
+    private void mnMailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnMailActionPerformed
+        FrmHelp newHelp = new FrmHelp();
+        newHelp.setVisible(true);
+        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+            newHelp.setStatusCbmiDarkMode(false);
+        }else{
+            newHelp.setStatusCbmiDarkMode(true);
+        }
+        this.dispose();
+    }//GEN-LAST:event_mnMailActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -259,30 +297,23 @@ public class FrmLogIn extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnSubmit;
     private javax.swing.JButton btnSubmit2;
     private javax.swing.JCheckBoxMenuItem cbmiDarkMode;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JLabel lblID;
     private javax.swing.JLabel lblID2;
-    private javax.swing.JLabel lblPass;
     private javax.swing.JLabel lblPass2;
     private javax.swing.JMenu menuHelp;
     private javax.swing.JMenu menuView;
+    private javax.swing.JMenuItem mnMail;
     private javax.swing.JMenu mnManage;
     private javax.swing.JMenu mnStudentSystem;
     private javax.swing.JMenuItem mniAbout;
     private javax.swing.JMenuItem mniHome;
-    private javax.swing.JMenuItem mniLogOut;
     private javax.swing.JPasswordField pfPassword;
     private javax.swing.JTextField tfId;
-    private javax.swing.JTextField txtID;
-    private javax.swing.JTextField txtPassword;
     // End of variables declaration//GEN-END:variables
 
     public int getTfId() {
