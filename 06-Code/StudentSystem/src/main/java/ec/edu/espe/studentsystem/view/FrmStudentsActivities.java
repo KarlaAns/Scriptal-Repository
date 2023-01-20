@@ -317,7 +317,6 @@ public class FrmStudentsActivities extends javax.swing.JFrame {
             info[4] = activity.getDeadline();
             for (int i = 0; i < activity.getActivityReport().size(); i++)
             {
-                System.out.println(activity.getActivityReport().get(i).getStudentId());
                 if(activity.getActivityReport().get(i).getStudentId() == id){
                     info[5] = String.valueOf(activity.getActivityReport().get(i).getGrade());
                 }
