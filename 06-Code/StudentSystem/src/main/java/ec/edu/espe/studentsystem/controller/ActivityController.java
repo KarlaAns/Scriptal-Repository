@@ -117,4 +117,10 @@ public class ActivityController {
         Document updatedGradeDocument = new Document("$set", new Document("activityReport.$.grade", grade));
         enrollmentsCollection.updateMany(filter, updatedGradeDocument);
     }
+    
+    public static void deteleActivity(int teacherId, String name){
+        MongoCollection enrollmentsCollection = getConnection("activities");
+        Bson filter = Filters.and(Filters.eq("teacherId",teacherId),Filters.eq("name",name));
+        enrollmentsCollection.deleteOne(filter);
+    }
 }

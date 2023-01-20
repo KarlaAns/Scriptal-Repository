@@ -4,6 +4,7 @@
  */
 package ec.edu.espe.studentsystem.view;
 
+import static ec.edu.espe.studentsystem.controller.ActivityController.deteleActivity;
 import static ec.edu.espe.studentsystem.controller.ActivityController.establishAssignation;
 import static ec.edu.espe.studentsystem.controller.ActivityController.findAllActivities;
 import static ec.edu.espe.studentsystem.controller.ClassroomController.findTeacher;
@@ -41,19 +42,20 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
 
     private final String classroomName;
     private Document teacher;
-    private final int teacherId;
+    final int teacherId;
 
     /**
      * Creates new form FrmAssignments
      *
      * @param classroomName
-     * @param teacher
+     * @param teacherId
      */
     public FrmActivitiesManagement(String classroomName, int teacherId) {
-        initComponents();
-        addClassroomsToCmb();
         this.teacher = findTeacher(teacherId);
         this.teacherId = teacherId;
+        
+        initComponents();
+        addClassroomsToCmb();
         cmbClassrooms.setSelectedItem(classroomName);
         String selectedItem = (String) cmbClassrooms.getSelectedItem();
         if (!selectedItem.equals("ID")) {
@@ -326,6 +328,11 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
         btnDelete.setForeground(new java.awt.Color(255, 204, 204));
         btnDelete.setText("Delete");
         btnDelete.setEnabled(false);
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel8.setText("Actions");
@@ -598,7 +605,7 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
     private void btnOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenActionPerformed
         // TODO add your handling code here:
         String activityName = txtAction.getText();
-        Document activityData = findActivity((int) teacher.get("id"), activityName);
+        Document activityData = findActivity(teacherId, activityName);
 
         if (activityData != null) {
             FrmActivity frmActivity = new FrmActivity(activityData, teacherId);
@@ -790,9 +797,9 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
         // TODO add your handling code here:
         FrmHelp newHelp = new FrmHelp();
         newHelp.setVisible(true);
-        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
             newHelp.setStatusCbmiDarkMode(false);
-        }else{
+        } else {
             newHelp.setStatusCbmiDarkMode(true);
         }
         this.dispose();
@@ -802,9 +809,9 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
         // TODO add your handling code here:
         FrmClassroomManagement classroomManagement = new FrmClassroomManagement(teacherId);
         classroomManagement.setVisible(true);
-        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
             classroomManagement.setStatusCbmiDarkMode(false);
-        }else{
+        } else {
             classroomManagement.setStatusCbmiDarkMode(true);
         }
         this.dispose();
@@ -814,9 +821,9 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
         // TODO add your handling code here:
         FrmClassroomManagement classroomManagement = new FrmClassroomManagement(teacherId);
         classroomManagement.setVisible(true);
-        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
             classroomManagement.setStatusCbmiDarkMode(false);
-        }else{
+        } else {
             classroomManagement.setStatusCbmiDarkMode(true);
         }
         this.dispose();
@@ -828,6 +835,18 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
         students.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_mnItmStudentsActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // TODO add your handling code here:
+        String activityName = txtAction.getText();
+        Document activityData = findActivity(teacherId, activityName);
+
+        if (activityData != null) {
+            deteleActivity(teacherId, activityName);
+        } else {
+            JOptionPane.showMessageDialog(this, "We can't find the activity inserted", "Activity insertion", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -890,12 +909,16 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void addClassroomsToCmb() {
+        
         ArrayList<String> classrooms;
         classrooms = readClassrooms(teacherId);
-        cmbClassrooms.addItem("Classrooms");
-        for (String classroom : classrooms) {
-            cmbClassrooms.addItem(classroom);
+        if (classrooms != null) {
+            cmbClassrooms.addItem("Classrooms");
+            for (String classroom : classrooms) {
+                cmbClassrooms.addItem(classroom);
+            }
         }
+
     }
 
     public boolean getStatusCbmiDarkMode() {

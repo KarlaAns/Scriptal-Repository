@@ -29,7 +29,7 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
     DefaultTableModel dtm = new DefaultTableModel();
 
     private Document teacher;
-    private final int teacherId;
+    final int teacherId;
 
     /**
      * Creates new form FrmClassroom
@@ -38,7 +38,7 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
      */
     public FrmClassroomManagement(int teacherId) {
         initComponents();
-        this.teacherId=teacherId;
+        this.teacherId = teacherId;
         this.teacher = findTeacher(teacherId);
 
         String[] head = new String[]{"Name"};
@@ -600,8 +600,8 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
 
     private void btnOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenActionPerformed
         // TODO add your handling code here:
+
         String classroomName = txtActionName.getText();
-        int teacherId = teacher.getInteger("id");
         if (enterToClassroom(classroomName, teacherId)) {
             FrmActivitiesManagement frmActivity = new FrmActivitiesManagement(classroomName, teacherId);
             frmActivity.setVisible(true);
@@ -642,7 +642,18 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
-
+        try {
+            boolean classrooms = updateClassroom(txtNameToChange.getText(), txtNewName.getText(), (int) teacher.get("id"));
+            if (classrooms) {
+                showClassrooms();
+                teacher = findTeacher(teacherId);
+                JOptionPane.showMessageDialog(this, txtNameToChange.getText() + " classroom updated successfully", "Classroom update", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Data not found", "Classroom update", JOptionPane.WARNING_MESSAGE);
+            }
+        } catch (HeadlessException e) {
+            JOptionPane.showMessageDialog(this, "An error has occurred", "Classroom update", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
@@ -682,11 +693,11 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {
             boolean classrooms = updateClassroom(txtNameToChange.getText(), txtNewName.getText(), (int) teacher.get("id"));
-            if(classrooms){
+            if (classrooms) {
                 showClassrooms();
                 teacher = findTeacher(teacherId);
-                JOptionPane.showMessageDialog(this, txtNameToChange.getText()+" classroom updated successfully", "Classroom update", JOptionPane.INFORMATION_MESSAGE);
-            }else{
+                JOptionPane.showMessageDialog(this, txtNameToChange.getText() + " classroom updated successfully", "Classroom update", JOptionPane.INFORMATION_MESSAGE);
+            } else {
                 JOptionPane.showMessageDialog(this, "Data not found", "Classroom update", JOptionPane.WARNING_MESSAGE);
             }
         } catch (HeadlessException e) {
