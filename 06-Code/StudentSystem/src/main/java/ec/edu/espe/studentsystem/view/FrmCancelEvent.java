@@ -4,6 +4,11 @@ import ec.edu.espe.studentsystem.controller.EventController;
 import ec.edu.espe.studentsystem.controller.ThemeController;
 import ec.edu.espe.studentsystem.model.Event;
 import java.awt.EventQueue;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
@@ -55,7 +60,7 @@ public class FrmCancelEvent extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
-        btnUpdate = new javax.swing.JButton();
+        btnCancel = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnStudentSystem = new javax.swing.JMenu();
         mniHome = new javax.swing.JMenuItem();
@@ -74,7 +79,7 @@ public class FrmCancelEvent extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 60)); // NOI18N
-        jLabel1.setText("Update an Event");
+        jLabel1.setText("Cancel an Event");
 
         jLabel3.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel3.setText("Id of the event:");
@@ -161,11 +166,11 @@ public class FrmCancelEvent extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(table);
 
-        btnUpdate.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        btnUpdate.setText("Cancel");
-        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+        btnCancel.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        btnCancel.setText("Cancel");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpdateActionPerformed(evt);
+                btnCancelActionPerformed(evt);
             }
         });
 
@@ -179,7 +184,7 @@ public class FrmCancelEvent extends javax.swing.JFrame {
                 .addContainerGap(186, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnUpdate)
+                .addComponent(btnCancel)
                 .addGap(459, 459, 459))
         );
         jPanel2Layout.setVerticalGroup(
@@ -187,11 +192,11 @@ public class FrmCancelEvent extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnUpdate)
+                .addComponent(btnCancel)
                 .addContainerGap(90, Short.MAX_VALUE))
         );
 
-        btnUpdate.setEnabled(false);
+        btnCancel.setEnabled(false);
 
         mnStudentSystem.setText("StudentSystem");
 
@@ -316,7 +321,7 @@ public class FrmCancelEvent extends javax.swing.JFrame {
 
         char c = evt.getKeyChar();
 
-        if ((Character.isLetter(c)) || (Character.isWhitespace(c)) || (Character.isISOControl(c))) {
+        if ((Character.isDigit(c)) || (Character.isWhitespace(c)) || (Character.isISOControl(c))) {
             txtIdToUp.setEditable(true);
 
         } else {
@@ -324,42 +329,36 @@ public class FrmCancelEvent extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, c + " is not accepted here", "Warning on input data", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_txtIdToUpKeyTyped
-    public void makeWidgetsVisible(boolean eventFound) {
-        if (eventFound) {
-            lblNewName.setEnabled(true);
-            txtNewName.setEnabled(true);
-            lblNewDate.setEnabled(true);
-            DcCalendar.setEnabled(true);
-            lblNewDes.setEnabled(true);
-            txtNewDes.setEnabled(true);
-        } else {
-            lblNewName.setEnabled(false);
-            txtNewName.setEnabled(false);
-            lblNewDate.setEnabled(false);
-            DcCalendar.setEnabled(false);
-            lblNewDes.setEnabled(false);
-            txtNewDes.setEnabled(false);
-        }
-    }
+
+
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        boolean eventFound = false;
-        Event event = new Event("", txtIdToUp.getText(), "", "");
-        event = EventController.findEvent(event);
-        if (event != null) {
-            eventFound = true;
-            String[] Datos = new String[4];
-            Datos[1] = event.getId();
-            Datos[0] = event.getName();
-            Datos[2] = event.getDate();
-            Datos[3] = event.getDescription();
-            txtIdToUp.setText("");
-            model.addRow(Datos);
-            lblFound.setText("Event Found!");
-            this.dispose();
+        boolean validation = false;
+        if (txtIdToUp.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Id field is empty");
+            validation = false;
         } else {
-            lblFound.setText("Event not Found!");
+            validation = true;
         }
-        makeWidgetsVisible(eventFound);
+        if (validation) {
+            String id = txtIdToUp.getText();
+            int idAsDigit = Integer.parseInt(txtIdToUp.getText());
+            Event event = EventController.findEvent(txtIdToUp.getText());
+
+            if (!event.getId().equals("0")) {
+                String name = event.getName();
+                String description = event.getDescription();
+                String dateOfEvent = event.getDate();
+                addToTable(id, name, dateOfEvent, description);
+                EventController.insertCancelledEvent(id, name, name, description);
+                EventController.deleteEvent(idAsDigit);
+                SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+                btnCancel.setEnabled(true);
+            }
+
+            if (event.getId().equals("0")) {
+                JOptionPane.showMessageDialog(this, "Data not found");
+            }
+        }
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
@@ -369,19 +368,13 @@ public class FrmCancelEvent extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnBackActionPerformed
 
-    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-
-        String[] Datos = new String[4];
-        Datos[0] = event.getId();
-        Datos[2] = event.getName();
-        Datos[1] = event.getDate();
-        Datos[3] = ("Event Canceled");
-        Event event = new Event(Datos[0], Datos[2], Datos[3], Datos[1]);
-        event = EventController.cancelEvent(event);
-        JOptionPane.showMessageDialog(this, "Event Updated");
-        txtIdToUp.setText("");
-
-    }//GEN-LAST:event_btnUpdateActionPerformed
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        /*String name = event.getName();
+        String description = event.getDescription();
+        String dateOfEvent = event.getDate();
+        EventController.insertCancelledEvent(id, name, name, description);
+        EventController.deleteEvent(idAsDigit);*/
+    }//GEN-LAST:event_btnCancelActionPerformed
 
     private void mniHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniHomeActionPerformed
         FrmEventMng main = new FrmEventMng();
@@ -548,8 +541,8 @@ public class FrmCancelEvent extends javax.swing.JFrame {
     private javax.swing.JMenuItem MnItmSearch;
     private javax.swing.JMenuItem MnItmUpd;
     private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnSearch;
-    private javax.swing.JButton btnUpdate;
     private javax.swing.JCheckBoxMenuItem cbmiDarkMode;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
@@ -569,4 +562,13 @@ public class FrmCancelEvent extends javax.swing.JFrame {
     private javax.swing.JTable table;
     private javax.swing.JTextField txtIdToUp;
     // End of variables declaration//GEN-END:variables
+
+    private void addToTable(String id, String name, String date, String description) {
+        String[] info = new String[4];
+        info[0] = id;
+        info[1] = name;
+        info[2] = date;
+        info[3] = description;
+        model.addRow(info);
+    }
 }

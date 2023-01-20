@@ -215,6 +215,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
     private void btnEventActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEventActionPerformed
         // TODO add your handling code here:
+        FrmEventMng btnEvent = new FrmEventMng();
+        btnEvent.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnEventActionPerformed
 
     private void cbmiDarkModeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbmiDarkModeActionPerformed

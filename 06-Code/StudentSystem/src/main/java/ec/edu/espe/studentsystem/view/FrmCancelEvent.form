@@ -205,7 +205,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Dialog" size="60" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Update an Event"/>
+            <Property name="text" type="java.lang.String" value="Cancel an Event"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
@@ -265,7 +265,7 @@
               </Group>
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="32767" attributes="0"/>
-                  <Component id="btnUpdate" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnCancel" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="459" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -275,7 +275,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <Component id="jScrollPane2" min="-2" pref="80" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="btnUpdate" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnCancel" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="90" max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -301,7 +301,7 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JButton" name="btnUpdate">
+        <Component class="javax.swing.JButton" name="btnCancel">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Dialog" size="14" style="0"/>
@@ -309,10 +309,10 @@
             <Property name="text" type="java.lang.String" value="Cancel"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUpdateActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelActionPerformed"/>
           </Events>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="btnUpdate.setEnabled(false);"/>
+            <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="btnCancel.setEnabled(false);"/>
           </AuxValues>
         </Component>
       </SubComponents>

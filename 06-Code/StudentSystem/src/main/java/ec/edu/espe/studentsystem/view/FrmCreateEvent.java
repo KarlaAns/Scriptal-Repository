@@ -338,11 +338,15 @@ public class FrmCreateEvent extends javax.swing.JFrame {
         Datos[3] = txtAreaDescription.getText();
         model.addRow(Datos);
         EventController.insertEvent(Datos[0], Datos[1], Datos[2], Datos[3]);
+        emptySpaces();
+    }//GEN-LAST:event_btnAddActionPerformed
+    private void emptySpaces() {
         txtID.setText("");
         txtEvent.setText("");
-        dcCalendar.setDateFormatString("");
+        Date date = new Date();
+        dcCalendar.setDate(date);
         txtAreaDescription.setText("");
-    }//GEN-LAST:event_btnAddActionPerformed
+    }
 
     private void txtEventKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEventKeyTyped
 
