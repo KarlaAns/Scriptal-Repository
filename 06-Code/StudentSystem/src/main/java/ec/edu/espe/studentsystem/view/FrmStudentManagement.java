@@ -24,17 +24,18 @@ import javax.swing.table.DefaultTableModel;
  */
 public class FrmStudentManagement extends javax.swing.JFrame {
 
-    int teacherId = 0;
+    final int teacherId;
     DefaultTableModel model;
 
     /**
      * Creates new form FrmStudentManagement
+     *
      * @param teacherId
      */
     public FrmStudentManagement(int teacherId) {
+        this.teacherId = teacherId;
         initComponents();
         fillCmbClassrooms();
-        this.teacherId = teacherId;
         model = new DefaultTableModel();
         model.addColumn("ID");
         model.addColumn("Password");
@@ -185,6 +186,12 @@ public class FrmStudentManagement extends javax.swing.JFrame {
         btnClear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnClearActionPerformed(evt);
+            }
+        });
+
+        cmbClassrooms.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbClassroomsActionPerformed(evt);
             }
         });
 
@@ -495,7 +502,8 @@ public class FrmStudentManagement extends javax.swing.JFrame {
         Date birtOfDate = dataChooser.getDate();
         String date = dateFormat.format(birtOfDate);
         int id = StudentController.generateRandomId();
-        StudentController.addToMongo(id, tfName.getText(), tfPassword.getText(), tfMail.getText(), date);
+        StudentController.addToStudentsCollection(id, tfName.getText(), tfPassword.getText(), tfMail.getText(), date);
+        StudentController.addToSubjectsCollection(id);
         addToTableBtnNew(id);
         emptySpaces();
         btnClear.setEnabled(true);
@@ -508,7 +516,8 @@ public class FrmStudentManagement extends javax.swing.JFrame {
         {
             JOptionPane.showMessageDialog(this, "Id field is empty");
             validation = false;
-        } else {
+        } else
+        {
             validation = true;
         }
         if (validation)
@@ -529,10 +538,12 @@ public class FrmStudentManagement extends javax.swing.JFrame {
                 labelId.setText(String.valueOf(id));
                 SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
                 Date birtOfDate;
-                try {
+                try
+                {
                     birtOfDate = format.parse(student.getDateOfBirth());
                     dataChooser.setDate(birtOfDate);
-                } catch (ParseException ex) {
+                } catch (ParseException ex)
+                {
                     Logger.getLogger(FrmStudentManagement.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 btnAssing.setEnabled(true);
@@ -556,6 +567,9 @@ public class FrmStudentManagement extends javax.swing.JFrame {
         int lastRow = model.getRowCount() - 1;
         model.removeRow(lastRow);
         emptySpaces();
+        btnDelete.setEnabled(false);
+        btnUpdate.setEnabled(false);
+        btnAssing.setEnabled(false);
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
@@ -581,18 +595,25 @@ public class FrmStudentManagement extends javax.swing.JFrame {
         model.removeRow(lastRow);
         addToTable(id, student.getName(), student.getPassword(), student.getEmail(), student.getDateOfBirth());
         emptySpaces();
+        btnUpdate.setEnabled(false);
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void miClassroomsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miClassroomsActionPerformed
         FrmClassroomManagement classrooms = new FrmClassroomManagement(teacherId);
         classrooms.setVisible(true);
-        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName()))
+        {
             classrooms.setStatusCbmiDarkMode(false);
-        }else{
+        } else
+        {
             classrooms.setStatusCbmiDarkMode(true);
         }
         this.dispose();
     }//GEN-LAST:event_miClassroomsActionPerformed
+
+    private void cmbClassroomsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbClassroomsActionPerformed
+        cmbClassrooms.getActionCommand();
+    }//GEN-LAST:event_cmbClassroomsActionPerformed
 
     private void addToTable(int id, String name, String password, String mail, String dateOfBirth) {
         String[] info = new String[5];
@@ -663,7 +684,7 @@ public class FrmStudentManagement extends javax.swing.JFrame {
     public void setStatusCbmiDarkMode(boolean isSelected) {
         this.cbmiDarkMode.setSelected(isSelected);
     }
-    
+
     private void addToTableBtnNew(int id) {
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         Date birtOfDate = dataChooser.getDate();
@@ -687,15 +708,18 @@ public class FrmStudentManagement extends javax.swing.JFrame {
     }
 
     private void fillCmbClassrooms() {
-    
+
         ArrayList<String> classrooms;
         classrooms = readClassrooms(teacherId);
-        cmbClassrooms.addItem("Classrooms");
-        for (String classroom : classrooms) {
-            cmbClassrooms.addItem(classroom);
+        System.out.println(teacherId);
+        if (classrooms != null)
+        {
+            cmbClassrooms.addItem("Classrooms");
+            for (String classroom : classrooms)
+            {
+                cmbClassrooms.addItem(classroom);
+            }
         }
-    
-        
     }
 
 }
