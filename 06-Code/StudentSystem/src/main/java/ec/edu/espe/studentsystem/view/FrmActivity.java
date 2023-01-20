@@ -8,6 +8,8 @@ import com.google.gson.Gson;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
 import static ec.edu.espe.studentsystem.controller.ActivityController.findAllActivities;
+import static ec.edu.espe.studentsystem.controller.ActivityController.updateActivity;
+import static ec.edu.espe.studentsystem.controller.ActivityController.updateGrade;
 import static ec.edu.espe.studentsystem.controller.ClassroomController.findTeacher;
 import static ec.edu.espe.studentsystem.controller.MongoConection.getConnection;
 import ec.edu.espe.studentsystem.controller.Theme;
@@ -15,6 +17,7 @@ import static ec.edu.espe.studentsystem.controller.Theme.setFlatLightLafTheme;
 import ec.edu.espe.studentsystem.model.Activity;
 import ec.edu.espe.studentsystem.model.Assignation;
 import java.awt.EventQueue;
+import static java.lang.String.valueOf;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -39,17 +42,19 @@ public class FrmActivity extends javax.swing.JFrame {
 
     private final Document activityData;
     private final Document teacher;
+    private final int teacherId;
 
     /**
      * Creates new form FrmActivity
      *
      * @param activityData
-     * @param teacher
+     * @param teacherId
      */
-    public FrmActivity(Document activityData, Document teacher) {
+    public FrmActivity(Document activityData, int teacherId) {
         initComponents();
         this.activityData = activityData;
-        this.teacher = teacher;
+        this.teacher = findTeacher(teacherId);
+        this.teacherId = teacherId;
         txtActivityName.setText((String) activityData.get("name"));
         fillInputs();
 
@@ -66,9 +71,9 @@ public class FrmActivity extends javax.swing.JFrame {
 
     public final void fillInputs() {
         SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
-        Date shipping;
+        
         try {
-            shipping = formato.parse((String) activityData.get("shipping"));
+            Date shipping = formato.parse((String) activityData.get("shipping"));
             Date deadline = formato.parse((String) activityData.get("deadline"));
             txtName.setText((String) activityData.get("name"));
             dtShipping.setDate(shipping);
@@ -123,7 +128,7 @@ public class FrmActivity extends javax.swing.JFrame {
         txtName = new javax.swing.JTextField();
         dtShipping = new com.toedter.calendar.JDateChooser();
         dtDeadline = new com.toedter.calendar.JDateChooser();
-        btnFind = new javax.swing.JButton();
+        btnUpdate = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtAComment = new javax.swing.JTextArea();
@@ -133,10 +138,10 @@ public class FrmActivity extends javax.swing.JFrame {
         bthBack = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtIdToChange = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        txtGradeToChange = new javax.swing.JTextField();
+        btnSaveGrade = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnStudentSystem = new javax.swing.JMenu();
@@ -186,12 +191,13 @@ public class FrmActivity extends javax.swing.JFrame {
         dtDeadline.setFocusable(false);
         dtDeadline.setOpaque(false);
 
-        btnFind.setFont(btnFind.getFont().deriveFont(btnFind.getFont().getStyle() & ~java.awt.Font.BOLD, btnFind.getFont().getSize()+2));
-        btnFind.setForeground(new java.awt.Color(51, 51, 51));
-        btnFind.setText("Update");
-        btnFind.addActionListener(new java.awt.event.ActionListener() {
+        btnUpdate.setBackground(new java.awt.Color(255, 204, 102));
+        btnUpdate.setFont(btnUpdate.getFont().deriveFont(btnUpdate.getFont().getStyle() & ~java.awt.Font.BOLD, btnUpdate.getFont().getSize()+2));
+        btnUpdate.setForeground(new java.awt.Color(51, 51, 51));
+        btnUpdate.setText("Update");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFindActionPerformed(evt);
+                btnUpdateActionPerformed(evt);
             }
         });
 
@@ -214,7 +220,7 @@ public class FrmActivity extends javax.swing.JFrame {
         pnlSearch.setLayer(txtName, javax.swing.JLayeredPane.DEFAULT_LAYER);
         pnlSearch.setLayer(dtShipping, javax.swing.JLayeredPane.DEFAULT_LAYER);
         pnlSearch.setLayer(dtDeadline, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        pnlSearch.setLayer(btnFind, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        pnlSearch.setLayer(btnUpdate, javax.swing.JLayeredPane.DEFAULT_LAYER);
         pnlSearch.setLayer(jLabel6, javax.swing.JLayeredPane.DEFAULT_LAYER);
         pnlSearch.setLayer(jScrollPane2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         pnlSearch.setLayer(cmbType, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -229,7 +235,7 @@ public class FrmActivity extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlSearchLayout.createSequentialGroup()
                         .addComponent(cmbType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(174, 174, 174)
-                        .addComponent(btnFind))
+                        .addComponent(btnUpdate))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlSearchLayout.createSequentialGroup()
                         .addGroup(pnlSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -265,7 +271,7 @@ public class FrmActivity extends javax.swing.JFrame {
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
                 .addGroup(pnlSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnFind, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(cmbType))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
@@ -296,7 +302,15 @@ public class FrmActivity extends javax.swing.JFrame {
 
         jLabel2.setText("Grade");
 
-        jButton1.setText("Save");
+        btnSaveGrade.setBackground(new java.awt.Color(0, 255, 102));
+        btnSaveGrade.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnSaveGrade.setForeground(new java.awt.Color(0, 51, 51));
+        btnSaveGrade.setText("Save");
+        btnSaveGrade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveGradeActionPerformed(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel7.setText("Edit Grades");
@@ -316,13 +330,13 @@ public class FrmActivity extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtIdToChange, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(txtGradeToChange, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)
+                        .addComponent(btnSaveGrade)
                         .addGap(55, 55, 55))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -335,14 +349,14 @@ public class FrmActivity extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtIdToChange, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtGradeToChange, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(15, 15, 15)
-                        .addComponent(jButton1)))
+                        .addComponent(btnSaveGrade)))
                 .addGap(20, 20, 20))
         );
 
@@ -461,11 +475,21 @@ public class FrmActivity extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNameFocusGained
 
-    private void btnFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindActionPerformed
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
-        String name = txtName.getText();
-
-    }//GEN-LAST:event_btnFindActionPerformed
+        ArrayList<String> dataToUpdate = new ArrayList<>();
+        
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        Date shipping = dtShipping.getDate();
+        Date deadline = dtDeadline.getDate();
+        dataToUpdate.add(txtName.getText());
+        dataToUpdate.add(dateFormat.format(shipping));
+        dataToUpdate.add(dateFormat.format(deadline));
+        dataToUpdate.add(txtAComment.getText());
+        dataToUpdate.add((String) cmbType.getSelectedItem());
+    
+        updateActivity((String)activityData.get("name"),dataToUpdate);
+    }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
         // TODO add your handling code here:
@@ -481,12 +505,11 @@ public class FrmActivity extends javax.swing.JFrame {
 
     private void bthBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bthBackActionPerformed
         // TODO add your handling code here:
-        Document teacherData = findTeacher((int)teacher.get("id"));
-        FrmActivitiesManagement activitiesManagement = new FrmActivitiesManagement((String) activityData.get("subjectName"),teacherData);
+        FrmActivitiesManagement activitiesManagement = new FrmActivitiesManagement((String) activityData.get("subjectName"), teacherId);
         activitiesManagement.setVisible(true);
-        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
             activitiesManagement.setStatusCbmiDarkMode(false);
-        }else{
+        } else {
             activitiesManagement.setStatusCbmiDarkMode(true);
         }
         this.dispose();
@@ -536,12 +559,11 @@ public class FrmActivity extends javax.swing.JFrame {
 
     private void mnItmClassroomsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnItmClassroomsActionPerformed
         // TODO add your handling code here:
-        Document teacherId = findTeacher((int)teacher.get("id"));
         FrmClassroomManagement classroomManagement = new FrmClassroomManagement(teacherId);
         classroomManagement.setVisible(true);
-        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
             classroomManagement.setStatusCbmiDarkMode(false);
-        }else{
+        } else {
             classroomManagement.setStatusCbmiDarkMode(true);
         }
         this.dispose();
@@ -558,13 +580,21 @@ public class FrmActivity extends javax.swing.JFrame {
         // TODO add your handling code here:
         FrmHelp newHelp = new FrmHelp();
         newHelp.setVisible(true);
-        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
             newHelp.setStatusCbmiDarkMode(false);
-        }else{
+        } else {
             newHelp.setStatusCbmiDarkMode(true);
         }
         this.dispose();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void btnSaveGradeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveGradeActionPerformed
+        // TODO add your handling code here:
+        int studentId = Integer.parseInt(txtIdToChange.getText());
+        double grade = Double.parseDouble(txtGradeToChange.getText());
+        
+        updateGrade((int)teacher.get("id"),(String)activityData.get("name"),studentId,grade);
+    }//GEN-LAST:event_btnSaveGradeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -575,19 +605,19 @@ public class FrmActivity extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmActivity(null, null).setVisible(true);
+                new FrmActivity(null, 0).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bthBack;
-    private javax.swing.JButton btnFind;
+    private javax.swing.JButton btnSaveGrade;
+    private javax.swing.JButton btnUpdate;
     private javax.swing.JCheckBoxMenuItem cbmiDarkMode;
     private javax.swing.JComboBox<String> cmbType;
     private com.toedter.calendar.JDateChooser dtDeadline;
     private com.toedter.calendar.JDateChooser dtShipping;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -601,8 +631,6 @@ public class FrmActivity extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JMenu menuHelp;
     private javax.swing.JMenu menuView;
     private javax.swing.JMenuItem mnItmClassrooms;
@@ -614,6 +642,8 @@ public class FrmActivity extends javax.swing.JFrame {
     private javax.swing.JTable tblStudentsAct;
     private javax.swing.JTextArea txtAComment;
     private javax.swing.JLabel txtActivityName;
+    private javax.swing.JTextField txtGradeToChange;
+    private javax.swing.JTextField txtIdToChange;
     private javax.swing.JTextField txtName;
     // End of variables declaration//GEN-END:variables
 

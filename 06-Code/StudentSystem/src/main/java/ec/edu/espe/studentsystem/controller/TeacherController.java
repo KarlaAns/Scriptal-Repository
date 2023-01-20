@@ -175,24 +175,9 @@ public class TeacherController {
 
     public static Document findActivity(int id, String name) {
         MongoCollection enrollmentsCollection = getConnection("activities");
-        Bson filter = Filters.and(Filters.all("teacherId", id));
-        MongoCursor<Document> activities = enrollmentsCollection.find(filter).iterator();
-        Gson gson = new Gson();
-        Activity activity;
-        try {
-            while (activities.hasNext()) {
-
-                String activityDoc = activities.next().toJson();
-                activity = gson.fromJson(activityDoc, Activity.class);
-
-                if (activity.getName().equals(name)) {
-                    return activities.next();
-                }
-            }
-        } finally {
-            activities.close();
-        }
-        return null;
+        Bson filter = Filters.and(Filters.eq("teacherId",id),Filters.eq("name",name));
+        Document activity = (Document) enrollmentsCollection.find(filter).first();
+        return activity;
     }
 
     public static void deleteClassroom(String classroomName, Document teacher) {

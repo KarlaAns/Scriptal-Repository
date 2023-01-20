@@ -28,7 +28,7 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
 
     DefaultTableModel dtm = new DefaultTableModel();
 
-    private final Document teacher;
+    private Document teacher;
     private final int teacherId;
 
     /**
@@ -603,7 +603,7 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
         String classroomName = txtActionName.getText();
         int teacherId = teacher.getInteger("id");
         if (enterToClassroom(classroomName, teacherId)) {
-            FrmActivitiesManagement frmActivity = new FrmActivitiesManagement(classroomName, teacher);
+            FrmActivitiesManagement frmActivity = new FrmActivitiesManagement(classroomName, teacherId);
             frmActivity.setVisible(true);
             this.dispose();
         } else {
@@ -613,6 +613,7 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
 
     private void btnCleanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCleanActionPerformed
         // TODO add your handling code here:
+        teacher = findTeacher(teacherId);
         showClassrooms();
     }//GEN-LAST:event_btnCleanActionPerformed
 
@@ -683,6 +684,7 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
             boolean classrooms = updateClassroom(txtNameToChange.getText(), txtNewName.getText(), (int) teacher.get("id"));
             if(classrooms){
                 showClassrooms();
+                teacher = findTeacher(teacherId);
                 JOptionPane.showMessageDialog(this, txtNameToChange.getText()+" classroom updated successfully", "Classroom update", JOptionPane.INFORMATION_MESSAGE);
             }else{
                 JOptionPane.showMessageDialog(this, "Data not found", "Classroom update", JOptionPane.WARNING_MESSAGE);
