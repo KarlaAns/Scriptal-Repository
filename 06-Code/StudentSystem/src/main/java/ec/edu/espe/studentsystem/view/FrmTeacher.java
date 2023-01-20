@@ -44,7 +44,6 @@ public class FrmTeacher extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         brnClassrooms = new javax.swing.JButton();
         btnStudents = new javax.swing.JButton();
-        btnAttendance = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnStudentSystem = new javax.swing.JMenu();
         mniHome = new javax.swing.JMenuItem();
@@ -83,14 +82,6 @@ public class FrmTeacher extends javax.swing.JFrame {
             }
         });
 
-        btnAttendance.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnAttendance.setText("Attendance");
-        btnAttendance.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAttendanceActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout pnlTeacherLayout = new javax.swing.GroupLayout(pnlTeacher);
         pnlTeacher.setLayout(pnlTeacherLayout);
         pnlTeacherLayout.setHorizontalGroup(
@@ -101,15 +92,14 @@ public class FrmTeacher extends javax.swing.JFrame {
                 .addGap(366, 366, 366))
             .addGroup(pnlTeacherLayout.createSequentialGroup()
                 .addGap(205, 205, 205)
-                .addGroup(pnlTeacherLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(pnlTeacherLayout.createSequentialGroup()
-                        .addComponent(brnClassrooms)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnStudents)
-                        .addGap(145, 145, 145)
-                        .addComponent(btnAttendance))
-                    .addComponent(lbTeacherName, javax.swing.GroupLayout.PREFERRED_SIZE, 587, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(lbTeacherName, javax.swing.GroupLayout.PREFERRED_SIZE, 587, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(208, Short.MAX_VALUE))
+            .addGroup(pnlTeacherLayout.createSequentialGroup()
+                .addGap(255, 255, 255)
+                .addComponent(brnClassrooms)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnStudents)
+                .addGap(261, 261, 261))
         );
         pnlTeacherLayout.setVerticalGroup(
             pnlTeacherLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -121,8 +111,7 @@ public class FrmTeacher extends javax.swing.JFrame {
                 .addGap(120, 120, 120)
                 .addGroup(pnlTeacherLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(brnClassrooms)
-                    .addComponent(btnStudents)
-                    .addComponent(btnAttendance))
+                    .addComponent(btnStudents))
                 .addGap(100, 100, 100))
         );
 
@@ -198,8 +187,13 @@ public class FrmTeacher extends javax.swing.JFrame {
 
     private void btnStudentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStudentsActionPerformed
         // TODO add your handling code here:
-        FrmStudentManagement students = new FrmStudentManagement();
+        FrmStudentManagement students = new FrmStudentManagement(teacherId);
         students.setVisible(true);
+        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+            students.setStatusCbmiDarkMode(false);
+        }else{
+            students.setStatusCbmiDarkMode(true);
+        }
         this.dispose();
     }//GEN-LAST:event_btnStudentsActionPerformed
 
@@ -242,10 +236,6 @@ public class FrmTeacher extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cbmiDarkModeActionPerformed
 
-    private void btnAttendanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAttendanceActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnAttendanceActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -261,7 +251,6 @@ public class FrmTeacher extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton brnClassrooms;
-    private javax.swing.JButton btnAttendance;
     private javax.swing.JButton btnStudents;
     private javax.swing.JCheckBoxMenuItem cbmiDarkMode;
     private javax.swing.JLabel jLabel2;
