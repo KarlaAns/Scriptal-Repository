@@ -570,12 +570,11 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
 
     private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
         // TODO add your handling code here:
-        try {
-            createClassroom(txtName.getText(), teacher);
+        if(createClassroom(txtName.getText(), teacher)){
             showClassrooms();
             JOptionPane.showMessageDialog(this, txtName.getText() + " class added succesfully!", "Classroom insertion", JOptionPane.INFORMATION_MESSAGE);
-        } catch (HeadlessException e) {
-            JOptionPane.showMessageDialog(this, "An error has occurred", "Classroom insertion", JOptionPane.WARNING_MESSAGE);
+        }else{
+            JOptionPane.showMessageDialog(this, "The inserted class already exist", "Classroom insertion", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btnNewActionPerformed
 
@@ -693,7 +692,7 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
         try {
-            boolean classrooms = updateClassroom(txtNameToChange.getText(), txtNewName.getText(), (int) teacher.get("id"));
+            boolean classrooms = updateClassroom(txtNameToChange.getText(), txtNewName.getText(), teacherId);
             if (classrooms) {
                 showClassrooms();
                 teacher = findTeacher(teacherId);
