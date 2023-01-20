@@ -5,7 +5,9 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Updates;
+import ec.edu.espe.studentsystem.model.GradeReport;
 import ec.edu.espe.studentsystem.model.Student;
+import java.util.ArrayList;
 import java.util.Random;
 import org.bson.Document;
 import org.bson.conversions.Bson;
@@ -39,15 +41,25 @@ public class StudentController {
         return id;
     }
 
-    public static void addToMongo(int id, String name, String password, String email, String dateOfBirth) {
-        MongoCollection<Document> collection = MongoConection.getConnection("students");
+    public static void addToStudentsCollection(int id, String name, String password, String email, String dateOfBirth) {
+        MongoCollection<Document> collectionStudents = MongoConection.getConnection("students");
         Document studentDoc = new Document("_id", new ObjectId())
                 .append("id", id)
                 .append("name", name)
                 .append("password", password)
                 .append("email", email)
                 .append("dateOfBirth", dateOfBirth);
-        collection.insertOne(studentDoc);
+        collectionStudents.insertOne(studentDoc);
+        
+    }
+    
+    public static void addToSubjectsCollection(int id) {
+        MongoCollection<Document> collectionSubjects = MongoConection.getConnection("subjects");
+        ArrayList<GradeReport> gradesReport = new ArrayList<>();
+        Document subjectDoc = new Document("_id", new ObjectId())
+                .append("studentId", id)
+                .append("gradesReport", gradesReport);
+        collectionSubjects.insertOne(subjectDoc);
     }
 
     public static Student find(int id) {
@@ -83,4 +95,6 @@ public class StudentController {
                         Updates.set("dateOfBirth", student.getDateOfBirth()));
         collection.updateOne(filter, studentUpdates);
     }
+
+    
 }

@@ -86,7 +86,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
 
         lblManage.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        lblManage.setText("Go to magane:");
+        lblManage.setText("Go to manage:");
 
         btnTeacher.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btnTeacher.setText("Teacher");

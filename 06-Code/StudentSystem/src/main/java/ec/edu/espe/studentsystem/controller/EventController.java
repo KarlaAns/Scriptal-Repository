@@ -70,48 +70,9 @@ public class EventController {
         collection.updateOne(filter, eventUpdates);
     }
 
-    public static void deleteEvent(Event event) {
-
-        String uri = "mongodb+srv://laandrade:laandrade@cluster0.jcz1lsa.mongodb.net/test";
-
-        try (MongoClient mongoClient = MongoClients.create(uri)) {
-            MongoDatabase database = mongoClient.getDatabase("StudentControlSystem");
-            try {
-                MongoCollection collectionEvent = database.getCollection("Event");
-
-                Bson filter = Filters.eq("name", event.getName());
-                collectionEvent.deleteOne(filter);
-
-            } catch (MongoException me) {
-                System.out.println("An error occurred while attempting to connect: " + me);
-            }
-
-        }
+    public static void deleteEvent(int id) {
+        MongoCollection<Document> collection = MongoConection.getConnection("events");
+        Bson filter = Filters.and(Filters.eq("id", String.valueOf(id)));
+        collection.deleteOne(filter);
     }
-
-    /*  public class CancelEvent {
-    }
-
-    public void cancelEvent(Event event) {
-        MongoClient mongoClient = MongoClients.create("mongodb+srv://laandrade:laandrade@cluster0.jcz1lsa.mongodb.net/test");
-        MongoDatabase database = mongoClient.getDatabase("StudentControlSystem");
-        MongoCollection<Document> collectionEvent = database.getCollection("Event");
-        MongoCollection<Document> collectionCancelEvent = database.getCollection("Cancelled Event");
-        Bson filter = Filters.eq("id", event.getId());
-        collectionEvent.deleteOne(filter);
-
-        Document eventDoc = collectionEvent.find(eq("_id", event.getId())).first();
-        if (eventDoc != null) {
-            eventDoc.put("description", "Event Canceled");
-            collectionEvent.replaceOne(eq("_id", event.getId()), eventDoc);
-            //move the event to the cancelled events collection
-            collectionCancelEvent.insertOne(eventDoc);
-            //remove the event from the original collection
-            collectionEvent.deleteOne(eq("_id", event.getId()));
-            JOptionPane.showMessageDialog(this, "Event Cancelled");
-
-        } else {
-
-        }
-    }*/
 }

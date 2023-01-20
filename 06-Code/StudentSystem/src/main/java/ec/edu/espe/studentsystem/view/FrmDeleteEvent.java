@@ -18,8 +18,8 @@ import javax.swing.table.DefaultTableModel;
  * @author Karla Ansatuña
  */
 public class FrmDeleteEvent extends javax.swing.JFrame {
-    
- public void setStatusCbmiDarkMode(boolean isSelected) {
+
+    public void setStatusCbmiDarkMode(boolean isSelected) {
         this.cbmiDarkMode.setSelected(isSelected);
     }
     DefaultTableModel model = new DefaultTableModel();
@@ -309,19 +309,11 @@ public class FrmDeleteEvent extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        int option = JOptionPane.showConfirmDialog(this, "Do you want to continue?");
-        if (option == 0) {
-            Event event = new Event("", txtIdToDelete.getText(), "", "");
-            EventController.deleteEvent(event);
-            JOptionPane.showMessageDialog(this, "Event Delete");
-            txtIdToDelete.setText("");
-        } else if (option == 1) {
-            JOptionPane.showMessageDialog(this, "Operation Cancelled");
-        } else if (option == 2) {
-            FrmDeleteEvent btnBack = new FrmDeleteEvent();
-            btnBack.setVisible(true);
-            this.dispose();
-        }
+        int id = Integer.parseInt(txtIdToDelete.getText());
+        EventController.deleteEvent(id);
+        JOptionPane.showMessageDialog(this, "The event has been eliminated");
+        int lastRow = model.getRowCount() - 1;
+        model.removeRow(lastRow);
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void txtIdToDeleteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdToDeleteKeyTyped
@@ -341,7 +333,7 @@ public class FrmDeleteEvent extends javax.swing.JFrame {
     }//GEN-LAST:event_txtIdToDeleteActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-          boolean validation = false;
+        boolean validation = false;
         if (txtIdToDelete.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Id field is empty");
             validation = false;
@@ -349,27 +341,18 @@ public class FrmDeleteEvent extends javax.swing.JFrame {
             validation = true;
         }
         if (validation) {
-            String id=txtIdToDelete.getText();
-            Event event = EventController.findEvent(txtIdToDelete.getText());
-
+            String id = txtIdToDelete.getText();
+            Event event = EventController.findEvent(id);
             if (event != null && !event.getId().equals("0")) {
                 String name = event.getName();
                 String description = event.getDescription();
                 String dateOfEvent = event.getDate();
-                addToTable(id, name, dateOfEvent,description);
-                SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-                Date DateAgain;
-                txtIdToDelete.setText("");
-                try {
-                    DateAgain = format.parse(event.getDate());
-                } catch (ParseException ex) {
-                    Logger.getLogger(FrmStudentManagement.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                addToTable(id, name, dateOfEvent, description);
             }
 
             if (event == null || event.getId() == null || event.getId().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Data not found");
-                
+
             }
         }
     }//GEN-LAST:event_btnSearchActionPerformed
@@ -475,9 +458,9 @@ public class FrmDeleteEvent extends javax.swing.JFrame {
     private void mnMailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnMailActionPerformed
         FrmHelp newHelp = new FrmHelp();
         newHelp.setVisible(true);
-        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
             newHelp.setStatusCbmiDarkMode(false);
-        }else{
+        } else {
             newHelp.setStatusCbmiDarkMode(true);
         }
         this.dispose();
@@ -548,7 +531,7 @@ public class FrmDeleteEvent extends javax.swing.JFrame {
     private javax.swing.JTextField txtIdToDelete;
     // End of variables declaration//GEN-END:variables
 
-   private void addToTable(String id, String name, String date, String description) {
+    private void addToTable(String id, String name, String date, String description) {
         String[] info = new String[4];
         info[0] = id;
         info[1] = name;
@@ -556,4 +539,5 @@ public class FrmDeleteEvent extends javax.swing.JFrame {
         info[3] = description;
         model.addRow(info);
     }
+
 }
