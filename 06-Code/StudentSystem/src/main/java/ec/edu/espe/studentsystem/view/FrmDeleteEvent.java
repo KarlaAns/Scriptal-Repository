@@ -195,7 +195,6 @@ public class FrmDeleteEvent extends javax.swing.JFrame {
                 .addContainerGap(126, Short.MAX_VALUE))
         );
 
-        txtNewDes.setEnabled(false);
 
         mnStudentSystem.setText("StudentSystem");
 
@@ -329,7 +328,7 @@ public class FrmDeleteEvent extends javax.swing.JFrame {
         // TODO add your handling code here:
         char c = evt.getKeyChar();
 
-        if ((Character.isAlphabetic(c)) || (Character.isWhitespace(c)) || (Character.isISOControl(c))) {
+        if ((Character.isDigit(c)) || (Character.isWhitespace(c)) || (Character.isISOControl(c))) {
             txtIdToDelete.setEditable(true);
         } else {
             txtIdToDelete.setEditable(false);
