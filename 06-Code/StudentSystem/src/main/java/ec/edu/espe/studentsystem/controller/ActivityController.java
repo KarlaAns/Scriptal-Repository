@@ -100,9 +100,9 @@ public class ActivityController {
         return activitiesFiltred;
     }
     
-    public static void updateActivity(String activityName,ArrayList data){
+    public static void updateActivity(int teacherId,String activityName,String subjectName,ArrayList data){
         MongoCollection enrollmentsCollection = getConnection("activities");
-        Bson filter = Filters.and(Filters.eq("name", activityName));
+        Bson filter = Filters.and(Filters.eq("teacherId",teacherId),Filters.eq("name",activityName),Filters.eq("subjectName",subjectName));
         Document dataToUpdate = new Document().append("name", data.get(0))
                 .append("shipping", data.get(1))
                 .append("deadline", data.get(2))
@@ -111,16 +111,16 @@ public class ActivityController {
         enrollmentsCollection.updateOne(filter, dataToUpdate);
     }
 
-    public static void updateGrade(int teacherId,String activityName,int studentId,double grade){
+    public static void updateGrade(String classroomName,int teacherId,String activityName,int studentId,double grade){
         MongoCollection enrollmentsCollection = getConnection("activities");
-        Bson filter = Filters.and(Filters.eq("teacherId",teacherId),Filters.eq("name",activityName),Filters.elemMatch("activityReport", Filters.eq("studentId", studentId)));
+        Bson filter = Filters.and(Filters.eq("subjectName",classroomName),Filters.eq("teacherId",teacherId),Filters.eq("name",activityName),Filters.elemMatch("activityReport", Filters.eq("studentId", studentId)));
         Document updatedGradeDocument = new Document("$set", new Document("activityReport.$.grade", grade));
         enrollmentsCollection.updateMany(filter, updatedGradeDocument);
     }
     
-    public static void deteleActivity(int teacherId, String name){
+    public static void deteleActivity(int teacherId, String activityName, String subjectName){
         MongoCollection enrollmentsCollection = getConnection("activities");
-        Bson filter = Filters.and(Filters.eq("teacherId",teacherId),Filters.eq("name",name));
+        Bson filter = Filters.and(Filters.eq("teacherId",teacherId),Filters.eq("name",activityName),Filters.eq("subjectName",subjectName));
         enrollmentsCollection.deleteOne(filter);
     }
 }
