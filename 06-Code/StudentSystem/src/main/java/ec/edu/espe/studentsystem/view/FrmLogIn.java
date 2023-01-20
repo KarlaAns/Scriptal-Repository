@@ -1,9 +1,10 @@
-
 package ec.edu.espe.studentsystem.view;
 
 import ec.edu.espe.studentsystem.controller.LogInController;
 import ec.edu.espe.studentsystem.controller.Theme;
 import java.awt.EventQueue;
+import java.awt.HeadlessException;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
 /**
@@ -197,9 +198,11 @@ public class FrmLogIn extends javax.swing.JFrame {
 
         FrmAboutUs aboutUs = new FrmAboutUs();
         aboutUs.setVisible(true);
-        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName()))
+        {
             aboutUs.setStatusCbmiDarkMode(false);
-        }else{
+        } else
+        {
             aboutUs.setStatusCbmiDarkMode(true);
         }
         this.dispose();
@@ -229,44 +232,114 @@ public class FrmLogIn extends javax.swing.JFrame {
         FrmMain main = new FrmMain();
         main.setVisible(true);
         System.out.println(UIManager.getLookAndFeel().getName());
-        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName()))
+        {
             main.setStatusCbmiDarkMode(false);
-        }else{
+        } else
+        {
             main.setStatusCbmiDarkMode(true);
         }
         this.dispose();
     }//GEN-LAST:event_mniHomeActionPerformed
 
     private void btnSubmit2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmit2ActionPerformed
-        if(Integer.parseInt(tfId.getText()) < 100000 && Integer.parseInt(tfId.getText()) > 99000){
-            int id = Integer.parseInt(tfId.getText());
-            String password = pfPassword.getText();
-            if(LogInController.matchInMongo(id, password)){
-                createFramePrincipal();
-            }
-        }
-        if(Integer.parseInt(tfId.getText()) < 99000 && Integer.parseInt(tfId.getText()) > 50000){
-            int id = Integer.parseInt(tfId.getText());
-            String password = pfPassword.getText();
-            if(LogInController.matchInMongo(id, password)){
-                createFrameTeacher();
-            }
-        }
-        if(Integer.parseInt(tfId.getText()) < 50000 && Integer.parseInt(tfId.getText()) > 10000){
-            int id = Integer.parseInt(tfId.getText());
-            String password = pfPassword.getText();
-            if(LogInController.matchInMongo(id, password)){
-                createFrameStudent();
-            }
+
+        boolean infoValid = validateId();
+        infoValid = validatePassword();
+
+        if (infoValid)
+        {
+            validationForPrincipal();
+            validationForTeacher();
+            validationForStudent();
         }
     }//GEN-LAST:event_btnSubmit2ActionPerformed
+
+    public boolean validatePassword() throws HeadlessException {
+        if (pfPassword.getText().isEmpty())
+        {
+            JOptionPane.showMessageDialog(this, "First fill the password field");
+            return false;
+        }
+        return true;
+    }
+
+    public boolean validateId() throws HeadlessException {
+        
+        if (tfId.getText().isEmpty())
+        {
+            JOptionPane.showMessageDialog(this, "First fill the ID field");
+            return false;
+        }
+        if (!tfId.getText().matches("[0-9]*"))
+        {
+            JOptionPane.showMessageDialog(this, "Invalid ID");            
+        }
+        if (Integer.parseInt(tfId.getText()) > 100000)
+        {
+            JOptionPane.showMessageDialog(this, "Invalid ID");
+            return false;
+        } else if (Integer.parseInt(tfId.getText()) < 10000)
+        {
+            JOptionPane.showMessageDialog(this, "Invalid ID");
+            return false;
+        }
+        return true;
+    }
+
+    private void validationForStudent() throws HeadlessException, NumberFormatException {
+        if (Integer.parseInt(tfId.getText()) < 50000 && Integer.parseInt(tfId.getText()) > 10000)
+        {
+            int id = Integer.parseInt(tfId.getText());
+            String password = pfPassword.getText();
+            if (LogInController.matchInMongo(id, password))
+            {
+                createFrameStudent();
+            } else
+            {
+                JOptionPane.showMessageDialog(this, "ID and password don't match");
+            }
+        }
+    }
+
+    private void validationForTeacher() throws HeadlessException, NumberFormatException {
+        if (Integer.parseInt(tfId.getText()) < 99000 && Integer.parseInt(tfId.getText()) > 50000)
+        {
+            int id = Integer.parseInt(tfId.getText());
+            String password = pfPassword.getText();
+            if (LogInController.matchInMongo(id, password))
+            {
+                createFrameTeacher();
+            } else
+            {
+                JOptionPane.showMessageDialog(this, "ID and password don't match");
+            }
+        }
+    }
+
+    private void validationForPrincipal() throws HeadlessException, NumberFormatException {
+        if (Integer.parseInt(tfId.getText()) < 100000 && Integer.parseInt(tfId.getText()) > 99000)
+        {
+            int id = Integer.parseInt(tfId.getText());
+            String password = pfPassword.getText();
+            if (LogInController.matchInMongo(id, password))
+            {
+                createFramePrincipal();
+            } else
+            {
+                JOptionPane.showMessageDialog(this, "ID and password don't match");
+            }
+        }
+    }
 
     private void menuHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuHelpActionPerformed
         FrmHelp newHelp = new FrmHelp();
         newHelp.setVisible(true);
-        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName()))
+        {
             newHelp.setStatusCbmiDarkMode(false);
-        }else{
+        } else
+        {
             newHelp.setStatusCbmiDarkMode(true);
         }
         this.dispose();
@@ -275,9 +348,11 @@ public class FrmLogIn extends javax.swing.JFrame {
     private void mnMailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnMailActionPerformed
         FrmHelp newHelp = new FrmHelp();
         newHelp.setVisible(true);
-        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName()))
+        {
             newHelp.setStatusCbmiDarkMode(false);
-        }else{
+        } else
+        {
             newHelp.setStatusCbmiDarkMode(true);
         }
         this.dispose();
@@ -288,7 +363,7 @@ public class FrmLogIn extends javax.swing.JFrame {
      */
     public static void main(String args[]) {
         Theme.setFlatLightLafTheme();
-        
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new FrmLogIn().setVisible(true);
@@ -319,11 +394,11 @@ public class FrmLogIn extends javax.swing.JFrame {
     public int getTfId() {
         return Integer.parseInt(tfId.getText());
     }
-    
-    public String getPfPassword(){
+
+    public String getPfPassword() {
         return pfPassword.getText();
     }
-    
+
     public boolean getStatusCbmiDarkMode() {
         return cbmiDarkMode.isSelected();
     }
@@ -335,9 +410,11 @@ public class FrmLogIn extends javax.swing.JFrame {
     private void createFramePrincipal() {
         FrmPrincipal frmPrincipal = new FrmPrincipal();
         frmPrincipal.setVisible(true);
-        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName()))
+        {
             frmPrincipal.setStatusCbmiDarkMode(false);
-        }else{
+        } else
+        {
             frmPrincipal.setStatusCbmiDarkMode(true);
         }
         this.dispose();
@@ -347,9 +424,11 @@ public class FrmLogIn extends javax.swing.JFrame {
         int teacherId = Integer.parseInt(tfId.getText());
         FrmTeacher frmTeacher = new FrmTeacher(teacherId);
         frmTeacher.setVisible(true);
-        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName()))
+        {
             frmTeacher.setStatusCbmiDarkMode(false);
-        }else{
+        } else
+        {
             frmTeacher.setStatusCbmiDarkMode(true);
         }
         this.dispose();
@@ -358,9 +437,11 @@ public class FrmLogIn extends javax.swing.JFrame {
     private void createFrameStudent() {
         FrmStudent frmStudent = new FrmStudent(getTfId(), getPfPassword());
         frmStudent.setVisible(true);
-        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName()))
+        {
             frmStudent.setStatusCbmiDarkMode(false);
-        }else{
+        } else
+        {
             frmStudent.setStatusCbmiDarkMode(true);
         }
         this.dispose();

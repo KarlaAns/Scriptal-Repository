@@ -7,31 +7,31 @@ package ec.edu.espe.studentsystem.model;
  */
 public class Assignation {
     
-    private int StudentId;
+    private int studentId;
     private double grade;
 
-    public Assignation(int StudentId, double grade) {
-        this.StudentId = StudentId;
+    public Assignation(int studentId, double grade) {
+        this.studentId = studentId;
         this.grade = grade;
     }
 
     @Override
     public String toString() {
-        return "Assignation{" + "StudentId=" + StudentId + ", grade=" + grade + '}';
+        return "Assignation{" + "StudentId=" + studentId + ", grade=" + grade + '}';
     }
     
     /**
      * @return the StudentId
      */
     public int getStudentId() {
-        return StudentId;
+        return studentId;
     }
 
     /**
      * @param StudentId the StudentId to set
      */
     public void setStudentId(int StudentId) {
-        this.StudentId = StudentId;
+        this.studentId = StudentId;
     }
 
     /**

@@ -302,7 +302,7 @@ public class FrmStudentsActivities extends javax.swing.JFrame {
         Gson gson = new Gson();
         
         MongoCollection<Document> activityCollection = MongoConection.getConnection(collection);
-        Bson bsonFilter = Filters.elemMatch("activityReport", Filters.eq("StudentId", id));
+        Bson bsonFilter = Filters.elemMatch("activityReport", Filters.eq("studentId", id));
         MongoCursor<Document> cursor = activityCollection.find(bsonFilter).iterator();
                
         while(cursor.hasNext()){
@@ -317,7 +317,6 @@ public class FrmStudentsActivities extends javax.swing.JFrame {
             info[4] = activity.getDeadline();
             for (int i = 0; i < activity.getActivityReport().size(); i++)
             {
-                System.out.println(activity.getActivityReport().get(i).getStudentId());
                 if(activity.getActivityReport().get(i).getStudentId() == id){
                     info[5] = String.valueOf(activity.getActivityReport().get(i).getGrade());
                 }
