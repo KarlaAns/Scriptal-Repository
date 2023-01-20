@@ -71,9 +71,8 @@ public class EventController {
     }
 
     public static void deleteEvent(int id) {
-        //int idDigit = Integer.parseInt(id);
-     MongoCollection<Document> collection = MongoConection.getConnection("events");
-        Bson filter =Filters.eq("id", id);
+        MongoCollection<Document> collection = MongoConection.getConnection("events");
+        Bson filter = Filters.and(Filters.eq("id", String.valueOf(id)));
         collection.deleteOne(filter);
     }
 }

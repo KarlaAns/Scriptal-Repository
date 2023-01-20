@@ -310,7 +310,6 @@ public class FrmDeleteEvent extends javax.swing.JFrame {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         int id = Integer.parseInt(txtIdToDelete.getText());
-        System.out.println("id>"+id);
         EventController.deleteEvent(id);
         JOptionPane.showMessageDialog(this, "The event has been eliminated");
         int lastRow = model.getRowCount() - 1;
@@ -349,7 +348,6 @@ public class FrmDeleteEvent extends javax.swing.JFrame {
                 String description = event.getDescription();
                 String dateOfEvent = event.getDate();
                 addToTable(id, name, dateOfEvent, description);
-                txtIdToDelete.setText("");
             }
 
             if (event == null || event.getId() == null || event.getId().isEmpty()) {
