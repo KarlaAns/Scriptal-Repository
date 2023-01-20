@@ -25,31 +25,14 @@ import org.bson.conversions.Bson;
  */
 public class ClassroomController {
 
-    public static ArrayList<String> readClassrooms() {
-        Document dataTeacher;
-        ArrayList<String> classrooms = new ArrayList<>();
-        Teacher teacher;
-        String uri = "mongodb+srv://laandrade:laandrade@cluster0.jcz1lsa.mongodb.net/test";
-        try ( MongoClient mongoClient = MongoClients.create(uri)) {
-            MongoDatabase database = mongoClient.getDatabase("StudentControlSystem");
+    public static ArrayList<String> readClassrooms(int teacherId) {
+        MongoCollection teacherCollection = getConnection("teachers");
 
-            try {
-                System.out.println("Connected successfully to server.");
-
-                MongoCollection teachersCollection = database.getCollection("teachers");
-
-                Bson filter = Filters.and(Filters.eq("id", 50123));
-                dataTeacher = (Document) teachersCollection.find(filter).first();
-
-                if (dataTeacher != null) {
-                    return (ArrayList<String>) dataTeacher.get("classrooms");
-                } else {
-                    return null;
-                }
-
-            } catch (MongoException me) {
-                System.err.println("An error occurred while attempting to connect: " + me);
-            }
+        Bson filter = Filters.and(Filters.eq("id", teacherId));
+        Document teacher = (Document) teacherCollection.find(filter).first();
+        if(teacher!=null){
+            ArrayList<String> classrooms = (ArrayList<String>) teacher.get("classrooms");
+            return classrooms;
         }
         return null;
     }

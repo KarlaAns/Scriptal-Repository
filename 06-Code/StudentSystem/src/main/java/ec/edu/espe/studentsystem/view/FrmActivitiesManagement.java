@@ -891,7 +891,7 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
 
     private void addClassroomsToCmb() {
         ArrayList<String> classrooms;
-        classrooms = readClassrooms();
+        classrooms = readClassrooms(teacherId);
         cmbClassrooms.addItem("Classrooms");
         for (String classroom : classrooms) {
             cmbClassrooms.addItem(classroom);
