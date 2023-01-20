@@ -12,8 +12,8 @@ import static ec.edu.espe.studentsystem.controller.ActivityController.updateActi
 import static ec.edu.espe.studentsystem.controller.ActivityController.updateGrade;
 import static ec.edu.espe.studentsystem.controller.ClassroomController.findTeacher;
 import static ec.edu.espe.studentsystem.controller.MongoConection.getConnection;
-import ec.edu.espe.studentsystem.controller.Theme;
-import static ec.edu.espe.studentsystem.controller.Theme.setFlatLightLafTheme;
+import ec.edu.espe.studentsystem.controller.ThemeController;
+import static ec.edu.espe.studentsystem.controller.ThemeController.setFlatLightLafTheme;
 import ec.edu.espe.studentsystem.model.Activity;
 import ec.edu.espe.studentsystem.model.Assignation;
 import java.awt.EventQueue;
@@ -544,14 +544,14 @@ public class FrmActivity extends javax.swing.JFrame {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-                    Theme.setDarkTheme();
+                    ThemeController.setDarkTheme();
                 }
             });
         } else {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-                    Theme.setFlatLightLafTheme();
+                    ThemeController.setFlatLightLafTheme();
                 }
             });
         }

@@ -1,7 +1,7 @@
 package ec.edu.espe.studentsystem.view;
 
 import ec.edu.espe.studentsystem.controller.LogInController;
-import ec.edu.espe.studentsystem.controller.Theme;
+import ec.edu.espe.studentsystem.controller.ThemeController;
 import java.awt.EventQueue;
 import java.awt.HeadlessException;
 import javax.swing.JOptionPane;
@@ -214,7 +214,7 @@ public class FrmLogIn extends javax.swing.JFrame {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-                    Theme.setDarkTheme();
+                    ThemeController.setDarkTheme();
                 }
             });
         } else
@@ -222,7 +222,7 @@ public class FrmLogIn extends javax.swing.JFrame {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-                    Theme.setFlatLightLafTheme();
+                    ThemeController.setFlatLightLafTheme();
                 }
             });
         }
@@ -362,7 +362,7 @@ public class FrmLogIn extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        Theme.setFlatLightLafTheme();
+        ThemeController.setFlatLightLafTheme();
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
