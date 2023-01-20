@@ -824,13 +824,8 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
 
     private void mnItmStudentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnItmStudentsActionPerformed
         // TODO add your handling code here:
-        FrmStudentManagement studentManagement = new FrmStudentManagement();
-        studentManagement.setVisible(true);
-        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
-            studentManagement.setStatusCbmiDarkMode(false);
-        }else{
-            studentManagement.setStatusCbmiDarkMode(true);
-        }
+        FrmStudentManagement students = new FrmStudentManagement();
+        students.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_mnItmStudentsActionPerformed
 

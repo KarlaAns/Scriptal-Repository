@@ -186,7 +186,7 @@ public class FrmTeacher extends javax.swing.JFrame {
 
     private void brnClassroomsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brnClassroomsActionPerformed
         // TODO add your handling code here:
-        FrmClassroomManagement classrooms = new FrmClassroomManagement(teacher);
+        FrmClassroomManagement classrooms = new FrmClassroomManagement(teacherId);
         classrooms.setVisible(true);
         if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
             classrooms.setStatusCbmiDarkMode(false);

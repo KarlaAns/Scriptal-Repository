@@ -294,11 +294,7 @@ public class FrmActivity extends javax.swing.JFrame {
 
         jLabel1.setText("ID:");
 
-        jTextField1.setText("jTextField1");
-
         jLabel2.setText("Grade");
-
-        jTextField2.setText("jTextField2");
 
         jButton1.setText("Save");
 
@@ -553,13 +549,8 @@ public class FrmActivity extends javax.swing.JFrame {
 
     private void mnItmStudentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnItmStudentsActionPerformed
         // TODO add your handling code here:
-        FrmStudentManagement studentManagement = new FrmStudentManagement();
-        studentManagement.setVisible(true);
-        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
-            studentManagement.setStatusCbmiDarkMode(false);
-        }else{
-            studentManagement.setStatusCbmiDarkMode(true);
-        }
+        FrmStudentManagement students = new FrmStudentManagement();
+        students.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_mnItmStudentsActionPerformed
 
