@@ -5,6 +5,11 @@ import ec.edu.espe.studentsystem.controller.EventController;
 import ec.edu.espe.studentsystem.controller.ThemeController;
 import ec.edu.espe.studentsystem.model.Event;
 import java.awt.EventQueue;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
@@ -53,8 +58,8 @@ public class FrmSearchEvent extends javax.swing.JFrame {
         btnBack = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        txtID = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        txtId = new javax.swing.JTextField();
+        btnSearch = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnStudentSystem = new javax.swing.JMenu();
         mniHome = new javax.swing.JMenuItem();
@@ -136,24 +141,24 @@ public class FrmSearchEvent extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel2.setText("Id:");
 
-        txtID.addActionListener(new java.awt.event.ActionListener() {
+        txtId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIDActionPerformed(evt);
+                txtIdActionPerformed(evt);
             }
         });
-        txtID.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtId.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtIDKeyTyped(evt);
+                txtIdKeyTyped(evt);
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(0, 0, 0));
-        jButton1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Search");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnSearch.setBackground(new java.awt.Color(0, 0, 0));
+        btnSearch.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnSearch.setForeground(new java.awt.Color(255, 255, 255));
+        btnSearch.setText("Search");
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnSearchActionPerformed(evt);
             }
         });
 
@@ -262,9 +267,9 @@ public class FrmSearchEvent extends javax.swing.JFrame {
                 .addGap(352, 352, 352)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -274,8 +279,8 @@ public class FrmSearchEvent extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSearch))
                 .addGap(53, 53, 53)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -291,35 +296,56 @@ public class FrmSearchEvent extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnBackActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+                boolean validation = false;
+        if (txtId.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Id field is empty");
+            validation = false;
+        } else {
+            validation = true;
+        }
+        if (validation) {
+            String id=txtId.getText();
+            Event event = EventController.findEvent(txtId.getText());
+
+            if (event != null && !event.getId().equals("0")) {
+                String name = event.getName();
+                String description = event.getDescription();
+                String dateOfEvent = event.getDate();
+                addToTable(id, name, dateOfEvent,description);
+                SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+                Date DateAgain;
+                txtId.setText("");
+                try {
+                    DateAgain = format.parse(event.getDate());
+                } catch (ParseException ex) {
+                    Logger.getLogger(FrmStudentManagement.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+            if (event == null || event.getId() == null || event.getId().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Data not found");
+                
+            }
+        }
+    }//GEN-LAST:event_btnSearchActionPerformed
+
+    private void txtIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdActionPerformed
         // TODO add your handling code here:
-        Event event = new Event(txtID.getText(), "","","");
-        event = EventController.findEvent(event);
-        String[] Datos = new String[4];
-        Datos[1] = event.getId();
-        Datos[0] = event.getName();   
-        Datos[2] = event.getDate();
-        Datos[3] = event.getDescription();
-        txtID.setText("");
-        model.addRow(Datos);
-    }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void txtIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDActionPerformed
-        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIdActionPerformed
 
-    }//GEN-LAST:event_txtIDActionPerformed
-
-    private void txtIDKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIDKeyTyped
+    private void txtIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdKeyTyped
         // TODO add your handling code here:
         char d = evt.getKeyChar();
 
         if ((Character.isDigit(d)) || (Character.isISOControl(d))) {
-            txtID.setEditable(true);
+            txtId.setEditable(true);
         } else {
-            txtID.setEditable(false);
+            txtId.setEditable(false);
             JOptionPane.showMessageDialog(this, d + " is not accepted here", "Warning on input data", JOptionPane.WARNING_MESSAGE);
         }
-    }//GEN-LAST:event_txtIDKeyTyped
+    }//GEN-LAST:event_txtIdKeyTyped
 
     private void mniHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniHomeActionPerformed
         FrmEventMng main = new FrmEventMng();
@@ -486,8 +512,8 @@ public class FrmSearchEvent extends javax.swing.JFrame {
     private javax.swing.JMenuItem MnItmSearch;
     private javax.swing.JMenuItem MnItmUpd;
     private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnSearch;
     private javax.swing.JCheckBoxMenuItem cbmiDarkMode;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -503,6 +529,15 @@ public class FrmSearchEvent extends javax.swing.JFrame {
     private javax.swing.JMenuItem mniHome;
     private javax.swing.JMenuItem mniLogOut;
     private javax.swing.JTable table;
-    private javax.swing.JTextField txtID;
+    private javax.swing.JTextField txtId;
     // End of variables declaration//GEN-END:variables
+
+     private void addToTable(String id, String name, String date, String description) {
+        String[] info = new String[4];
+        info[0] = id;
+        info[1] = name;
+        info[2] = date;
+        info[3] = description;
+        model.addRow(info);
+    }
 }

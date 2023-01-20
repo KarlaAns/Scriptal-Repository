@@ -190,6 +190,11 @@ public class FrmStudentManagement extends javax.swing.JFrame {
 
         btnAssing.setText("Assign");
         btnAssing.setEnabled(false);
+        btnAssing.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAssingActionPerformed(evt);
+            }
+        });
 
         jLabel7.setText("ID:");
 
@@ -593,6 +598,10 @@ public class FrmStudentManagement extends javax.swing.JFrame {
         }
         this.dispose();
     }//GEN-LAST:event_miClassroomsActionPerformed
+
+    private void btnAssingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssingActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAssingActionPerformed
 
     private void addToTable(int id, String name, String password, String mail, String dateOfBirth) {
         String[] info = new String[5];
