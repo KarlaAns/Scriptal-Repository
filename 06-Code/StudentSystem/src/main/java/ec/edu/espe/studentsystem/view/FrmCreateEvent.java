@@ -9,6 +9,9 @@ import ec.edu.espe.studentsystem.controller.EventController;
 import ec.edu.espe.studentsystem.controller.ThemeController;
 import ec.edu.espe.studentsystem.model.Event;
 import java.awt.EventQueue;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
@@ -20,11 +23,11 @@ import org.bson.Document;
  * @author Karla Ansatuña
  */
 public class FrmCreateEvent extends javax.swing.JFrame {
-    
- public void setStatusCbmiDarkMode(boolean isSelected) {
+
+    public void setStatusCbmiDarkMode(boolean isSelected) {
         this.cbmiDarkMode.setSelected(isSelected);
     }
- 
+
     DefaultTableModel model = new DefaultTableModel();
 
     private void mostTable() {
@@ -62,7 +65,7 @@ public class FrmCreateEvent extends javax.swing.JFrame {
         btnBack = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         txtID = new javax.swing.JTextField();
-        DcCalendar = new com.toedter.calendar.JDateChooser();
+        dcCalendar = new com.toedter.calendar.JDateChooser();
         pnlButtons = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
@@ -127,7 +130,7 @@ public class FrmCreateEvent extends javax.swing.JFrame {
             }
         });
 
-        DcCalendar.setDateFormatString("dd-MM-yyyy");
+        dcCalendar.setDateFormatString("dd-MM-yyyy");
 
         javax.swing.GroupLayout pnlInputLayout = new javax.swing.GroupLayout(pnlInput);
         pnlInput.setLayout(pnlInputLayout);
@@ -143,7 +146,7 @@ public class FrmCreateEvent extends javax.swing.JFrame {
                 .addGap(243, 243, 243)
                 .addGroup(pnlInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(DcCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dcCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pnlInputLayout.createSequentialGroup()
                         .addGroup(pnlInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(pnlInputLayout.createSequentialGroup()
@@ -174,7 +177,7 @@ public class FrmCreateEvent extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
-                .addComponent(DcCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(dcCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -325,19 +328,19 @@ public class FrmCreateEvent extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        Date happening = dcCalendar.getDate();
+        String happeningStr = dateFormat.format(happening);
         String[] Datos = new String[4];
-        Datos[0] = txtEvent.getText();
-        Datos[1] = DcCalendar.getDateFormatString();
-        Datos[2] = txtID.getText();
+        Datos[0] = txtID.getText();
+        Datos[1] = txtEvent.getText();
+        Datos[2] = happeningStr;
         Datos[3] = txtAreaDescription.getText();
         model.addRow(Datos);
-
-        Event event = new Event(Datos[2], Datos[0], Datos[3], Datos[1]);
-        EventController.updateEvent(event);
+        EventController.insertEvent(Datos[0], Datos[1], Datos[2], Datos[3]);
         txtID.setText("");
         txtEvent.setText("");
-        DcCalendar.setDateFormatString("");
+        dcCalendar.setDateFormatString("");
         txtAreaDescription.setText("");
     }//GEN-LAST:event_btnAddActionPerformed
 
@@ -415,9 +418,9 @@ public class FrmCreateEvent extends javax.swing.JFrame {
     private void mnMailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnMailActionPerformed
         FrmHelp newHelp = new FrmHelp();
         newHelp.setVisible(true);
-        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
             newHelp.setStatusCbmiDarkMode(false);
-        }else{
+        } else {
             newHelp.setStatusCbmiDarkMode(true);
         }
         this.dispose();
@@ -448,10 +451,10 @@ public class FrmCreateEvent extends javax.swing.JFrame {
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.toedter.calendar.JDateChooser DcCalendar;
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnBack;
     private javax.swing.JCheckBoxMenuItem cbmiDarkMode;
+    private com.toedter.calendar.JDateChooser dcCalendar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;

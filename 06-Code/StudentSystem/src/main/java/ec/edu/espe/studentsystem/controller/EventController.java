@@ -30,31 +30,17 @@ public class EventController {
 
     private static final Scanner sc = new Scanner(System.in);
 
-    public static void insertEvent(Event event) {
-
-        String uri = "mongodb+srv://laandrade:laandrade@cluster0.jcz1lsa.mongodb.net/test";
-        try ( MongoClient mongoClient = MongoClients.create(uri)) {
-
-            MongoDatabase database = mongoClient.getDatabase("StudentControlSystem");
-            try {
-                System.out.println("Connected successfully to the server.");
-                MongoCollection<Document> collectionEvent = database.getCollection("Event");
+    public static void insertEvent(String id,String name,String date,String description) {
+                MongoCollection<Document> collectionEvent = MongoConection.getConnection("events");
 
                 Document events = new Document("_id", new ObjectId())
-                        .append("id", event.getId())
-                        .append("name", event.getName())
-                        .append("date", event.getDate())
-                        .append("description", event.getDescription());
+                        .append("id", id)
+                        .append("name", name)
+                        .append("date", date)
+                        .append("description", description);
 
                 collectionEvent.insertOne(events);
-
-            } catch (MongoException me) {
-                System.out.println("An error occurred while attempting to connect: " + me);
             }
-
-        }
-    }
-
     public static Event findEvent(Event event) {
 
         String Data;
@@ -124,7 +110,7 @@ public class EventController {
         }
     }
 
-    public class CancelEvent {
+  /*  public class CancelEvent {
     }
 
     public void cancelEvent(Event event) {
@@ -148,5 +134,5 @@ public class EventController {
         } else {
 
         }
-    }
+    }*/
 }
