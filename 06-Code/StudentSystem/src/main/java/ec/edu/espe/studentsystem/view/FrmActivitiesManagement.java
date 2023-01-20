@@ -40,7 +40,7 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
 
     DefaultTableModel dtm = new DefaultTableModel();
 
-    private final String classroomName;
+    private String classroomName;
     private Document teacher;
     final int teacherId;
 
@@ -53,7 +53,8 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
     public FrmActivitiesManagement(String classroomName, int teacherId) {
         this.teacher = findTeacher(teacherId);
         this.teacherId = teacherId;
-        
+        this.classroomName = classroomName;
+
         initComponents();
         addClassroomsToCmb();
         cmbClassrooms.setSelectedItem(classroomName);
@@ -61,7 +62,6 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
         if (!selectedItem.equals("ID")) {
             enableInputs(selectedItem);
         }
-        this.classroomName = classroomName;
 
         String[] head = new String[]{"Name", "Type", "Shipping", "Deadline"};
         dtm.setColumnIdentifiers(head);
@@ -605,10 +605,9 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
     private void btnOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenActionPerformed
         // TODO add your handling code here:
         String activityName = txtAction.getText();
-        Document activityData = findActivity(teacherId, activityName);
-
+        Document activityData = findActivity(teacherId, activityName,classroomName);
         if (activityData != null) {
-            FrmActivity frmActivity = new FrmActivity(activityData, teacherId);
+            FrmActivity frmActivity = new FrmActivity(activityName,classroomName, teacherId);
             frmActivity.setVisible(true);
             this.dispose();
         } else {
@@ -659,6 +658,7 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
     private void btnChangeActActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeActActionPerformed
         // TODO add your handling code here:
         Date date = new Date();
+        classroomName=(String) cmbClassrooms.getSelectedItem();
         String selectedClassroom = (String) cmbClassrooms.getSelectedItem();
         emptyInputs(date);
         if ("Classrooms".equals(selectedClassroom)) {
@@ -736,7 +736,7 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
             int teacherId = teacher.getInteger("id");
 
             activity = new Activity(actName, teacherId, txtName.getText(), shippingStr, deadlineStr, txtAComment.getText(), actType, activityReport);
-            System.out.println(activity.getActivityReport().get(0));
+            
             createActivity(activity);
             JOptionPane.showMessageDialog(this, txtName.getText() + " activity added succesfully!", "Activity insertion", JOptionPane.INFORMATION_MESSAGE);
             showActivities((String) cmbClassrooms.getSelectedItem());
@@ -750,7 +750,7 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
         ArrayList<Activity> newActivity = new ArrayList<>();
         Activity activity;
         String name = txtName.getText();
-        Document activityData = findActivity((int) teacher.get("id"), name);
+        Document activityData = findActivity(teacherId, name,classroomName);
         ArrayList<Assignation> acivityReport = new ArrayList<>();
         Assignation asignationObj;
         if (activityData != null) {
@@ -831,18 +831,23 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
 
     private void mnItmStudentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnItmStudentsActionPerformed
         // TODO add your handling code here:
-        FrmStudentManagement students = new FrmStudentManagement();
+        FrmStudentManagement students = new FrmStudentManagement(teacherId);
         students.setVisible(true);
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+            students.setStatusCbmiDarkMode(false);
+        } else {
+            students.setStatusCbmiDarkMode(true);
+        }
         this.dispose();
     }//GEN-LAST:event_mnItmStudentsActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
         String activityName = txtAction.getText();
-        Document activityData = findActivity(teacherId, activityName);
+        Document activityData = findActivity(teacherId, activityName,classroomName);
 
         if (activityData != null) {
-            deteleActivity(teacherId, activityName);
+            deteleActivity(teacherId, activityName,classroomName);
         } else {
             JOptionPane.showMessageDialog(this, "We can't find the activity inserted", "Activity insertion", JOptionPane.WARNING_MESSAGE);
         }

@@ -38,16 +38,18 @@ public class TeacherController {
         teacherCollection.updateOne(idToSearchDocument, updatedClassroomsDocument);
     }
 
-    public static ArrayList<String> findClassroom(String classroomName, Document teacher) {
+    public static ArrayList<String> findClassroom(String classroomName, int teacherId) {
         MongoCollection teacherCollection = getConnection("teachers");
-        Bson filter = Filters.and(Filters.eq("id", teacher.getInteger("id")));
+        Bson filter = Filters.and(Filters.eq("id", teacherId));
         Document dataTeacher = (Document) teacherCollection.find(filter).first();
-        ArrayList<String> classrooms = (ArrayList<String>) teacher.get("classrooms");
-        ArrayList<String> classroomFind = new ArrayList<>();
-        for (String classroom : classrooms) {
-            if (classroom.equals(classroomName)) {
-                classroomFind.add(classroom);
-                return classroomFind;
+        if (dataTeacher != null) {
+            ArrayList<String> classrooms = (ArrayList<String>) dataTeacher.get("classrooms");
+            ArrayList<String> classroomFind = new ArrayList<>();
+            for (String classroom : classrooms) {
+                if (classroom.equals(classroomName)) {
+                    classroomFind.add(classroom);
+                    return classroomFind;
+                }
             }
         }
         return null;
@@ -137,6 +139,91 @@ public class TeacherController {
         return false;
     }
 
+    public static boolean deleteClassroom(int teacherId, String classroomName) {
+        boolean teacherVerivied = deleteToTeacher(classroomName, teacherId);
+        boolean enrollmentVerivied = deleteToEnrollments(classroomName);
+        boolean activitiesVerivied = deleteToactivities(classroomName, teacherId);
+        boolean subjectVerivied = deleteToSubjects(classroomName);
+        return true;
+    }
+
+    public static boolean deleteToTeacher(String classroomName, int teacherId) throws MongoClientException {
+        if (findClassroom(classroomName, teacherId) != null) {
+            MongoCollection teacherCollection = getConnection("teachers");
+            Bson filter = Filters.and(Filters.eq("id", teacherId));
+            Document dataTeacher = (Document) teacherCollection.find(filter).first();
+            if (dataTeacher != null) {
+                ArrayList<String> classrooms = (ArrayList<String>) dataTeacher.get("classrooms");
+                for (int i = 0; i < classrooms.size(); i++) {
+                    if (classrooms.get(i).equals(classroomName)) {
+                        classrooms.remove(i);
+                    }
+                }
+                Document updatedClassroomsDocument = new Document("$set", new Document("classrooms", classrooms));
+                teacherCollection.updateOne(filter, updatedClassroomsDocument);
+            }
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static boolean deleteToEnrollments(String name) {
+        MongoCollection enrollmentsCollection = getConnection("enrollments");
+        Bson filter = Filters.all("subjects", name);
+        MongoCursor<Document> enrollments = enrollmentsCollection.find(filter).iterator();
+        System.out.println("ENROLLMENTS");
+        
+        try {
+            while (enrollments.hasNext()) {
+                Document enrollmentDoc = enrollments.next();
+                ArrayList<String> subjects = (ArrayList<String>) enrollmentDoc.get("subjects");
+                subjects.remove(name);
+                Document idToSearchDocument = new Document("studentId", (int) enrollmentDoc.get("studentId"));
+                Document updatedClassroomsDocument = new Document("$set", new Document("subjects", subjects));
+                enrollmentsCollection.updateOne(idToSearchDocument, updatedClassroomsDocument);
+            }
+        } finally {
+            enrollments.close();
+        }
+        return true;
+    }
+
+    public static boolean deleteToactivities(String classroomName, int teacherId) {
+        MongoCollection activitiesCollection = getConnection("activities");
+        Bson filter = Filters.and(Filters.eq("teacherId", teacherId), Filters.eq("subjectName", classroomName));
+        MongoCursor<Document> activities = activitiesCollection.find(filter).iterator();
+        if (activities != null) {
+            activitiesCollection.deleteMany(filter);
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean deleteToSubjects(String classromName) {
+        MongoCollection subjectsCollection = getConnection("subjects");
+        Bson filter = Filters.elemMatch("gradesReport", Filters.eq("subject", classromName));
+        MongoCursor<Document> subjects = subjectsCollection.find(filter).iterator();
+        
+        try {
+            while (subjects.hasNext()) {
+                Document subjectDoc = subjects.next();
+                ArrayList<Document> gradesReport = (ArrayList<Document>) subjectDoc.get("gradesReport");
+                for(int i = 0; i<gradesReport.size();i++){
+                    if(gradesReport.get(i).get("subject").equals(classromName)){
+                        gradesReport.remove(i);
+                    }
+                }
+                Document idToSearchDocument = new Document("studentId", (int) subjectDoc.get("studentId"));
+                Document updatedClassroomsDocument = new Document("$set", new Document("subjects", gradesReport));
+                subjectsCollection.updateOne(idToSearchDocument, updatedClassroomsDocument);
+            }
+        } finally {
+            subjects.close();
+        }
+        return true;
+    }
+
     public static boolean enterToClassroom(String classroomName, int teacherId) {
         MongoCollection teacherCollection = getConnection("teachers");
         Bson filter = Filters.and(Filters.eq("id", teacherId));
@@ -166,28 +253,18 @@ public class TeacherController {
                 .append("teacherId", activity.getTeacherId())
                 .append("name", activity.getName())
                 .append("shipping", activity.getShipping())
-                .append("shipping", activity.getDeadline())
+                .append("deadline", activity.getDeadline())
                 .append("comment", activity.getComment())
                 .append("activityType", activity.getActivityType())
                 .append("activityReport", activityReportDoc);
         activitiesCollection.insertOne(activityDoc);
     }
 
-    public static Document findActivity(int id, String name) {
+    public static Document findActivity(int teacherId, String activityName, String classroomName) {
         MongoCollection enrollmentsCollection = getConnection("activities");
-        Bson filter = Filters.and(Filters.eq("teacherId",id),Filters.eq("name",name));
+        Bson filter = Filters.and(Filters.eq("teacherId", teacherId), Filters.eq("name", activityName), Filters.eq("subjectName", classroomName));
         Document activity = (Document) enrollmentsCollection.find(filter).first();
         return activity;
     }
-
-    public static void deleteClassroom(String classroomName, Document teacher) {
-        MongoCollection teacherCollection = getConnection("teachers");
-
-        ArrayList<String> actualClassrooms = (ArrayList<String>) teacher.get("classrooms");
-        actualClassrooms.remove(classroomName);
-        Document idToSearchDocument = new Document("id", teacher.getInteger("id"));
-        Document updatedClassroomsDocument = new Document("$set", new Document("classrooms", actualClassrooms));
-        teacherCollection.updateOne(idToSearchDocument, updatedClassroomsDocument);
-    }
-
+    //subjectsCollection.find(filter).forEach(doc -> System.out.println(doc.toString()));//To test any filter
 }

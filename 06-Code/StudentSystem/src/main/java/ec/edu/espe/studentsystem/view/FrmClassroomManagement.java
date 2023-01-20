@@ -3,6 +3,7 @@ package ec.edu.espe.studentsystem.view;
 import static ec.edu.espe.studentsystem.controller.ClassroomController.countNumberStudents;
 import static ec.edu.espe.studentsystem.controller.ClassroomController.findTeacher;
 import static ec.edu.espe.studentsystem.controller.TeacherController.createClassroom;
+import static ec.edu.espe.studentsystem.controller.TeacherController.deleteClassroom;
 import static ec.edu.espe.studentsystem.controller.TeacherController.enterToClassroom;
 import static ec.edu.espe.studentsystem.controller.TeacherController.findClassroom;
 import static ec.edu.espe.studentsystem.controller.TeacherController.updateClassroom;
@@ -580,7 +581,7 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
 
     private void btnFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindActionPerformed
         // TODO add your handling code here:
-        ArrayList<String> classroom = findClassroom(txtName.getText(), teacher);
+        ArrayList<String> classroom = findClassroom(txtName.getText(), teacherId);
 
         if (classroom != null) {
             addToTable(classroom);
@@ -643,7 +644,7 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
         try {
-            boolean classrooms = updateClassroom(txtNameToChange.getText(), txtNewName.getText(), (int) teacher.get("id"));
+            boolean classrooms = deleteClassroom(teacherId,txtActionName.getText());
             if (classrooms) {
                 showClassrooms();
                 teacher = findTeacher(teacherId);

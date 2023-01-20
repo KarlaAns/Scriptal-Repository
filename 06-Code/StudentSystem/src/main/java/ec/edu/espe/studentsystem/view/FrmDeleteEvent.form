@@ -168,7 +168,7 @@
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="txtNameToDelete" min="-2" pref="148" max="-2" attributes="0"/>
+                                  <Component id="txtIdToDelete" min="-2" pref="148" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="377" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
@@ -198,7 +198,7 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="txtNameToDelete" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtIdToDelete" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                   <Component id="btnSearch" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
@@ -232,13 +232,13 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Dialog" size="14" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Enter the name of the event to delete:"/>
+            <Property name="text" type="java.lang.String" value="Enter the id of the event to delete:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtNameToDelete">
+        <Component class="javax.swing.JTextField" name="txtIdToDelete">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtNameToDeleteActionPerformed"/>
-            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtNameToDeleteKeyTyped"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtIdToDeleteActionPerformed"/>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtIdToDeleteKeyTyped"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnDelete">

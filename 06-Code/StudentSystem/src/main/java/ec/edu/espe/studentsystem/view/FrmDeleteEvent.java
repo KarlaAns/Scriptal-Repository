@@ -4,6 +4,11 @@ import ec.edu.espe.studentsystem.controller.EventController;
 import ec.edu.espe.studentsystem.controller.ThemeController;
 import ec.edu.espe.studentsystem.model.Event;
 import java.awt.EventQueue;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
@@ -13,8 +18,8 @@ import javax.swing.table.DefaultTableModel;
  * @author Karla Ansatuña
  */
 public class FrmDeleteEvent extends javax.swing.JFrame {
-    
- public void setStatusCbmiDarkMode(boolean isSelected) {
+
+    public void setStatusCbmiDarkMode(boolean isSelected) {
         this.cbmiDarkMode.setSelected(isSelected);
     }
     DefaultTableModel model = new DefaultTableModel();
@@ -49,7 +54,7 @@ public class FrmDeleteEvent extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         btnBack = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        txtNameToDelete = new javax.swing.JTextField();
+        txtIdToDelete = new javax.swing.JTextField();
         btnDelete = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
@@ -83,16 +88,16 @@ public class FrmDeleteEvent extends javax.swing.JFrame {
         });
 
         jLabel2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel2.setText("Enter the name of the event to delete:");
+        jLabel2.setText("Enter the id of the event to delete:");
 
-        txtNameToDelete.addActionListener(new java.awt.event.ActionListener() {
+        txtIdToDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNameToDeleteActionPerformed(evt);
+                txtIdToDeleteActionPerformed(evt);
             }
         });
-        txtNameToDelete.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtIdToDelete.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtNameToDeleteKeyTyped(evt);
+                txtIdToDeleteKeyTyped(evt);
             }
         });
 
@@ -159,7 +164,7 @@ public class FrmDeleteEvent extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(txtNameToDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtIdToDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(377, 377, 377))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 599, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -180,7 +185,7 @@ public class FrmDeleteEvent extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtNameToDelete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtIdToDelete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(17, 17, 17)
                 .addComponent(btnSearch)
                 .addGap(65, 65, 65)
@@ -189,7 +194,6 @@ public class FrmDeleteEvent extends javax.swing.JFrame {
                 .addComponent(btnDelete)
                 .addContainerGap(126, Short.MAX_VALUE))
         );
-
 
 
         mnStudentSystem.setText("StudentSystem");
@@ -305,49 +309,54 @@ public class FrmDeleteEvent extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        int option = JOptionPane.showConfirmDialog(this, "Do you want to continue?");
-        if (option == 0) {
-            Event event = new Event("", txtNameToDelete.getText(), "", "");
-            EventController.deleteEvent(event);
-            JOptionPane.showMessageDialog(this, "Event Delete");
-            txtNameToDelete.setText("");
-        } else if (option == 1) {
-            JOptionPane.showMessageDialog(this, "Operation Cancelled");
-        } else if (option == 2) {
-            FrmDeleteEvent btnBack = new FrmDeleteEvent();
-            btnBack.setVisible(true);
-            this.dispose();
-        }
+        int id = Integer.parseInt(txtIdToDelete.getText());
+        System.out.println("id>"+id);
+        EventController.deleteEvent(id);
+        JOptionPane.showMessageDialog(this, "The event has been eliminated");
+        int lastRow = model.getRowCount() - 1;
+        model.removeRow(lastRow);
     }//GEN-LAST:event_btnDeleteActionPerformed
 
-    private void txtNameToDeleteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNameToDeleteKeyTyped
+    private void txtIdToDeleteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdToDeleteKeyTyped
         // TODO add your handling code here:
         char c = evt.getKeyChar();
 
-        if ((Character.isAlphabetic(c)) || (Character.isWhitespace(c)) || (Character.isISOControl(c))) {
-            txtNameToDelete.setEditable(true);
+        if ((Character.isDigit(c)) || (Character.isWhitespace(c)) || (Character.isISOControl(c))) {
+            txtIdToDelete.setEditable(true);
         } else {
-            txtNameToDelete.setEditable(false);
+            txtIdToDelete.setEditable(false);
             JOptionPane.showMessageDialog(this, c + " is not accepted here", "Warning on input data", JOptionPane.WARNING_MESSAGE);
         }
-    }//GEN-LAST:event_txtNameToDeleteKeyTyped
+    }//GEN-LAST:event_txtIdToDeleteKeyTyped
 
-    private void txtNameToDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameToDeleteActionPerformed
+    private void txtIdToDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdToDeleteActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtNameToDeleteActionPerformed
+    }//GEN-LAST:event_txtIdToDeleteActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        boolean validation = false;
+        if (txtIdToDelete.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Id field is empty");
+            validation = false;
+        } else {
+            validation = true;
+        }
+        if (validation) {
+            String id = txtIdToDelete.getText();
+            Event event = EventController.findEvent(id);
+            if (event != null && !event.getId().equals("0")) {
+                String name = event.getName();
+                String description = event.getDescription();
+                String dateOfEvent = event.getDate();
+                addToTable(id, name, dateOfEvent, description);
+                txtIdToDelete.setText("");
+            }
 
-        Event event = new Event("", txtNameToDelete.getText(), "", "");
-        event = EventController.findEvent(event);
-        String[] Datos = new String[4];
-        Datos[0] = event.getId();
-        Datos[1] = event.getName();
-        Datos[0] = event.getName();
-        Datos[2] = event.getDate();
-        Datos[3] = event.getDescription();
-        txtNameToDelete.setText("");
-        model.addRow(Datos);
+            if (event == null || event.getId() == null || event.getId().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Data not found");
+
+            }
+        }
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void mniHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniHomeActionPerformed
@@ -451,9 +460,9 @@ public class FrmDeleteEvent extends javax.swing.JFrame {
     private void mnMailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnMailActionPerformed
         FrmHelp newHelp = new FrmHelp();
         newHelp.setVisible(true);
-        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
             newHelp.setStatusCbmiDarkMode(false);
-        }else{
+        } else {
             newHelp.setStatusCbmiDarkMode(true);
         }
         this.dispose();
@@ -521,6 +530,16 @@ public class FrmDeleteEvent extends javax.swing.JFrame {
     private javax.swing.JMenuItem mniHome;
     private javax.swing.JMenuItem mniLogOut;
     private javax.swing.JTable table;
-    private javax.swing.JTextField txtNameToDelete;
+    private javax.swing.JTextField txtIdToDelete;
     // End of variables declaration//GEN-END:variables
+
+    private void addToTable(String id, String name, String date, String description) {
+        String[] info = new String[4];
+        info[0] = id;
+        info[1] = name;
+        info[2] = date;
+        info[3] = description;
+        model.addRow(info);
+    }
+
 }

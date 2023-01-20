@@ -345,15 +345,13 @@
               <Font name="Dialog" size="14" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" value="New name of the event:"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="lblNewName.setEnabled(false);"/>
-          </AuxValues>
         </Component>
         <Component class="javax.swing.JTextField" name="txtNewName">
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="txtNewName.setEnabled(false);"/>
-          </AuxValues>
+          <Properties>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblNewDes">
           <Properties>
@@ -361,10 +359,8 @@
               <Font name="Dialog" size="14" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" value="New Event Description:"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="lblNewDes.setEnabled(false);"/>
-          </AuxValues>
         </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane1">
           <AuxValues>
@@ -377,10 +373,8 @@
               <Properties>
                 <Property name="columns" type="int" value="20"/>
                 <Property name="rows" type="int" value="5"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="txtNewDes.setEnabled(false);"/>
-              </AuxValues>
             </Component>
           </SubComponents>
         </Container>
@@ -390,18 +384,14 @@
               <Font name="Dialog" size="14" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" value="New Date of the event:"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="lblNewDate.setEnabled(false);"/>
-          </AuxValues>
         </Component>
         <Component class="com.toedter.calendar.JDateChooser" name="DcCalendar">
           <Properties>
             <Property name="dateFormatString" type="java.lang.String" value="dd-MM-yyyy"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="DcCalendar.setEnabled(false);"/>
-          </AuxValues>
         </Component>
       </SubComponents>
     </Container>
@@ -411,13 +401,11 @@
           <Font name="Dialog" size="14" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Update"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUpdateActionPerformed"/>
       </Events>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="btnUpdate.setEnabled(false);"/>
-      </AuxValues>
     </Component>
   </SubComponents>
 </Form>

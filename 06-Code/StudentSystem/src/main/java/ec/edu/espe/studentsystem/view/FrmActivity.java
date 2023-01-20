@@ -12,6 +12,7 @@ import static ec.edu.espe.studentsystem.controller.ActivityController.updateActi
 import static ec.edu.espe.studentsystem.controller.ActivityController.updateGrade;
 import static ec.edu.espe.studentsystem.controller.ClassroomController.findTeacher;
 import static ec.edu.espe.studentsystem.controller.MongoConection.getConnection;
+import static ec.edu.espe.studentsystem.controller.TeacherController.findActivity;
 import ec.edu.espe.studentsystem.controller.ThemeController;
 import static ec.edu.espe.studentsystem.controller.ThemeController.setFlatLightLafTheme;
 import ec.edu.espe.studentsystem.model.Activity;
@@ -25,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -40,21 +42,27 @@ public class FrmActivity extends javax.swing.JFrame {
 
     DefaultTableModel dtm = new DefaultTableModel();
 
-    private final Document activityData;
+    private Document activityData;
     private final Document teacher;
     private final int teacherId;
+    private final String activityName;
+    private final String classroomName;
 
     /**
      * Creates new form FrmActivity
      *
-     * @param activityData
+     * @param activityName
+     * @param classroomName
      * @param teacherId
      */
-    public FrmActivity(Document activityData, int teacherId) {
-        initComponents();
-        this.activityData = activityData;
-        this.teacher = findTeacher(teacherId);
+    public FrmActivity(String activityName,String classroomName, int teacherId) {
+        this.activityName = activityName;
+        this.classroomName = classroomName;
         this.teacherId = teacherId;
+        this.teacher = findTeacher(teacherId);
+        this.activityData = findActivity(teacherId, activityName,classroomName);
+        initComponents();
+        
         txtActivityName.setText((String) activityData.get("name"));
         fillInputs();
 
@@ -66,7 +74,7 @@ public class FrmActivity extends javax.swing.JFrame {
         Alinear.setHorizontalAlignment(SwingConstants.CENTER);
         tblStudentsAct.getColumnModel().getColumn(0).setCellRenderer(Alinear);
 
-        showActivities();
+        showAssignations();
     }
 
     public final void fillInputs() {
@@ -86,7 +94,7 @@ public class FrmActivity extends javax.swing.JFrame {
         }
     }
 
-    final void showActivities() {
+    final void showAssignations() {
 
         ArrayList<Document> assignations = (ArrayList<Document>) activityData.get("activityReport");
 
@@ -488,7 +496,9 @@ public class FrmActivity extends javax.swing.JFrame {
         dataToUpdate.add(txtAComment.getText());
         dataToUpdate.add((String) cmbType.getSelectedItem());
     
-        updateActivity((String)activityData.get("name"),dataToUpdate);
+        updateActivity(teacherId,(String)activityData.get("name"),(String)activityData.get("subjectName"),dataToUpdate);
+        activityData=findActivity(teacherId, activityName,classroomName);
+        fillInputs();
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
@@ -571,8 +581,13 @@ public class FrmActivity extends javax.swing.JFrame {
 
     private void mnItmStudentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnItmStudentsActionPerformed
         // TODO add your handling code here:
-        FrmStudentManagement students = new FrmStudentManagement();
+        FrmStudentManagement students = new FrmStudentManagement(teacherId);
         students.setVisible(true);
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+            students.setStatusCbmiDarkMode(false);
+        } else {
+            students.setStatusCbmiDarkMode(true);
+        }
         this.dispose();
     }//GEN-LAST:event_mnItmStudentsActionPerformed
 
@@ -593,7 +608,15 @@ public class FrmActivity extends javax.swing.JFrame {
         int studentId = Integer.parseInt(txtIdToChange.getText());
         double grade = Double.parseDouble(txtGradeToChange.getText());
         
-        updateGrade((int)teacher.get("id"),(String)activityData.get("name"),studentId,grade);
+        ArrayList<Document> assignations = (ArrayList<Document>) activityData.get("activityReport");
+        
+        for (Document assignation : assignations) {
+            if((int)assignation.get("studentId")==studentId){
+                updateGrade(classroomName,(int)teacher.get("id"),(String)activityData.get("name"),studentId,grade);
+                activityData = findActivity(teacherId, activityName,classroomName);
+                showAssignations();
+            }
+        }
     }//GEN-LAST:event_btnSaveGradeActionPerformed
 
     /**
@@ -605,7 +628,7 @@ public class FrmActivity extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmActivity(null, 0).setVisible(true);
+                new FrmActivity("","", 0).setVisible(true);
             }
         });
     }
