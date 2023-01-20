@@ -2,7 +2,7 @@ package ec.edu.espe.studentsystem.view;
 
 import static ec.edu.espe.studentsystem.controller.ClassroomController.readClassrooms;
 import ec.edu.espe.studentsystem.controller.StudentController;
-import ec.edu.espe.studentsystem.controller.Theme;
+import ec.edu.espe.studentsystem.controller.ThemeController;
 import ec.edu.espe.studentsystem.model.Student;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
@@ -75,9 +75,10 @@ public class FrmStudentManagement extends javax.swing.JFrame {
         btnClear = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         cmbClassrooms = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        btnAssing = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        labelId = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnStudentSystem = new javax.swing.JMenu();
         mniAbout = new javax.swing.JMenuItem();
@@ -187,27 +188,33 @@ public class FrmStudentManagement extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Assign");
-        jButton1.setEnabled(false);
+        btnAssing.setText("Assign");
+        btnAssing.setEnabled(false);
 
         jLabel7.setText("ID:");
+
+        jLabel9.setText("assign to");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+            .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(61, 61, 61)
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(cmbClassrooms, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16))
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(244, 244, 244)
-                .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(labelId, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(btnAssing)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cmbClassrooms, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -216,9 +223,10 @@ public class FrmStudentManagement extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbClassrooms, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(labelId, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9))
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(btnAssing)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -409,7 +417,7 @@ public class FrmStudentManagement extends javax.swing.JFrame {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-                    Theme.setDarkTheme();
+                    ThemeController.setDarkTheme();
                 }
             });
         } else
@@ -417,7 +425,7 @@ public class FrmStudentManagement extends javax.swing.JFrame {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-                    Theme.setFlatLightLafTheme();
+                    ThemeController.setFlatLightLafTheme();
                 }
             });
         }
@@ -468,7 +476,7 @@ public class FrmStudentManagement extends javax.swing.JFrame {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-                    Theme.setDarkTheme();
+                    ThemeController.setDarkTheme();
                 }
             });
         } else
@@ -476,7 +484,7 @@ public class FrmStudentManagement extends javax.swing.JFrame {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-                    Theme.setFlatLightLafTheme();
+                    ThemeController.setFlatLightLafTheme();
                 }
             });
         }
@@ -518,6 +526,7 @@ public class FrmStudentManagement extends javax.swing.JFrame {
                 tfName.setText(name);
                 tfPassword.setText(password);
                 tfMail.setText(mail);
+                labelId.setText(String.valueOf(id));
                 SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
                 Date birtOfDate;
                 try {
@@ -526,6 +535,7 @@ public class FrmStudentManagement extends javax.swing.JFrame {
                 } catch (ParseException ex) {
                     Logger.getLogger(FrmStudentManagement.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                btnAssing.setEnabled(true);
                 btnClear.setEnabled(true);
                 btnDelete.setEnabled(true);
                 btnUpdate.setEnabled(true);
@@ -598,7 +608,7 @@ public class FrmStudentManagement extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        Theme.setFlatLightLafTheme();
+        ThemeController.setFlatLightLafTheme();
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -608,6 +618,7 @@ public class FrmStudentManagement extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAssing;
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnFind;
@@ -616,7 +627,6 @@ public class FrmStudentManagement extends javax.swing.JFrame {
     private javax.swing.JCheckBoxMenuItem cbmiDarkMode;
     private javax.swing.JComboBox<String> cmbClassrooms;
     private com.toedter.calendar.JDateChooser dataChooser;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -624,13 +634,14 @@ public class FrmStudentManagement extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JLabel labelId;
     private javax.swing.JMenu menuHelp;
     private javax.swing.JMenu menuView;
     private javax.swing.JMenuItem miClassrooms;
@@ -677,9 +688,8 @@ public class FrmStudentManagement extends javax.swing.JFrame {
 
     private void fillCmbClassrooms() {
     
-        
         ArrayList<String> classrooms;
-        classrooms = readClassrooms();
+        classrooms = readClassrooms(teacherId);
         cmbClassrooms.addItem("Classrooms");
         for (String classroom : classrooms) {
             cmbClassrooms.addItem(classroom);

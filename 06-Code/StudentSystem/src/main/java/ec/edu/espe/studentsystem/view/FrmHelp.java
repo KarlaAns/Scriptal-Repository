@@ -5,7 +5,7 @@
 package ec.edu.espe.studentsystem.view;
 
 import com.formdev.flatlaf.FlatLaf;
-import ec.edu.espe.studentsystem.controller.Theme;
+import ec.edu.espe.studentsystem.controller.ThemeController;
 import java.awt.EventQueue;
 import java.util.Properties;
 import javax.mail.Message;
@@ -248,14 +248,14 @@ public class FrmHelp extends javax.swing.JFrame {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-                    Theme.setDarkTheme();
+                    ThemeController.setDarkTheme();
                 }
             });
         } else {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-                    Theme.setFlatLightLafTheme();
+                    ThemeController.setFlatLightLafTheme();
                 }
             });
         }
@@ -265,7 +265,7 @@ public class FrmHelp extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        Theme.setFlatLightLafTheme();
+        ThemeController.setFlatLightLafTheme();
         FlatLaf.updateUI();
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.

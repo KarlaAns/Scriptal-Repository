@@ -10,7 +10,7 @@ import javax.swing.UIManager;
  *
  * @author Alejandro Andrade, Scriptal, DCCO_ESPE
  */
-public class Theme {
+public class ThemeController {
     
     public static void setFlatLightLafTheme() {
         try

@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package ec.edu.espe.studentsystem.view;
-import ec.edu.espe.studentsystem.controller.Theme;
+import ec.edu.espe.studentsystem.controller.ThemeController;
 import java.awt.EventQueue;
 
 /**
@@ -174,7 +174,7 @@ public class FrmAboutUs extends javax.swing.JFrame {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-                    Theme.setDarkTheme();
+                    ThemeController.setDarkTheme();
                 }
             });
         } else
@@ -182,7 +182,7 @@ public class FrmAboutUs extends javax.swing.JFrame {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-                    Theme.setFlatLightLafTheme();
+                    ThemeController.setFlatLightLafTheme();
                 }
             });
         }
@@ -192,7 +192,7 @@ public class FrmAboutUs extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        Theme.setFlatLightLafTheme();
+        ThemeController.setFlatLightLafTheme();
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {

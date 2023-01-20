@@ -6,7 +6,7 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import ec.edu.espe.studentsystem.controller.EventController;
-import ec.edu.espe.studentsystem.controller.Theme;
+import ec.edu.espe.studentsystem.controller.ThemeController;
 import ec.edu.espe.studentsystem.model.Event;
 import java.awt.EventQueue;
 import java.util.Scanner;
@@ -399,14 +399,14 @@ public class FrmCreateEvent extends javax.swing.JFrame {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-                    Theme.setDarkTheme();
+                    ThemeController.setDarkTheme();
                 }
             });
         } else {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-                    Theme.setFlatLightLafTheme();
+                    ThemeController.setFlatLightLafTheme();
                 }
             });
         }
