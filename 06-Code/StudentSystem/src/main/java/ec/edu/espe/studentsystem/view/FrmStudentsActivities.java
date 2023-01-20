@@ -302,7 +302,7 @@ public class FrmStudentsActivities extends javax.swing.JFrame {
         Gson gson = new Gson();
         
         MongoCollection<Document> activityCollection = MongoConection.getConnection(collection);
-        Bson bsonFilter = Filters.elemMatch("activityReport", Filters.eq("StudentId", id));
+        Bson bsonFilter = Filters.elemMatch("activityReport", Filters.eq("studentId", id));
         MongoCursor<Document> cursor = activityCollection.find(bsonFilter).iterator();
                
         while(cursor.hasNext()){
