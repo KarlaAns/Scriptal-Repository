@@ -40,7 +40,8 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
     DefaultTableModel dtm = new DefaultTableModel();
 
     private final String classroomName;
-    private final Document teacher;
+    private Document teacher;
+    private final int teacherId;
 
     /**
      * Creates new form FrmAssignments
@@ -48,10 +49,11 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
      * @param classroomName
      * @param teacher
      */
-    public FrmActivitiesManagement(String classroomName, Document teacher) {
+    public FrmActivitiesManagement(String classroomName, int teacherId) {
         initComponents();
         addClassroomsToCmb();
-        this.teacher = teacher;
+        this.teacher = findTeacher(teacherId);
+        this.teacherId = teacherId;
         cmbClassrooms.setSelectedItem(classroomName);
         String selectedItem = (String) cmbClassrooms.getSelectedItem();
         if (!selectedItem.equals("ID")) {
@@ -599,7 +601,7 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
         Document activityData = findActivity((int) teacher.get("id"), activityName);
 
         if (activityData != null) {
-            FrmActivity frmActivity = new FrmActivity(activityData, teacher);
+            FrmActivity frmActivity = new FrmActivity(activityData, teacherId);
             frmActivity.setVisible(true);
             this.dispose();
         } else {
@@ -798,7 +800,6 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
 
     private void mnItmClassroomsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnItmClassroomsActionPerformed
         // TODO add your handling code here:
-        Document teacherId = findTeacher((int)teacher.get("id"));
         FrmClassroomManagement classroomManagement = new FrmClassroomManagement(teacherId);
         classroomManagement.setVisible(true);
         if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
@@ -811,7 +812,6 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
 
     private void bthBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bthBackActionPerformed
         // TODO add your handling code here:
-        Document teacherId = findTeacher((int)teacher.get("id"));
         FrmClassroomManagement classroomManagement = new FrmClassroomManagement(teacherId);
         classroomManagement.setVisible(true);
         if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
@@ -824,13 +824,8 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
 
     private void mnItmStudentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnItmStudentsActionPerformed
         // TODO add your handling code here:
-        FrmStudentManagement studentManagement = new FrmStudentManagement();
-        studentManagement.setVisible(true);
-        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
-            studentManagement.setStatusCbmiDarkMode(false);
-        }else{
-            studentManagement.setStatusCbmiDarkMode(true);
-        }
+        FrmStudentManagement students = new FrmStudentManagement();
+        students.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_mnItmStudentsActionPerformed
 
@@ -844,7 +839,7 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmActivitiesManagement("", null).setVisible(true);
+                new FrmActivitiesManagement("", 0).setVisible(true);
             }
         });
     }
@@ -896,7 +891,7 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
 
     private void addClassroomsToCmb() {
         ArrayList<String> classrooms;
-        classrooms = readClassrooms();
+        classrooms = readClassrooms(teacherId);
         cmbClassrooms.addItem("Classrooms");
         for (String classroom : classrooms) {
             cmbClassrooms.addItem(classroom);

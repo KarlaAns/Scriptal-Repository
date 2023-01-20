@@ -5,6 +5,7 @@ import static ec.edu.espe.studentsystem.controller.ClassroomController.findTeach
 import static ec.edu.espe.studentsystem.controller.TeacherController.createClassroom;
 import static ec.edu.espe.studentsystem.controller.TeacherController.enterToClassroom;
 import static ec.edu.espe.studentsystem.controller.TeacherController.findClassroom;
+import static ec.edu.espe.studentsystem.controller.TeacherController.updateClassroom;
 import ec.edu.espe.studentsystem.controller.Theme;
 import static ec.edu.espe.studentsystem.controller.Theme.setFlatLightLafTheme;
 import ec.edu.espe.studentsystem.model.Classroom;
@@ -27,16 +28,18 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
 
     DefaultTableModel dtm = new DefaultTableModel();
 
-    private final Document teacher;
+    private Document teacher;
+    private final int teacherId;
 
     /**
      * Creates new form FrmClassroom
      *
-     * @param teacher
+     * @param teacherId
      */
-    public FrmClassroomManagement(Document teacher) {
+    public FrmClassroomManagement(int teacherId) {
         initComponents();
-        this.teacher = teacher;
+        this.teacherId=teacherId;
+        this.teacher = findTeacher(teacherId);
 
         String[] head = new String[]{"Name"};
         dtm.setColumnIdentifiers(head);
@@ -83,6 +86,13 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
         btnFind = new javax.swing.JButton();
         btnNew = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        txtNameToChange = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        txtNewName = new javax.swing.JTextField();
+        btnUpdate = new javax.swing.JButton();
         pnlTable = new javax.swing.JPanel();
         btnClean = new javax.swing.JButton();
         tblAssignmentsContainer = new javax.swing.JScrollPane();
@@ -169,9 +179,9 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
         pnlActionsLayout.setVerticalGroup(
             pnlActionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlActionsLayout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addGap(7, 7, 7)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtActionName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -179,7 +189,7 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
                 .addGroup(pnlActionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnOpen)
                     .addComponent(btnDelete))
-                .addContainerGap(64, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pnlSearch.setBackground(new java.awt.Color(255, 255, 255));
@@ -245,7 +255,7 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
         pnlSearchLayout.setVerticalGroup(
             pnlSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlSearchLayout.createSequentialGroup()
-                .addGap(26, 26, 26)
+                .addGap(12, 12, 12)
                 .addComponent(jLabel5)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
@@ -255,7 +265,83 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
                 .addGroup(pnlSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnFind)
                     .addComponent(btnNew, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addContainerGap(10, Short.MAX_VALUE))
+        );
+
+        jPanel1.setBorder(pnlActions.getBorder());
+
+        txtNameToChange.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNameToChangeActionPerformed(evt);
+            }
+        });
+
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel9.setText("Name");
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel3.setText("Change Classroom Name");
+
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel10.setText("New name");
+
+        txtNewName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNewNameActionPerformed(evt);
+            }
+        });
+
+        btnUpdate.setBackground(new java.awt.Color(255, 204, 102));
+        btnUpdate.setText("Update");
+        btnUpdate.setPreferredSize(new java.awt.Dimension(72, 27));
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtNameToChange, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtNewName, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(47, 47, 47))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(110, 110, 110)
+                                .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(txtNameToChange, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(txtNewName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout pnlFormLayout = new javax.swing.GroupLayout(pnlForm);
@@ -263,20 +349,23 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
         pnlFormLayout.setHorizontalGroup(
             pnlFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFormLayout.createSequentialGroup()
-                .addContainerGap(27, Short.MAX_VALUE)
+                .addContainerGap(54, Short.MAX_VALUE)
                 .addGroup(pnlFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(pnlSearch)
-                    .addComponent(pnlActions))
+                    .addComponent(pnlActions)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(19, 19, 19))
         );
         pnlFormLayout.setVerticalGroup(
             pnlFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlFormLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(pnlSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(pnlActions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         btnClean.setBackground(new java.awt.Color(204, 255, 255));
@@ -302,9 +391,16 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
             Class[] types = new Class [] {
                 java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         tblAssignments.setOpaque(false);
@@ -330,8 +426,8 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(btnClean)
                 .addGap(18, 18, 18)
-                .addComponent(tblAssignmentsContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addComponent(tblAssignmentsContainer, javax.swing.GroupLayout.DEFAULT_SIZE, 410, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jLabel2.setFont(new java.awt.Font("Cascadia Code", 1, 24)); // NOI18N
@@ -387,11 +483,6 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
         jMenu1.add(mnItmClassrooms);
 
         mnItmStudents.setText("Students");
-        mnItmStudents.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnItmStudentsActionPerformed(evt);
-            }
-        });
         jMenu1.add(mnItmStudents);
 
         jMenuBar1.add(jMenu1);
@@ -415,7 +506,7 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(88, Short.MAX_VALUE)
+                .addContainerGap(61, Short.MAX_VALUE)
                 .addComponent(pnlForm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pnlTable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -436,9 +527,11 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
                     .addComponent(btnBack))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlForm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pnlTable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(38, Short.MAX_VALUE))
+                    .addComponent(pnlForm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(pnlTable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         pack();
@@ -466,9 +559,9 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
     private void mniAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAboutActionPerformed
         FrmAboutUs aboutUs = new FrmAboutUs();
         aboutUs.setVisible(true);
-        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
             aboutUs.setStatusCbmiDarkMode(false);
-        }else{
+        } else {
             aboutUs.setStatusCbmiDarkMode(true);
         }
         this.dispose();
@@ -510,7 +603,7 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
         String classroomName = txtActionName.getText();
         int teacherId = teacher.getInteger("id");
         if (enterToClassroom(classroomName, teacherId)) {
-            FrmActivitiesManagement frmActivity = new FrmActivitiesManagement(classroomName, teacher);
+            FrmActivitiesManagement frmActivity = new FrmActivitiesManagement(classroomName, teacherId);
             frmActivity.setVisible(true);
             this.dispose();
         } else {
@@ -520,6 +613,7 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
 
     private void btnCleanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCleanActionPerformed
         // TODO add your handling code here:
+        teacher = findTeacher(teacherId);
         showClassrooms();
     }//GEN-LAST:event_btnCleanActionPerformed
 
@@ -538,9 +632,9 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         FrmHelp newHelp = new FrmHelp();
         newHelp.setVisible(true);
-        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
             newHelp.setStatusCbmiDarkMode(false);
-        }else{
+        } else {
             newHelp.setStatusCbmiDarkMode(true);
         }
         this.dispose();
@@ -548,16 +642,16 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
-        FrmTeacher teacherMain = new FrmTeacher((int)teacher.get("id"));
+        FrmTeacher teacherMain = new FrmTeacher((int) teacher.get("id"));
         teacherMain.setVisible(true);
-        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
             teacherMain.setStatusCbmiDarkMode(false);
-        }else{
+        } else {
             teacherMain.setStatusCbmiDarkMode(true);
         }
         this.dispose();
@@ -565,28 +659,40 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
 
     private void mnItmClassroomsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnItmClassroomsActionPerformed
         // TODO add your handling code here:
-        Document teacherId = findTeacher((int)teacher.get("id"));
+        //Document teacherId = findTeacher((int) teacher.get("id"));
         FrmClassroomManagement classroomManagement = new FrmClassroomManagement(teacherId);
         classroomManagement.setVisible(true);
-        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
             classroomManagement.setStatusCbmiDarkMode(false);
-        }else{
+        } else {
             classroomManagement.setStatusCbmiDarkMode(true);
         }
         this.dispose();
     }//GEN-LAST:event_mnItmClassroomsActionPerformed
 
-    private void mnItmStudentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnItmStudentsActionPerformed
+    private void txtNameToChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameToChangeActionPerformed
         // TODO add your handling code here:
-        FrmStudentManagement studentManagement = new FrmStudentManagement();
-        studentManagement.setVisible(true);
-        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
-            studentManagement.setStatusCbmiDarkMode(false);
-        }else{
-            studentManagement.setStatusCbmiDarkMode(true);
+    }//GEN-LAST:event_txtNameToChangeActionPerformed
+
+    private void txtNewNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNewNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNewNameActionPerformed
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        // TODO add your handling code here:
+        try {
+            boolean classrooms = updateClassroom(txtNameToChange.getText(), txtNewName.getText(), (int) teacher.get("id"));
+            if(classrooms){
+                showClassrooms();
+                teacher = findTeacher(teacherId);
+                JOptionPane.showMessageDialog(this, txtNameToChange.getText()+" classroom updated successfully", "Classroom update", JOptionPane.INFORMATION_MESSAGE);
+            }else{
+                JOptionPane.showMessageDialog(this, "Data not found", "Classroom update", JOptionPane.WARNING_MESSAGE);
+            }
+        } catch (HeadlessException e) {
+            JOptionPane.showMessageDialog(this, "An error has occurred", "Classroom update", JOptionPane.WARNING_MESSAGE);
         }
-        this.dispose();
-    }//GEN-LAST:event_mnItmStudentsActionPerformed
+    }//GEN-LAST:event_btnUpdateActionPerformed
 
     /**
      * @param args the command line arguments
@@ -597,7 +703,7 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmClassroomManagement(null).setVisible(true);
+                new FrmClassroomManagement(0).setVisible(true);
             }
         });
     }
@@ -609,15 +715,20 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
     private javax.swing.JButton btnFind;
     private javax.swing.JButton btnNew;
     private javax.swing.JButton btnOpen;
+    private javax.swing.JButton btnUpdate;
     private javax.swing.JCheckBoxMenuItem cbmiDarkMode;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JMenu menuHelp;
     private javax.swing.JMenu menuView;
     private javax.swing.JMenuItem mnItmClassrooms;
@@ -633,6 +744,8 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
     private javax.swing.JScrollPane tblAssignmentsContainer;
     private javax.swing.JTextField txtActionName;
     private javax.swing.JTextField txtName;
+    private javax.swing.JTextField txtNameToChange;
+    private javax.swing.JTextField txtNewName;
     // End of variables declaration//GEN-END:variables
 
     public boolean getStatusCbmiDarkMode() {
