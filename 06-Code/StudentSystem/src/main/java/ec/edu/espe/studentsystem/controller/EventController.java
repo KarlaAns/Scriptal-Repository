@@ -10,6 +10,7 @@ import com.mongodb.MongoException;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import static com.mongodb.client.model.Filters.eq;
@@ -30,86 +31,50 @@ public class EventController {
 
     private static final Scanner sc = new Scanner(System.in);
 
-    public static void insertEvent(Event event) {
+    public static void insertEvent(String id, String name, String date, String description) {
+        MongoCollection<Document> collectionEvent = MongoConection.getConnection("events");
 
-        String uri = "mongodb+srv://laandrade:laandrade@cluster0.jcz1lsa.mongodb.net/test";
-        try ( MongoClient mongoClient = MongoClients.create(uri)) {
+        Document events = new Document("_id", new ObjectId())
+                .append("id", id)
+                .append("name", name)
+                .append("date", date)
+                .append("description", description);
 
-            MongoDatabase database = mongoClient.getDatabase("StudentControlSystem");
-            try {
-                System.out.println("Connected successfully to the server.");
-                MongoCollection<Document> collectionEvent = database.getCollection("Event");
-
-                Document events = new Document("_id", new ObjectId())
-                        .append("id", event.getId())
-                        .append("name", event.getName())
-                        .append("date", event.getDate())
-                        .append("description", event.getDescription());
-
-                collectionEvent.insertOne(events);
-
-            } catch (MongoException me) {
-                System.out.println("An error occurred while attempting to connect: " + me);
-            }
-
-        }
+        collectionEvent.insertOne(events);
     }
 
-    public static Event findEvent(Event event) {
+    public static Event findEvent(String id) {
 
-        String Data;
         Gson gson = new Gson();
-        String uri = "mongodb+srv://laandrade:laandrade@cluster0.jcz1lsa.mongodb.net/test";
+        MongoCollection<Document> collection = MongoConection.getConnection("events");
+        Bson filter = Filters.eq("id", id);
+        MongoCursor<Document> cursor = collection.find(filter).limit(1).iterator();
 
-        try ( MongoClient mongoClient = MongoClients.create(uri)) {
-            MongoDatabase database = mongoClient.getDatabase("StudentControlSystem");
-            try {
-                MongoCollection<Document> collectionEvent = database.getCollection("Event");
-
-                Bson filter = Filters.eq("name", event.getName());
-                try {
-                    Document doc = collectionEvent.find(Filters.and(filter)).first();
-                    Data = doc.toJson();
-                    TypeToken<Event> type = new TypeToken<Event>() {
-                    };
-                    event = gson.fromJson(Data, type.getType());
-
-                } catch (Exception e) {
-                    System.out.println("Data not found");
-                }
-
-            } catch (MongoException me) {
-                System.out.println("An error occurred while attempting to connect: " + me);
-            }
+        if (cursor.hasNext()) {
+            Document doc = collection.find(filter).first();
+            String eventDoc = doc.toJson();
+            Event event = gson.fromJson(eventDoc, Event.class);
+            return event;
         }
-
-        return event;
+        return new Event("", "", "", "");
     }
 
     public static void updateEvent(Event event) {
-        String uri = "mongodb+srv://laandrade:laandrade@cluster0.jcz1lsa.mongodb.net/test";
-        try ( MongoClient mongoClient = MongoClients.create(uri)) {
-
-            MongoDatabase database = mongoClient.getDatabase("StudentControlSystem");
-            try {
-                System.out.println("Connected successfully to the server.");
-                MongoCollection<Document> collectionEvent = database.getCollection("Event");
-                Bson filter = Filters.eq("name", event.getName());
-                Document update = new Document("$set", new Document("id", event.getId()).append("date", event.getDate()).append("description", event.getDescription()));
-
-                UpdateResult result = collectionEvent.updateOne(filter, update);
-
-            } catch (MongoException me) {
-                System.out.println("An error occurred while attempting to connect: " + me);
-            }
-        }
+        MongoCollection<Document> collection = MongoConection.getConnection("events");
+        Bson filter = Filters.and(Filters.eq("id", event.getId()));
+        Bson eventUpdates = Updates.combine(
+                Updates.set("id", event.getId()),
+                Updates.set("name", event.getName()),
+                Updates.set("date", event.getDate()),
+                Updates.set("description", event.getDescription()));
+        collection.updateOne(filter, eventUpdates);
     }
 
     public static void deleteEvent(Event event) {
 
         String uri = "mongodb+srv://laandrade:laandrade@cluster0.jcz1lsa.mongodb.net/test";
 
-        try ( MongoClient mongoClient = MongoClients.create(uri)) {
+        try (MongoClient mongoClient = MongoClients.create(uri)) {
             MongoDatabase database = mongoClient.getDatabase("StudentControlSystem");
             try {
                 MongoCollection collectionEvent = database.getCollection("Event");
@@ -124,7 +89,7 @@ public class EventController {
         }
     }
 
-    public class CancelEvent {
+    /*  public class CancelEvent {
     }
 
     public void cancelEvent(Event event) {
@@ -148,5 +113,5 @@ public class EventController {
         } else {
 
         }
-    }
+    }*/
 }

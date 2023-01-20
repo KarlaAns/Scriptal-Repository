@@ -156,7 +156,7 @@
                   <EmptySpace min="-2" pref="243" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jLabel3" min="-2" pref="143" max="-2" attributes="0"/>
-                      <Component id="DcCalendar" min="-2" pref="128" max="-2" attributes="0"/>
+                      <Component id="dcCalendar" min="-2" pref="128" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Group type="102" attributes="0">
@@ -197,7 +197,7 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="DcCalendar" min="-2" max="-2" attributes="0"/>
+                  <Component id="dcCalendar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -259,7 +259,7 @@
             <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtIDKeyTyped"/>
           </Events>
         </Component>
-        <Component class="com.toedter.calendar.JDateChooser" name="DcCalendar">
+        <Component class="com.toedter.calendar.JDateChooser" name="dcCalendar">
           <Properties>
             <Property name="dateFormatString" type="java.lang.String" value="dd-MM-yyyy"/>
           </Properties>
