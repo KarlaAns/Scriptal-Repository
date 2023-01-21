@@ -395,7 +395,7 @@ public class FrmDeleteEvent extends javax.swing.JFrame {
     }//GEN-LAST:event_mniLogOutActionPerformed
 
     private void MnItmAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnItmAddActionPerformed
-        // TODO add your handling code here:
+
         FrmCreateEvent btnAdd = new FrmCreateEvent();
         btnAdd.setVisible(true);
         if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
@@ -407,7 +407,7 @@ public class FrmDeleteEvent extends javax.swing.JFrame {
     }//GEN-LAST:event_MnItmAddActionPerformed
 
     private void MnItmSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnItmSearchActionPerformed
-        // TODO add your handling code here:
+ 
         FrmSearchEvent btnSearch = new FrmSearchEvent();
         btnSearch.setVisible(true);
         if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
