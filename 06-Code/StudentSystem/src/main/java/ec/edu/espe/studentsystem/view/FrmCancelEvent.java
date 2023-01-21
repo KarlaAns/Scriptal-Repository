@@ -53,7 +53,7 @@ public class FrmCancelEvent extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txtIdToUp = new javax.swing.JTextField();
+        txtIdToCancel = new javax.swing.JTextField();
         btnSearch = new javax.swing.JButton();
         lblFound = new javax.swing.JLabel();
         btnBack = new javax.swing.JButton();
@@ -84,15 +84,15 @@ public class FrmCancelEvent extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel3.setText("Id of the event:");
 
-        txtIdToUp.setToolTipText("Insert the name of the Event");
-        txtIdToUp.addActionListener(new java.awt.event.ActionListener() {
+        txtIdToCancel.setToolTipText("Insert the name of the Event");
+        txtIdToCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIdToUpActionPerformed(evt);
+                txtIdToCancelActionPerformed(evt);
             }
         });
-        txtIdToUp.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtIdToCancel.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtIdToUpKeyTyped(evt);
+                txtIdToCancelKeyTyped(evt);
             }
         });
 
@@ -123,7 +123,7 @@ public class FrmCancelEvent extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtIdToUp, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtIdToCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(33, 33, 33)
                         .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -147,7 +147,7 @@ public class FrmCancelEvent extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(txtIdToUp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtIdToCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSearch)
                     .addComponent(lblFound))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -313,44 +313,42 @@ public class FrmCancelEvent extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtIdToUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdToUpActionPerformed
+    private void txtIdToCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdToCancelActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtIdToUpActionPerformed
+    }//GEN-LAST:event_txtIdToCancelActionPerformed
 
-    private void txtIdToUpKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdToUpKeyTyped
+    private void txtIdToCancelKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdToCancelKeyTyped
 
         char c = evt.getKeyChar();
 
         if ((Character.isDigit(c)) || (Character.isWhitespace(c)) || (Character.isISOControl(c))) {
-            txtIdToUp.setEditable(true);
+            txtIdToCancel.setEditable(true);
 
         } else {
-            txtIdToUp.setEditable(false);
+            txtIdToCancel.setEditable(false);
             JOptionPane.showMessageDialog(this, c + " is not accepted here", "Warning on input data", JOptionPane.WARNING_MESSAGE);
         }
-    }//GEN-LAST:event_txtIdToUpKeyTyped
+    }//GEN-LAST:event_txtIdToCancelKeyTyped
 
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         boolean validation = false;
-        if (txtIdToUp.getText().isEmpty()) {
+        if (txtIdToCancel.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Id field is empty");
             validation = false;
         } else {
             validation = true;
         }
         if (validation) {
-            String id = txtIdToUp.getText();
-            int idAsDigit = Integer.parseInt(txtIdToUp.getText());
-            Event event = EventController.findEvent(txtIdToUp.getText());
+            String id = txtIdToCancel.getText();
+            int idAsDigit = Integer.parseInt(txtIdToCancel.getText());
+            Event event = EventController.findEvent(txtIdToCancel.getText());
 
             if (!event.getId().equals("0")) {
                 String name = event.getName();
                 String description = event.getDescription();
-                String dateOfEvent = event.getDate();
-                addToTable(id, name, dateOfEvent, description);
-                EventController.insertCancelledEvent(id, name, name, description);
-                EventController.deleteEvent(idAsDigit);
+                String date = event.getDate();
+                addToTable(id, name, date, description);
                 SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
                 btnCancel.setEnabled(true);
             }
@@ -365,15 +363,27 @@ public class FrmCancelEvent extends javax.swing.JFrame {
         // TODO add your handling code here:
         FrmEventMng btnBack = new FrmEventMng();
         btnBack.setVisible(true);
+        System.out.println(UIManager.getLookAndFeel().getName());
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+            btnBack.setStatusCbmiDarkMode(false);
+        } else {
+            btnBack.setStatusCbmiDarkMode(true);
+        }
         this.dispose();
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-        /*String name = event.getName();
-        String description = event.getDescription();
-        String dateOfEvent = event.getDate();
-        EventController.insertCancelledEvent(id, name, name, description);
-        EventController.deleteEvent(idAsDigit);*/
+        String id = txtIdToCancel.getText();
+        Event event = EventController.findEvent(txtIdToCancel.getText());
+
+        if (event != null && !event.getId().equals("0")) {
+            String name = event.getName();
+            String description = event.getDescription();
+            String date = event.getDate();
+            EventController.insertCancelledEvent(id, name, date, description);
+            int idDigit = Integer.parseInt(txtIdToCancel.getText());
+            EventController.deleteEvent(idDigit);
+        }
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void mniHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniHomeActionPerformed
@@ -389,7 +399,6 @@ public class FrmCancelEvent extends javax.swing.JFrame {
     }//GEN-LAST:event_mniHomeActionPerformed
 
     private void mniAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAboutActionPerformed
-
         FrmAboutUs mniAbout = new FrmAboutUs();
         mniAbout.setVisible(true);
 
@@ -402,7 +411,6 @@ public class FrmCancelEvent extends javax.swing.JFrame {
     }//GEN-LAST:event_mniAboutActionPerformed
 
     private void mniLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniLogOutActionPerformed
-        // TODO add your handling code here:
         FrmLogIn login = new FrmLogIn();
         login.setVisible(true);
         if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
@@ -414,7 +422,6 @@ public class FrmCancelEvent extends javax.swing.JFrame {
     }//GEN-LAST:event_mniLogOutActionPerformed
 
     private void MnItmAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnItmAddActionPerformed
-        // TODO add your handling code here:
         FrmCreateEvent btnAdd = new FrmCreateEvent();
         btnAdd.setVisible(true);
         if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
@@ -426,7 +433,6 @@ public class FrmCancelEvent extends javax.swing.JFrame {
     }//GEN-LAST:event_MnItmAddActionPerformed
 
     private void MnItmSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnItmSearchActionPerformed
-        // TODO add your handling code here:
         FrmSearchEvent btnSearch = new FrmSearchEvent();
         btnSearch.setVisible(true);
         if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
@@ -438,7 +444,6 @@ public class FrmCancelEvent extends javax.swing.JFrame {
     }//GEN-LAST:event_MnItmSearchActionPerformed
 
     private void MnItmUpdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnItmUpdActionPerformed
-        // TODO add your handling code here:
         FrmCancelEvent mniUpdate = new FrmCancelEvent();
         mniUpdate.setVisible(true);
         if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
@@ -450,9 +455,14 @@ public class FrmCancelEvent extends javax.swing.JFrame {
     }//GEN-LAST:event_MnItmUpdActionPerformed
 
     private void MnItmDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnItmDeleteActionPerformed
-        // TODO add your handling code here:
         FrmDeleteEvent mniDelete = new FrmDeleteEvent();
         mniDelete.setVisible(true);
+        System.out.println(UIManager.getLookAndFeel().getName());
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+            mniDelete.setStatusCbmiDarkMode(false);
+        } else {
+            mniDelete.setStatusCbmiDarkMode(true);
+        }
         this.dispose();
     }//GEN-LAST:event_MnItmDeleteActionPerformed
 
@@ -560,7 +570,7 @@ public class FrmCancelEvent extends javax.swing.JFrame {
     private javax.swing.JMenuItem mniHome;
     private javax.swing.JMenuItem mniLogOut;
     private javax.swing.JTable table;
-    private javax.swing.JTextField txtIdToUp;
+    private javax.swing.JTextField txtIdToCancel;
     // End of variables declaration//GEN-END:variables
 
     private void addToTable(String id, String name, String date, String description) {

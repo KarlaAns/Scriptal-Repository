@@ -415,14 +415,14 @@ public class FrmUpdateEvent extends javax.swing.JFrame {
             validation = true;
         }
         if (validation) {
-            String id=txtIdToUp.getText();
+            String id = txtIdToUp.getText();
             Event event = EventController.findEvent(txtIdToUp.getText());
 
             if (!event.getId().equals("0")) {
                 String name = event.getName();
                 String description = event.getDescription();
                 String dateOfEvent = event.getDate();
-                addToTable(id, name, dateOfEvent,description);
+                addToTable(id, name, dateOfEvent, description);
                 txtNewName.setText(name);
                 txtNewDes.setText(description);
                 SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
@@ -487,7 +487,7 @@ public class FrmUpdateEvent extends javax.swing.JFrame {
 
         FrmAboutUs mniAbout = new FrmAboutUs();
         mniAbout.setVisible(true);
-
+        System.out.println(UIManager.getLookAndFeel().getName());
         if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
             mniAbout.setStatusCbmiDarkMode(false);
         } else {
@@ -497,7 +497,6 @@ public class FrmUpdateEvent extends javax.swing.JFrame {
     }//GEN-LAST:event_mniAboutActionPerformed
 
     private void mniLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniLogOutActionPerformed
-        // TODO add your handling code here:
         FrmLogIn login = new FrmLogIn();
         login.setVisible(true);
         if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
@@ -509,7 +508,6 @@ public class FrmUpdateEvent extends javax.swing.JFrame {
     }//GEN-LAST:event_mniLogOutActionPerformed
 
     private void MnItmAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnItmAddActionPerformed
-        // TODO add your handling code here:
         FrmCreateEvent btnAdd = new FrmCreateEvent();
         btnAdd.setVisible(true);
         if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
@@ -521,7 +519,6 @@ public class FrmUpdateEvent extends javax.swing.JFrame {
     }//GEN-LAST:event_MnItmAddActionPerformed
 
     private void MnItmSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnItmSearchActionPerformed
-        // TODO add your handling code here:
         FrmSearchEvent btnSearch = new FrmSearchEvent();
         btnSearch.setVisible(true);
         if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
@@ -533,7 +530,6 @@ public class FrmUpdateEvent extends javax.swing.JFrame {
     }//GEN-LAST:event_MnItmSearchActionPerformed
 
     private void MnItmUpdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnItmUpdActionPerformed
-        // TODO add your handling code here:
         FrmUpdateEvent mniUpdate = new FrmUpdateEvent();
         mniUpdate.setVisible(true);
         if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
@@ -545,7 +541,6 @@ public class FrmUpdateEvent extends javax.swing.JFrame {
     }//GEN-LAST:event_MnItmUpdActionPerformed
 
     private void MnItmDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnItmDeleteActionPerformed
-        // TODO add your handling code here:
         FrmDeleteEvent mniDelete = new FrmDeleteEvent();
         mniDelete.setVisible(true);
         this.dispose();

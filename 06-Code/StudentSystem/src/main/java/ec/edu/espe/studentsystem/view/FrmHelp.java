@@ -14,6 +14,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 
 /**
  *
@@ -148,6 +149,11 @@ public class FrmHelp extends javax.swing.JFrame {
         mnStudentSystem.add(mniAbout);
 
         mniLogOut.setText("Log Out");
+        mniLogOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniLogOutActionPerformed(evt);
+            }
+        });
         mnStudentSystem.add(mniLogOut);
 
         jMenuBar1.add(mnStudentSystem);
@@ -237,9 +243,14 @@ public class FrmHelp extends javax.swing.JFrame {
     }//GEN-LAST:event_txtIssueKeyTyped
 
     private void mniAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAboutActionPerformed
-
         FrmAboutUs newMniAbout = new FrmAboutUs();
         newMniAbout.setVisible(true);
+        System.out.println(UIManager.getLookAndFeel().getName());
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+            newMniAbout.setStatusCbmiDarkMode(false);
+        } else {
+            newMniAbout.setStatusCbmiDarkMode(true);
+        }
         this.dispose();
     }//GEN-LAST:event_mniAboutActionPerformed
 
@@ -260,6 +271,18 @@ public class FrmHelp extends javax.swing.JFrame {
             });
         }
     }//GEN-LAST:event_cbmiDarkModeActionPerformed
+
+    private void mniLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniLogOutActionPerformed
+        FrmLogIn mniLogOut = new FrmLogIn();
+        mniLogOut.setVisible(true);
+        System.out.println(UIManager.getLookAndFeel().getName());
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+            mniLogOut.setStatusCbmiDarkMode(false);
+        } else {
+            mniLogOut.setStatusCbmiDarkMode(true);
+        }
+        this.dispose();
+    }//GEN-LAST:event_mniLogOutActionPerformed
 
     /**
      * @param args the command line arguments
