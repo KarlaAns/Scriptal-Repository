@@ -165,6 +165,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
         mnManage.add(jMenuItem1);
 
         jMenuItem2.setText("Teacher");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         mnManage.add(jMenuItem2);
 
         jMenuBar1.add(mnManage);
@@ -252,6 +257,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
             });
         }
     }//GEN-LAST:event_cbmiDarkModeActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments

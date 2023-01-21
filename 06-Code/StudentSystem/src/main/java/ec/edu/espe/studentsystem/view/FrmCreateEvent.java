@@ -80,6 +80,10 @@ public class FrmCreateEvent extends javax.swing.JFrame {
         mniLogOut = new javax.swing.JMenuItem();
         mniLogOut1 = new javax.swing.JMenuItem();
         mnManage = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
         menuView = new javax.swing.JMenu();
         cbmiDarkMode = new javax.swing.JCheckBoxMenuItem();
         menuHelp = new javax.swing.JMenu();
@@ -254,6 +258,39 @@ public class FrmCreateEvent extends javax.swing.JFrame {
         jMenuBar1.add(mnStudentSystem);
 
         mnManage.setText("Manage");
+
+        jMenuItem1.setText("Add Event");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        mnManage.add(jMenuItem1);
+
+        jMenuItem2.setText("Search Event");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        mnManage.add(jMenuItem2);
+
+        jMenuItem3.setText("Update Event");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        mnManage.add(jMenuItem3);
+
+        jMenuItem4.setText("Delete Event");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        mnManage.add(jMenuItem4);
+
         jMenuBar1.add(mnManage);
 
         menuView.setText("View");
@@ -430,6 +467,49 @@ public class FrmCreateEvent extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_mnMailActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+
+                FrmCreateEvent btnAdd = new FrmCreateEvent();
+        btnAdd.setVisible(true);
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+            btnAdd.setStatusCbmiDarkMode(false);
+        } else {
+            btnAdd.setStatusCbmiDarkMode(true);
+        }
+        this.dispose();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+
+          FrmDeleteEvent mniDelete = new FrmDeleteEvent();
+        mniDelete.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+
+         FrmSearchEvent btnSearch = new FrmSearchEvent();
+        btnSearch.setVisible(true);
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+            btnSearch.setStatusCbmiDarkMode(false);
+        } else {
+            btnSearch.setStatusCbmiDarkMode(true);
+        }
+        this.dispose();
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+
+                FrmUpdateEvent mniUpdate = new FrmUpdateEvent();
+        mniUpdate.setVisible(true);
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+            mniUpdate.setStatusCbmiDarkMode(false);
+        } else {
+            mniUpdate.setStatusCbmiDarkMode(true);
+        }
+        this.dispose();
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -465,6 +545,10 @@ public class FrmCreateEvent extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JMenu menuHelp;
