@@ -4,6 +4,7 @@ package ec.edu.espe.studentsystem.view;
 import com.google.gson.Gson;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
+import ec.edu.espe.studentsystem.controller.EnrollmentController;
 import ec.edu.espe.studentsystem.controller.MongoConection;
 import ec.edu.espe.studentsystem.controller.PrintController;
 import ec.edu.espe.studentsystem.controller.ThemeController;
@@ -36,7 +37,7 @@ public class FrmEnrollment extends javax.swing.JFrame {
         model.addColumn("Subjects");
         model.addColumn("Average");
         this.jTable1.setModel(model);
-        viewData();
+        EnrollmentController.viewData(id, model, lblAverageTotal);
         
     }
 
@@ -350,30 +351,6 @@ public class FrmEnrollment extends javax.swing.JFrame {
      */
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    private void viewData() {
-        String collection = "subjects";
-        Gson gson = new Gson();
-        
-        MongoCollection<Document> subjectCollection = MongoConection.getConnection(collection);
-        Bson bsonFilter = Filters.eq("studentId", id);
-        Document doc = subjectCollection.find(Filters.and(bsonFilter)).first();
-        String studentDoc = doc.toJson();
-        Subject subjects = gson.fromJson(studentDoc, Subject.class);
-        
-        for(int i = 0; i < subjects.getGradesReport().size(); i++){
-            String []info = new String[2];
-            info[0] = subjects.getGradesReport().get(i).getSubject();
-            info[1] = String.valueOf(subjects.getGradesReport().get(i).getAverage());
-            model.addRow(info);
-        }
-        
-        double averageTotal = 0;
-        for(int i = 0; i < subjects.getGradesReport().size(); i++){
-            averageTotal += subjects.getGradesReport().get(i).getAverage();
-        }
-        lblAverageTotal.setText(String.valueOf(averageTotal/subjects.getGradesReport().size()));
     }
 
 }
