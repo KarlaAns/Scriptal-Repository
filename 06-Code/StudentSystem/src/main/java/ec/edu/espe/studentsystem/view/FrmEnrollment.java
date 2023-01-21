@@ -8,6 +8,8 @@ import ec.edu.espe.studentsystem.controller.MongoConection;
 import ec.edu.espe.studentsystem.controller.ThemeController;
 import ec.edu.espe.studentsystem.model.Subject;
 import java.awt.EventQueue;
+import java.text.MessageFormat;
+import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import org.bson.Document;
@@ -51,6 +53,7 @@ public class FrmEnrollment extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         lblAverageTotal = new javax.swing.JLabel();
+        btnPrint = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnStudentSystem = new javax.swing.JMenu();
         mniAbout = new javax.swing.JMenuItem();
@@ -78,6 +81,13 @@ public class FrmEnrollment extends javax.swing.JFrame {
 
         lblAverageTotal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
+        btnPrint.setText("Print");
+        btnPrint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrintActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -91,6 +101,10 @@ public class FrmEnrollment extends javax.swing.JFrame {
                         .addComponent(lblAverageTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(269, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(448, 448, 448)
+                .addComponent(btnPrint)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -101,7 +115,9 @@ public class FrmEnrollment extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblAverageTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(88, Short.MAX_VALUE))
+                .addGap(32, 32, 32)
+                .addComponent(btnPrint)
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         mnStudentSystem.setText("StudentSystem");
@@ -262,6 +278,17 @@ public class FrmEnrollment extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_mnMailActionPerformed
 
+    private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
+        MessageFormat header=new MessageFormat("Event Report");
+        MessageFormat footer=new MessageFormat("Page{0,number,integer}");
+        
+        try{
+            jTable1.print(JTable.PrintMode.NORMAL, header, footer);
+        }catch(java.awt.print.PrinterException e){
+            System.err.format("Cannot print %s%n",e.getMessage());
+        }
+    }//GEN-LAST:event_btnPrintActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -276,6 +303,7 @@ public class FrmEnrollment extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnPrint;
     private javax.swing.JCheckBoxMenuItem cbmiDarkMode;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuBar jMenuBar1;
