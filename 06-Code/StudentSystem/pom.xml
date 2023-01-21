@@ -12,11 +12,11 @@
         <exec.mainClass>ec.edu.espe.studentsystem.view.FrmMain</exec.mainClass>
     </properties>
     <dependencies>
-        <dependency>
+        <!--<dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>1.2.11</version>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>com.toedter</groupId>
             <artifactId>jcalendar</artifactId>
