@@ -36,7 +36,7 @@ public class TeacherController {
         Bson filter = Filters.and(Filters.eq("name", classroomName));
         Document classroomExistance = (Document) classroomsCollection.find(filter).first();
 
-        if (classroomExistance != null) {
+        if (classroomExistance == null) {
             ArrayList<String> actualClassrooms = (ArrayList<String>) teacher.get("classrooms");
             actualClassrooms.add(classroomName);
             Document idToSearchDocument = new Document("id", teacher.getInteger("id"));
