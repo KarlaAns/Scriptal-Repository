@@ -718,7 +718,7 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
-        PrintController.printPDF("Student Enrollment", tblAssignments);
+        PrintController.printPDF("Teacher Classrooms", tblAssignments);
     }//GEN-LAST:event_btnPrintActionPerformed
 
     /**
