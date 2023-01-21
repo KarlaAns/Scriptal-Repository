@@ -2,6 +2,7 @@ package ec.edu.espe.studentsystem.view;
 
 import static ec.edu.espe.studentsystem.controller.ClassroomController.countNumberStudents;
 import static ec.edu.espe.studentsystem.controller.ClassroomController.findTeacher;
+import ec.edu.espe.studentsystem.controller.PrintController;
 import static ec.edu.espe.studentsystem.controller.TeacherController.createClassroom;
 import static ec.edu.espe.studentsystem.controller.TeacherController.deleteClassroom;
 import static ec.edu.espe.studentsystem.controller.TeacherController.enterToClassroom;
@@ -98,6 +99,7 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
         btnClean = new javax.swing.JButton();
         tblAssignmentsContainer = new javax.swing.JScrollPane();
         tblAssignments = new javax.swing.JTable();
+        btnPrint = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         btnBack = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -354,7 +356,7 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
                 .addGroup(pnlFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(pnlSearch)
                     .addComponent(pnlActions)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 337, Short.MAX_VALUE))
                 .addGap(19, 19, 19))
         );
         pnlFormLayout.setVerticalGroup(
@@ -407,25 +409,35 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
         tblAssignments.setOpaque(false);
         tblAssignmentsContainer.setViewportView(tblAssignments);
 
+        btnPrint.setText("Print");
+        btnPrint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrintActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlTableLayout = new javax.swing.GroupLayout(pnlTable);
         pnlTable.setLayout(pnlTableLayout);
         pnlTableLayout.setHorizontalGroup(
             pnlTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTableLayout.createSequentialGroup()
                 .addContainerGap(69, Short.MAX_VALUE)
-                .addGroup(pnlTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tblAssignmentsContainer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(pnlTableLayout.createSequentialGroup()
-                        .addGap(107, 107, 107)
-                        .addComponent(btnClean)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(tblAssignmentsContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(59, 59, 59))
+            .addGroup(pnlTableLayout.createSequentialGroup()
+                .addGap(99, 99, 99)
+                .addComponent(btnClean)
+                .addGap(84, 84, 84)
+                .addComponent(btnPrint)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlTableLayout.setVerticalGroup(
             pnlTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlTableLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addComponent(btnClean)
+                .addGroup(pnlTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnClean)
+                    .addComponent(btnPrint))
                 .addGap(18, 18, 18)
                 .addComponent(tblAssignmentsContainer, javax.swing.GroupLayout.DEFAULT_SIZE, 410, Short.MAX_VALUE)
                 .addContainerGap())
@@ -705,6 +717,10 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnUpdateActionPerformed
 
+    private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
+        PrintController.printPDF("Student Enrollment", tblAssignments);
+    }//GEN-LAST:event_btnPrintActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -726,6 +742,7 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
     private javax.swing.JButton btnFind;
     private javax.swing.JButton btnNew;
     private javax.swing.JButton btnOpen;
+    private javax.swing.JButton btnPrint;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JCheckBoxMenuItem cbmiDarkMode;
     private javax.swing.JLabel jLabel1;
