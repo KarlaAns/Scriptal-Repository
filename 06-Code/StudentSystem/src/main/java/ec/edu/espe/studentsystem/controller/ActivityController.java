@@ -44,8 +44,8 @@ public class ActivityController {
         ArrayList<Assignation> activityReport = new ArrayList<>();
 
         MongoCollection enrollmentsCollection = getConnection("enrollments");
-
-        Bson filter = Filters.and(Filters.gt("studentId", 0));
+        double defaultGrade = 0.0;
+        Bson filter = Filters.and(Filters.gt("studentId", defaultGrade));
 
         MongoCursor<Document> enrollments = enrollmentsCollection.find(filter).iterator();
         ArrayList<String> subjects = new ArrayList<String>();
@@ -86,11 +86,11 @@ public class ActivityController {
         Activity activity;
         try {
             while (activities.hasNext()) {
-                
+
                 String activityDoc = activities.next().toJson();
                 activity = gson.fromJson(activityDoc, Activity.class);
-                
-                if(activity.getSubjectName().equals(subjectName)){
+
+                if (activity.getSubjectName().equals(subjectName)) {
                     activitiesFiltred.add(activity);
                 }
             }
@@ -99,10 +99,10 @@ public class ActivityController {
         }
         return activitiesFiltred;
     }
-    
-    public static void updateActivity(int teacherId,String activityName,String subjectName,ArrayList data){
+
+    public static void updateActivity(int teacherId, String activityName, String subjectName, ArrayList data) {
         MongoCollection enrollmentsCollection = getConnection("activities");
-        Bson filter = Filters.and(Filters.eq("teacherId",teacherId),Filters.eq("name",activityName),Filters.eq("subjectName",subjectName));
+        Bson filter = Filters.and(Filters.eq("teacherId", teacherId), Filters.eq("name", activityName), Filters.eq("subjectName", subjectName));
         Document dataToUpdate = new Document().append("name", data.get(0))
                 .append("shipping", data.get(1))
                 .append("deadline", data.get(2))
@@ -111,16 +111,59 @@ public class ActivityController {
         enrollmentsCollection.updateOne(filter, dataToUpdate);
     }
 
-    public static void updateGrade(String classroomName,int teacherId,String activityName,int studentId,double grade){
-        MongoCollection enrollmentsCollection = getConnection("activities");
-        Bson filter = Filters.and(Filters.eq("subjectName",classroomName),Filters.eq("teacherId",teacherId),Filters.eq("name",activityName),Filters.elemMatch("activityReport", Filters.eq("studentId", studentId)));
+    public static void updateGrade(String classroomName, int teacherId, String activityName, int studentId, double grade) {
+        MongoCollection activitiesCollection = getConnection("activities");
+        Bson filter = Filters.and(Filters.eq("subjectName", classroomName), Filters.eq("teacherId", teacherId), Filters.eq("name", activityName), Filters.elemMatch("activityReport", Filters.eq("studentId", studentId)));
         Document updatedGradeDocument = new Document("$set", new Document("activityReport.$.grade", grade));
-        enrollmentsCollection.updateMany(filter, updatedGradeDocument);
+        activitiesCollection.updateMany(filter, updatedGradeDocument);
+        computeSubjectAverage(teacherId, studentId, classroomName);
+        computeGeneralAverage(studentId);
     }
-    
-    public static void deteleActivity(int teacherId, String activityName, String subjectName){
+
+    public static void deteleActivity(int teacherId, String activityName, String subjectName) {
         MongoCollection enrollmentsCollection = getConnection("activities");
-        Bson filter = Filters.and(Filters.eq("teacherId",teacherId),Filters.eq("name",activityName),Filters.eq("subjectName",subjectName));
+        Bson filter = Filters.and(Filters.eq("teacherId", teacherId), Filters.eq("name", activityName), Filters.eq("subjectName", subjectName));
         enrollmentsCollection.deleteOne(filter);
+    }
+
+    private static void computeSubjectAverage(int teacherId, int studentId, String classroomName) {
+        MongoCollection activitiesCollection = getConnection("activities");
+        MongoCollection subjectsCollection = getConnection("subjects");
+        
+        Bson filter = Filters.and(Filters.eq("teacherId", teacherId), Filters.eq("subjectName", classroomName));
+        
+        MongoCursor<Document> activities = activitiesCollection.find(filter).iterator();
+        ArrayList<Document> assignations = new ArrayList<>();
+        ArrayList<Double> grades = new ArrayList<>();
+        double sum = 0.0;
+        double averagePerSubject;
+        try {
+            while (activities.hasNext()) {
+                assignations = (ArrayList<Document>) activities.next().get("activityReport");
+                for (Document assignation : assignations) {
+                    if ((int) assignation.get("studentId") == studentId) {
+                        grades.add((double) assignation.get("grade"));
+                    }
+                }
+            }
+        } finally {
+            activities.close();
+        }
+        
+        for (Double grade : grades) {
+            sum += grade;
+        }
+        averagePerSubject=sum/grades.size();
+        
+        Bson filterSubject = Filters.and(Filters.eq("studentId", studentId), Filters.elemMatch("gradesReport", Filters.eq("subject", classroomName)));
+        Document updatedGradeDocument = new Document("$set", new Document("gradesReport.$.average", averagePerSubject));
+        subjectsCollection.updateMany(filterSubject, updatedGradeDocument);
+        
+        //computeGeneralAverage(studentId);
+    }
+
+    private static void computeGeneralAverage(int studentId) {
+        MongoCollection activitiesCollection = getConnection("enrollments");
+        Bson filterSubject = Filters.and(Filters.eq("studentId", studentId), Filters.elemMatch("gradesReport", Filters.eq("subject", classroomName)));
     }
 }
