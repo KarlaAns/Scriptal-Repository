@@ -214,7 +214,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private void mniAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAboutActionPerformed
         FrmAboutUs mniAbout = new FrmAboutUs();
         mniAbout.setVisible(true);
-         System.out.println(UIManager.getLookAndFeel().getName());
+        System.out.println(UIManager.getLookAndFeel().getName());
         if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
             mniAbout.setStatusCbmiDarkMode(false);
         } else {
@@ -224,23 +224,26 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_mniAboutActionPerformed
 
     private void btnEventActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEventActionPerformed
-        // TODO add your handling code here:
         FrmEventMng btnEvent = new FrmEventMng();
         btnEvent.setVisible(true);
+         System.out.println(UIManager.getLookAndFeel().getName());
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+            btnEvent.setStatusCbmiDarkMode(false);
+        } else {
+            btnEvent.setStatusCbmiDarkMode(true);
+        }
         this.dispose();
     }//GEN-LAST:event_btnEventActionPerformed
 
     private void cbmiDarkModeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbmiDarkModeActionPerformed
-        if (cbmiDarkMode.isSelected())
-        {
+        if (cbmiDarkMode.isSelected()) {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     ThemeController.setDarkTheme();
                 }
             });
-        } else
-        {
+        } else {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
