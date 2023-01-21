@@ -1,12 +1,16 @@
 package ec.edu.espe.studentsystem.controller;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
+import com.mongodb.MongoClientException;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Updates;
+import ec.edu.espe.studentsystem.model.Enrollment;
 import ec.edu.espe.studentsystem.model.GradeReport;
 import ec.edu.espe.studentsystem.model.Student;
+import ec.edu.espe.studentsystem.model.Subject;
 import java.util.ArrayList;
 import java.util.Random;
 import org.bson.Document;
@@ -50,15 +54,25 @@ public class StudentController {
                 .append("email", email)
                 .append("dateOfBirth", dateOfBirth);
         collectionStudents.insertOne(studentDoc);
-        
+
     }
-    
+
     public static void addToSubjectsCollection(int id) {
         MongoCollection<Document> collectionSubjects = MongoConection.getConnection("subjects");
         ArrayList<GradeReport> gradesReport = new ArrayList<>();
         Document subjectDoc = new Document("_id", new ObjectId())
                 .append("studentId", id)
                 .append("gradesReport", gradesReport);
+        collectionSubjects.insertOne(subjectDoc);
+    }
+    
+    public static void addToEnrollmentCollection(int id) {
+        MongoCollection<Document> collectionSubjects = MongoConection.getConnection("enrollments");
+        ArrayList<String> subjects = new ArrayList<>();
+        Document subjectDoc = new Document("_id", new ObjectId())
+                .append("studentId", id)
+                .append("subjects", subjects)
+                .append("average", 0.0);
         collectionSubjects.insertOne(subjectDoc);
     }
 
@@ -74,7 +88,7 @@ public class StudentController {
             String studentDoc = doc.toJson();
             Student student = gson.fromJson(studentDoc, Student.class);
             return student;
-        } 
+        }
         return new Student("", 0, "", "", "");
     }
 
@@ -88,12 +102,50 @@ public class StudentController {
         MongoCollection<Document> collection = MongoConection.getConnection("students");
         Bson filter = Filters.and(Filters.eq("id", student.getId()));
         Bson studentUpdates = Updates.combine(
-                        Updates.set("name", student.getName()),
-                        Updates.set("id", student.getId()),
-                        Updates.set("password", student.getPassword()),
-                        Updates.set("email", student.getEmail()),
-                        Updates.set("dateOfBirth", student.getDateOfBirth()));
+                Updates.set("name", student.getName()),
+                Updates.set("id", student.getId()),
+                Updates.set("password", student.getPassword()),
+                Updates.set("email", student.getEmail()),
+                Updates.set("dateOfBirth", student.getDateOfBirth()));
         collection.updateOne(filter, studentUpdates);
+    }
+
+    public static void assingInSubjects(int id, String newSubject) throws JsonSyntaxException, MongoClientException {
+        Gson gson = new Gson();
+        MongoCollection<Document> collectionSubjects = MongoConection.getConnection("subjects");
+        Bson filter = Filters.and(Filters.eq("studentId", id));
+        Document doc = collectionSubjects.find(filter).first();
+        if (doc != null)
+        {
+            
+            ArrayList<Document> gradesReport = (ArrayList<Document>) doc.get("gradesReport");
+            Document gradeReport = new Document("subject", newSubject)
+                    .append("average", 0.0);
+            gradesReport.add(gradeReport);
+            
+            Document updatedDoc = new Document("$set", new Document("gradesReport", gradesReport));
+            
+            collectionSubjects.updateOne(filter, updatedDoc);
+        } else {
+            System.out.println("This document does not exist");
+        }
+
+    }
+
+    public static void assingInEnrollments(int id, String newSubject) throws JsonSyntaxException, MongoClientException {
+        Gson gson = new Gson();
+        MongoCollection<Document> collectionEnrollment = MongoConection.getConnection("enrollments");
+        Bson filter = Filters.and(Filters.eq("studentId", id));
+        Document doc = collectionEnrollment.find(filter).first();
+        String enrollmentJson = doc.toJson();
+        Enrollment enrollment = gson.fromJson(enrollmentJson, Enrollment.class);
+        ArrayList<String> subjects = enrollment.getSubjects();
+        subjects.add(newSubject);
+        Bson studentUpdates = Updates.combine(
+                Updates.set("studentId", enrollment.getStudentId()),
+                Updates.set("subjects", enrollment.getSubjects()),
+                Updates.set("average", enrollment.getAverage()));
+        collectionEnrollment.updateOne(filter, studentUpdates);
     }
 
     

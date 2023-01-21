@@ -71,8 +71,20 @@ public class EventController {
     }
 
     public static void deleteEvent(int id) {
-        MongoCollection<Document> collection = MongoConection.getConnection("events");
-        Bson filter = Filters.and(Filters.eq("id", String.valueOf(id)));
+        //int idDigit = Integer.parseInt(id);
+     MongoCollection<Document> collection = MongoConection.getConnection("events");
+        Bson filter =Filters.eq("id", String.valueOf(id));
         collection.deleteOne(filter);
+    }
+    public static void insertCancelledEvent(String id, String name, String date, String description) {
+        MongoCollection<Document> collectionEvent = MongoConection.getConnection("cancelled events");
+
+        Document cancelledEvents = new Document("_id", new ObjectId())
+                .append("id", id)
+                .append("name", name)
+                .append("date", date)
+                .append("description", description);
+
+        collectionEvent.insertOne(cancelledEvents);
     }
 }

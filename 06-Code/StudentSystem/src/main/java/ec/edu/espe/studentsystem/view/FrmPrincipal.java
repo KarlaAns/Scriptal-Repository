@@ -34,7 +34,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         btnEvent = new javax.swing.JButton();
         lblManage = new javax.swing.JLabel();
-        btnTeacher = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnStudentSystem = new javax.swing.JMenu();
         mniAbout = new javax.swing.JMenuItem();
@@ -47,7 +47,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 60)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 60)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Welcome");
 
@@ -64,20 +64,20 @@ public class FrmPrincipal extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 964, Short.MAX_VALUE)
                         .addContainerGap())))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(73, 73, 73)
+                .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        btnEvent.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btnEvent.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnEvent.setText("Event");
         btnEvent.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -88,33 +88,36 @@ public class FrmPrincipal extends javax.swing.JFrame {
         lblManage.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblManage.setText("Go to manage:");
 
-        btnTeacher.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        btnTeacher.setText("Teacher");
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/1484088.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblManage)
-                .addGap(421, 421, 421))
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(324, 324, 324)
-                .addComponent(btnTeacher)
-                .addGap(131, 131, 131)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(lblManage)
+                        .addGap(428, 428, 428))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(360, 360, 360))))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(455, 455, 455)
                 .addComponent(btnEvent)
-                .addContainerGap(326, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(lblManage)
-                .addGap(37, 37, 37)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnTeacher)
-                    .addComponent(btnEvent))
-                .addContainerGap(93, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addComponent(btnEvent)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -135,7 +138,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         mnStudentSystem.setText("StudentSystem");
@@ -161,6 +165,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
         mnManage.add(jMenuItem1);
 
         jMenuItem2.setText("Teacher");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         mnManage.add(jMenuItem2);
 
         jMenuBar1.add(mnManage);
@@ -210,24 +219,36 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private void mniAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAboutActionPerformed
         FrmAboutUs mniAbout = new FrmAboutUs();
         mniAbout.setVisible(true);
+        System.out.println(UIManager.getLookAndFeel().getName());
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+            mniAbout.setStatusCbmiDarkMode(false);
+        } else {
+            mniAbout.setStatusCbmiDarkMode(true);
+        }
         this.dispose();
     }//GEN-LAST:event_mniAboutActionPerformed
 
     private void btnEventActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEventActionPerformed
-        // TODO add your handling code here:
+        FrmEventMng btnEvent = new FrmEventMng();
+        btnEvent.setVisible(true);
+         System.out.println(UIManager.getLookAndFeel().getName());
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+            btnEvent.setStatusCbmiDarkMode(false);
+        } else {
+            btnEvent.setStatusCbmiDarkMode(true);
+        }
+        this.dispose();
     }//GEN-LAST:event_btnEventActionPerformed
 
     private void cbmiDarkModeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbmiDarkModeActionPerformed
-        if (cbmiDarkMode.isSelected())
-        {
+        if (cbmiDarkMode.isSelected()) {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     ThemeController.setDarkTheme();
                 }
             });
-        } else
-        {
+        } else {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
@@ -236,6 +257,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
             });
         }
     }//GEN-LAST:event_cbmiDarkModeActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -261,10 +286,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEvent;
-    private javax.swing.JButton btnTeacher;
     private javax.swing.JCheckBoxMenuItem cbmiDarkMode;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;

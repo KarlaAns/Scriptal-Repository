@@ -5,6 +5,7 @@
 package ec.edu.espe.studentsystem.view;
 import ec.edu.espe.studentsystem.controller.ThemeController;
 import java.awt.EventQueue;
+import javax.swing.UIManager;
 
 /**
  *
@@ -33,15 +34,14 @@ public class FrmAboutUs extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         lblAboutUs = new javax.swing.JLabel();
         lblScriptal = new javax.swing.JLabel();
-        btnBack = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
-        lblContactUs = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtAreaDes = new javax.swing.JTextArea();
+        lblContactUs = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnStudentSystem = new javax.swing.JMenu();
-        mniAbout = new javax.swing.JMenuItem();
-        mniLogOut = new javax.swing.JMenuItem();
+        mniHome = new javax.swing.JMenuItem();
         mnManage = new javax.swing.JMenu();
         menuView = new javax.swing.JMenu();
         cbmiDarkMode = new javax.swing.JCheckBoxMenuItem();
@@ -50,59 +50,8 @@ public class FrmAboutUs extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         lblAboutUs.setFont(new java.awt.Font("Corrupted File", 1, 72)); // NOI18N
+        lblAboutUs.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblAboutUs.setText(" ABOUT US");
-
-        btnBack.setText("< Back");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(192, 192, 192)
-                        .addComponent(lblAboutUs, javax.swing.GroupLayout.PREFERRED_SIZE, 464, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(392, 392, 392)
-                        .addComponent(lblScriptal, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnBack)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 37, Short.MAX_VALUE)
-                        .addComponent(lblAboutUs, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblScriptal, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))))
-        );
-
-        lblContactUs.setFont(new java.awt.Font("Coolvetica Rg", 0, 24)); // NOI18N
-        lblContactUs.setText("Contact Us!");
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(73, 73, 73)
-                .addComponent(lblContactUs, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(208, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(lblContactUs)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
 
         txtAreaDes.setEditable(false);
         txtAreaDes.setColumns(20);
@@ -111,13 +60,75 @@ public class FrmAboutUs extends javax.swing.JFrame {
         txtAreaDes.setText(" \nWe are a young but \n determined team of programmers.\n Our main goal is to inspire \n other young people to follow what\n they like, and that they always look forward\n in their passions no matter what.");
         jScrollPane1.setViewportView(txtAreaDes);
 
+        lblContactUs.setFont(new java.awt.Font("Coolvetica Rg", 0, 24)); // NOI18N
+        lblContactUs.setText("Contact Us!");
+
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/scriptal logo.png"))); // NOI18N
+
+        jLabel2.setText("scriptalhelpcenter@gmail.com");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(lblAboutUs, javax.swing.GroupLayout.PREFERRED_SIZE, 950, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(14, 14, 14))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 973, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addComponent(lblScriptal, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(53, 53, 53)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(243, 243, 243)
+                                .addComponent(lblContactUs, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(229, 229, 229)
+                                .addComponent(jLabel2)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblScriptal, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(276, 276, 276))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addComponent(lblAboutUs, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblContactUs)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel2)
+                        .addGap(85, 85, 85))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(12, Short.MAX_VALUE))))
+        );
+
         mnStudentSystem.setText("StudentSystem");
 
-        mniAbout.setText("About");
-        mnStudentSystem.add(mniAbout);
-
-        mniLogOut.setText("Log Out");
-        mnStudentSystem.add(mniLogOut);
+        mniHome.setText("Home");
+        mniHome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniHomeActionPerformed(evt);
+            }
+        });
+        mnStudentSystem.add(mniHome);
 
         jMenuBar1.add(mnStudentSystem);
 
@@ -125,6 +136,11 @@ public class FrmAboutUs extends javax.swing.JFrame {
         jMenuBar1.add(mnManage);
 
         menuView.setText("View");
+        menuView.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuViewActionPerformed(evt);
+            }
+        });
 
         cbmiDarkMode.setText("Dark Mode");
         cbmiDarkMode.addActionListener(new java.awt.event.ActionListener() {
@@ -145,23 +161,13 @@ public class FrmAboutUs extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(58, 58, 58))
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1000, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         pack();
@@ -188,6 +194,24 @@ public class FrmAboutUs extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cbmiDarkModeActionPerformed
 
+    private void mniHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniHomeActionPerformed
+
+        FrmMain main = new FrmMain();
+        main.setVisible(true);
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName()))
+        {
+            main.setStatusCbmiDarkMode(false);
+        } else
+        {
+            main.setStatusCbmiDarkMode(true);
+        }
+        this.dispose();
+    }//GEN-LAST:event_mniHomeActionPerformed
+
+    private void menuViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuViewActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuViewActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -203,11 +227,11 @@ public class FrmAboutUs extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBack;
     private javax.swing.JCheckBoxMenuItem cbmiDarkMode;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblAboutUs;
     private javax.swing.JLabel lblContactUs;
@@ -216,8 +240,7 @@ public class FrmAboutUs extends javax.swing.JFrame {
     private javax.swing.JMenu menuView;
     private javax.swing.JMenu mnManage;
     private javax.swing.JMenu mnStudentSystem;
-    private javax.swing.JMenuItem mniAbout;
-    private javax.swing.JMenuItem mniLogOut;
+    private javax.swing.JMenuItem mniHome;
     private javax.swing.JTextArea txtAreaDes;
     // End of variables declaration//GEN-END:variables
 }

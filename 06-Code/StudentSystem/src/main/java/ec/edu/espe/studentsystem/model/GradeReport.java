@@ -12,7 +12,7 @@ public class GradeReport {
     private String subject;
     private double average;
 
-    public GradeReport(String subject, ArrayList<String> grades, double average) {
+    public GradeReport(String subject, double average) {
         this.subject = subject;
         this.average = average;
     }
