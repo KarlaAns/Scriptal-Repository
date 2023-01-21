@@ -507,6 +507,7 @@ public class FrmStudentManagement extends javax.swing.JFrame {
         int id = StudentController.generateRandomId();
         StudentController.addToStudentsCollection(id, tfName.getText(), tfPassword.getText(), tfMail.getText(), date);
         StudentController.addToSubjectsCollection(id);
+        StudentController.addToEnrollmentCollection(id);
         addToTableBtnNew(id);
         emptySpaces();
         btnClear.setEnabled(true);
@@ -577,6 +578,8 @@ public class FrmStudentManagement extends javax.swing.JFrame {
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
         model.setNumRows(0);
+        labelId.setText("");
+        btnAssing.setEnabled(false);
         btnClear.setEnabled(false);
         btnDelete.setEnabled(false);
         btnUpdate.setEnabled(false);
@@ -619,7 +622,8 @@ public class FrmStudentManagement extends javax.swing.JFrame {
     }//GEN-LAST:event_cmbClassroomsActionPerformed
 
     private void btnAssingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssingActionPerformed
-        StudentController.assingStudent(Integer.parseInt(labelId.getText()), String.valueOf(cmbClassrooms.getSelectedItem()));
+        StudentController.assingInEnrollments(Integer.parseInt(labelId.getText()), String.valueOf(cmbClassrooms.getSelectedItem()));
+        StudentController.assingInSubjects(Integer.parseInt(labelId.getText()), String.valueOf(cmbClassrooms.getSelectedItem()));
         JOptionPane.showMessageDialog(this, labelId.getText() + " assing to " + String.valueOf(cmbClassrooms.getSelectedItem()));
     }//GEN-LAST:event_btnAssingActionPerformed
 
