@@ -630,7 +630,7 @@ public class FrmActivity extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSaveGradeActionPerformed
 
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
-        PrintController.printPDF("Student Activities", tblStudentsAct);
+        PrintController.printPDF("Grades Activities", tblStudentsAct);
     }//GEN-LAST:event_btnPrintActionPerformed
 
     /**
