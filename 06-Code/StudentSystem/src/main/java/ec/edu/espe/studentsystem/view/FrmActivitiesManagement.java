@@ -10,6 +10,7 @@ import static ec.edu.espe.studentsystem.controller.ActivityController.findAllAct
 import static ec.edu.espe.studentsystem.controller.ClassroomController.findTeacher;
 import static ec.edu.espe.studentsystem.controller.ClassroomController.readClassrooms;
 import static ec.edu.espe.studentsystem.controller.ClassroomController.validateActivityExistance;
+import ec.edu.espe.studentsystem.controller.PrintController;
 import static ec.edu.espe.studentsystem.controller.TeacherController.createActivity;
 import static ec.edu.espe.studentsystem.controller.TeacherController.findActivity;
 import ec.edu.espe.studentsystem.controller.ThemeController;
@@ -129,6 +130,7 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
         tblAssignmentsContainer = new javax.swing.JScrollPane();
         tblAssignments = new javax.swing.JTable();
         btnClean = new javax.swing.JButton();
+        btnPrint = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         lbClassroomName = new javax.swing.JLabel();
         bthBack = new javax.swing.JButton();
@@ -450,15 +452,24 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
             }
         });
 
+        btnPrint.setText("Print");
+        btnPrint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrintActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlTableLayout = new javax.swing.GroupLayout(pnlTable);
         pnlTable.setLayout(pnlTableLayout);
         pnlTableLayout.setHorizontalGroup(
             pnlTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlTableLayout.createSequentialGroup()
                 .addGap(100, 100, 100)
-                .addComponent(tblAssignmentsContainer)
+                .addComponent(tblAssignmentsContainer, javax.swing.GroupLayout.DEFAULT_SIZE, 742, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnClean)
+                .addGroup(pnlTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnClean)
+                    .addComponent(btnPrint))
                 .addGap(62, 62, 62))
         );
         pnlTableLayout.setVerticalGroup(
@@ -466,7 +477,10 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
             .addGroup(pnlTableLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnClean)
+                    .addGroup(pnlTableLayout.createSequentialGroup()
+                        .addComponent(btnClean)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnPrint))
                     .addComponent(tblAssignmentsContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
@@ -856,6 +870,10 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
+    private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
+        PrintController.printPDF("Student Activities", tblAssignments);
+    }//GEN-LAST:event_btnPrintActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -879,6 +897,7 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
     private javax.swing.JButton btnFind;
     private javax.swing.JButton btnNewAssignment;
     private javax.swing.JButton btnOpen;
+    private javax.swing.JButton btnPrint;
     private javax.swing.JCheckBoxMenuItem cbmiDarkMode;
     private javax.swing.JComboBox<String> cmbClassrooms;
     private javax.swing.JComboBox<String> cmbType;
