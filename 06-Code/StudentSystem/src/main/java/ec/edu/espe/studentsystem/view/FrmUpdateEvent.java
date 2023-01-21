@@ -27,14 +27,6 @@ public class FrmUpdateEvent extends javax.swing.JFrame {
     }
     DefaultTableModel model = new DefaultTableModel();
 
-    private void mostTable() {
-
-        model.addColumn("Id");
-        model.addColumn("Name");
-        model.addColumn("Date");
-        model.addColumn("Description");
-        this.table.setModel(model);
-    }
 
     /**
      * Creates new form FrmUpdateEvent1
