@@ -158,12 +158,25 @@ public class ActivityController {
         Bson filterSubject = Filters.and(Filters.eq("studentId", studentId), Filters.elemMatch("gradesReport", Filters.eq("subject", classroomName)));
         Document updatedGradeDocument = new Document("$set", new Document("gradesReport.$.average", averagePerSubject));
         subjectsCollection.updateMany(filterSubject, updatedGradeDocument);
-        
-        //computeGeneralAverage(studentId);
     }
 
     private static void computeGeneralAverage(int studentId) {
-        MongoCollection activitiesCollection = getConnection("enrollments");
-        Bson filterSubject = Filters.and(Filters.eq("studentId", studentId), Filters.elemMatch("gradesReport", Filters.eq("subject", classroomName)));
+        MongoCollection activitiesCollection = getConnection("subjects");
+        MongoCollection enrollmentsCollection = getConnection("enrollments");
+        
+        Bson subjectFilter = Filters.and(Filters.eq("studentId", studentId));
+        Bson enrollmentFilter = Filters.and(Filters.eq("studentId", studentId));
+        
+        Document subject = (Document) activitiesCollection.find(subjectFilter).first();
+        
+        ArrayList<Document> gradesReport = (ArrayList<Document>) subject.get("gradesReport");
+        double sum=0.0;
+        double generalAverage=0.0;
+        for (Document report : gradesReport) {
+            sum+=(double)report.get("average");
+        }
+        generalAverage=sum/gradesReport.size();
+        Document updatedAverageDocument = new Document("$set", new Document("average", generalAverage));
+        enrollmentsCollection.updateOne(enrollmentFilter, updatedAverageDocument);
     }
 }
