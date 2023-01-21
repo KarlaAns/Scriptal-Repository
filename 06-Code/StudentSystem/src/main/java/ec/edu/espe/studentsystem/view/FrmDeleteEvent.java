@@ -15,7 +15,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author Karla Ansatuña
+ * @author Karla Ansatuña,Scriptal, DCCO_ESPE
  */
 public class FrmDeleteEvent extends javax.swing.JFrame {
 

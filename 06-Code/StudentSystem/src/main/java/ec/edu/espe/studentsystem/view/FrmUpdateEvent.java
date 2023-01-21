@@ -18,7 +18,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author Karla Ansatuña
+ * @author Karla Ansatuña, Scriptal, DCCO_ESPE
  */
 public class FrmUpdateEvent extends javax.swing.JFrame {
 
@@ -26,6 +26,7 @@ public class FrmUpdateEvent extends javax.swing.JFrame {
         this.cbmiDarkMode.setSelected(isSelected);
     }
     DefaultTableModel model = new DefaultTableModel();
+
 
     private void mostTable() {
 
@@ -35,7 +36,6 @@ public class FrmUpdateEvent extends javax.swing.JFrame {
         model.addColumn("Description");
         this.table.setModel(model);
     }
-
     /**
      * Creates new form FrmUpdateEvent1
      */

@@ -20,7 +20,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author NW USER
+ * @author Karla Ansatuña, Scriptal, DCCO_ESPE
  */
 public class FrmSearchEvent extends javax.swing.JFrame {
     
