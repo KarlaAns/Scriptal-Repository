@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
 import ec.edu.espe.studentsystem.controller.MongoConection;
+import ec.edu.espe.studentsystem.controller.PrintController;
 import ec.edu.espe.studentsystem.controller.ThemeController;
 import ec.edu.espe.studentsystem.model.Subject;
 import java.awt.EventQueue;
@@ -279,14 +280,7 @@ public class FrmEnrollment extends javax.swing.JFrame {
     }//GEN-LAST:event_mnMailActionPerformed
 
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
-        MessageFormat header=new MessageFormat("Event Report");
-        MessageFormat footer=new MessageFormat("Page{0,number,integer}");
-        
-        try{
-            jTable1.print(JTable.PrintMode.NORMAL, header, footer);
-        }catch(java.awt.print.PrinterException e){
-            System.err.format("Cannot print %s%n",e.getMessage());
-        }
+        PrintController.printPDF("Student Enrollment", jTable1);
     }//GEN-LAST:event_btnPrintActionPerformed
 
     /**
