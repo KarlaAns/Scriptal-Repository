@@ -9,6 +9,7 @@ import static ec.edu.espe.studentsystem.controller.ActivityController.establishA
 import static ec.edu.espe.studentsystem.controller.ActivityController.findAllActivities;
 import static ec.edu.espe.studentsystem.controller.ClassroomController.findTeacher;
 import static ec.edu.espe.studentsystem.controller.ClassroomController.readClassrooms;
+import static ec.edu.espe.studentsystem.controller.ClassroomController.validateActivityExistance;
 import static ec.edu.espe.studentsystem.controller.TeacherController.createActivity;
 import static ec.edu.espe.studentsystem.controller.TeacherController.findActivity;
 import ec.edu.espe.studentsystem.controller.ThemeController;
@@ -605,9 +606,9 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
     private void btnOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenActionPerformed
         // TODO add your handling code here:
         String activityName = txtAction.getText();
-        Document activityData = findActivity(teacherId, activityName,classroomName);
+        Document activityData = findActivity(teacherId, activityName, classroomName);
         if (activityData != null) {
-            FrmActivity frmActivity = new FrmActivity(activityName,classroomName, teacherId);
+            FrmActivity frmActivity = new FrmActivity(activityName, classroomName, teacherId);
             frmActivity.setVisible(true);
             this.dispose();
         } else {
@@ -658,7 +659,7 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
     private void btnChangeActActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeActActionPerformed
         // TODO add your handling code here:
         Date date = new Date();
-        classroomName=(String) cmbClassrooms.getSelectedItem();
+        classroomName = (String) cmbClassrooms.getSelectedItem();
         String selectedClassroom = (String) cmbClassrooms.getSelectedItem();
         emptyInputs(date);
         if ("Classrooms".equals(selectedClassroom)) {
@@ -722,26 +723,28 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
     private void btnNewAssignmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewAssignmentActionPerformed
         // TODO add your handling code here:
         Activity activity;
-        try {
-            DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-            Date shipping = dtShipping.getDate();
-            Date deadline = dtDeadline.getDate();
 
-            String shippingStr = dateFormat.format(shipping);
-            String deadlineStr = dateFormat.format(deadline);
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        Date shipping = dtShipping.getDate();
+        Date deadline = dtDeadline.getDate();
 
+        String shippingStr = dateFormat.format(shipping);
+        String deadlineStr = dateFormat.format(deadline);
+
+        String actName = (String) cmbClassrooms.getSelectedItem();
+        String actType = (String) cmbType.getSelectedItem();
+
+        if (validateActivityExistance(actName, teacherId, (String) cmbClassrooms.getSelectedItem())) {
+            
             ArrayList<Assignation> activityReport = establishAssignation((String) cmbClassrooms.getSelectedItem());
-            String actName = (String) cmbClassrooms.getSelectedItem();
-            String actType = (String) cmbType.getSelectedItem();
-            int teacherId = teacher.getInteger("id");
 
             activity = new Activity(actName, teacherId, txtName.getText(), shippingStr, deadlineStr, txtAComment.getText(), actType, activityReport);
-            
+
             createActivity(activity);
             JOptionPane.showMessageDialog(this, txtName.getText() + " activity added succesfully!", "Activity insertion", JOptionPane.INFORMATION_MESSAGE);
             showActivities((String) cmbClassrooms.getSelectedItem());
-        } catch (HeadlessException e) {
-            JOptionPane.showMessageDialog(this, "We can't find the activity inserted", txtName.getText() + " activity doesn't exist", JOptionPane.WARNING_MESSAGE);
+        }else{
+            JOptionPane.showMessageDialog(this, "The activity inserted already exist", txtName.getText() + "Activity insertion", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btnNewAssignmentActionPerformed
 
@@ -750,7 +753,7 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
         ArrayList<Activity> newActivity = new ArrayList<>();
         Activity activity;
         String name = txtName.getText();
-        Document activityData = findActivity(teacherId, name,classroomName);
+        Document activityData = findActivity(teacherId, name, classroomName);
         ArrayList<Assignation> acivityReport = new ArrayList<>();
         Assignation asignationObj;
         if (activityData != null) {
@@ -844,10 +847,10 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
         String activityName = txtAction.getText();
-        Document activityData = findActivity(teacherId, activityName,classroomName);
+        Document activityData = findActivity(teacherId, activityName, classroomName);
 
         if (activityData != null) {
-            deteleActivity(teacherId, activityName,classroomName);
+            deteleActivity(teacherId, activityName, classroomName);
         } else {
             JOptionPane.showMessageDialog(this, "We can't find the activity inserted", "Activity insertion", JOptionPane.WARNING_MESSAGE);
         }
@@ -914,7 +917,7 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void addClassroomsToCmb() {
-        
+
         ArrayList<String> classrooms;
         classrooms = readClassrooms(teacherId);
         if (classrooms != null) {

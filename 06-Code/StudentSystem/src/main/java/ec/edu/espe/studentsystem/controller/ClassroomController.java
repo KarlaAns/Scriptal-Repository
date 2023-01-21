@@ -70,4 +70,15 @@ public class ClassroomController {
             enrollments.close();
         }
     }
+    
+    public static boolean validateActivityExistance(String activityName,int teacherId, String classroomName){
+        MongoCollection activitiesCollection = getConnection("activities");
+        Bson filter = Filters.and(Filters.eq("name",activityName),Filters.eq("teacherId",teacherId),Filters.eq("subjectName",classroomName));
+        Document classroomExistance = (Document) activitiesCollection.find(filter).first();
+        if(classroomExistance!=null){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
