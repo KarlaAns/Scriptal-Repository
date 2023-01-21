@@ -5,6 +5,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Updates;
+import ec.edu.espe.studentsystem.model.Enrollment;
 import ec.edu.espe.studentsystem.model.GradeReport;
 import ec.edu.espe.studentsystem.model.Student;
 import java.util.ArrayList;
@@ -96,5 +97,19 @@ public class StudentController {
         collection.updateOne(filter, studentUpdates);
     }
 
-    
+    public static void assingStudent(int id, String newSubject){
+        Gson gson = new Gson();
+        MongoCollection<Document> collectionEnrollment = MongoConection.getConnection("enrollments");
+        Bson filter = Filters.and(Filters.eq("studentId", id));
+        Document doc = collectionEnrollment.find(filter).first();
+        String enrollmentJson = doc.toJson();
+        Enrollment enrollment = gson.fromJson(enrollmentJson, Enrollment.class);
+        ArrayList<String> subjects = enrollment.getSubjects();
+        subjects.add(newSubject);
+        Bson studentUpdates = Updates.combine(
+                        Updates.set("studentId", enrollment.getStudentId()),
+                        Updates.set("subjects", enrollment.getSubjects()),
+                        Updates.set("average", enrollment.getAverage()));
+        collectionEnrollment.updateOne(filter, studentUpdates);
+    }
 }
