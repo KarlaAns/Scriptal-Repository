@@ -20,7 +20,7 @@ import org.bson.Document;
 
 /**
  *
- * @author Karla Ansatuña
+ * @author Karla Ansatuña,Scriptal, DCCO_ESPE
  */
 public class FrmCreateEvent extends javax.swing.JFrame {
 
