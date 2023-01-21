@@ -287,34 +287,4 @@ public class TeacherController {
         }
         return false;
     }
-
-    public static void createActivity(Activity activity) {
-        MongoCollection activitiesCollection = getConnection("activities");
-        ArrayList<Assignation> activityReport = activity.getActivityReport();
-        ArrayList<Document> activityReportDoc = new ArrayList<>();
-        for (Assignation assignation : activityReport) {
-            activityReportDoc.add(new Document()
-                    .append("studentId", assignation.getStudentId())
-                    .append("grade", assignation.getGrade()));
-        }
-
-        Document activityDoc = new Document().append("_id", new ObjectId())
-                .append("subjectName", activity.getSubjectName())
-                .append("teacherId", activity.getTeacherId())
-                .append("name", activity.getName())
-                .append("shipping", activity.getShipping())
-                .append("deadline", activity.getDeadline())
-                .append("comment", activity.getComment())
-                .append("activityType", activity.getActivityType())
-                .append("activityReport", activityReportDoc);
-        activitiesCollection.insertOne(activityDoc);
-    }
-
-    public static Document findActivity(int teacherId, String activityName, String classroomName) {
-        MongoCollection enrollmentsCollection = getConnection("activities");
-        Bson filter = Filters.and(Filters.eq("teacherId", teacherId), Filters.eq("name", activityName), Filters.eq("subjectName", classroomName));
-        Document activity = (Document) enrollmentsCollection.find(filter).first();
-        return activity;
-    }
-    //subjectsCollection.find(filter).forEach(doc -> System.out.println(doc.toString()));//To test any filter
 }

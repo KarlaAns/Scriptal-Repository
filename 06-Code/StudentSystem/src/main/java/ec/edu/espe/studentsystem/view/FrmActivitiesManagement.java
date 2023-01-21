@@ -6,13 +6,13 @@ package ec.edu.espe.studentsystem.view;
 
 import static ec.edu.espe.studentsystem.controller.ActivityController.deteleActivity;
 import static ec.edu.espe.studentsystem.controller.ActivityController.establishAssignation;
+import static ec.edu.espe.studentsystem.controller.ActivityController.findActivity;
 import static ec.edu.espe.studentsystem.controller.ActivityController.findAllActivities;
+import static ec.edu.espe.studentsystem.controller.ClassroomController.createActivity;
 import static ec.edu.espe.studentsystem.controller.ClassroomController.findTeacher;
 import static ec.edu.espe.studentsystem.controller.ClassroomController.readClassrooms;
 import static ec.edu.espe.studentsystem.controller.ClassroomController.validateActivityExistance;
 import ec.edu.espe.studentsystem.controller.PrintController;
-import static ec.edu.espe.studentsystem.controller.TeacherController.createActivity;
-import static ec.edu.espe.studentsystem.controller.TeacherController.findActivity;
 import ec.edu.espe.studentsystem.controller.ThemeController;
 import static ec.edu.espe.studentsystem.controller.ThemeController.setFlatLightLafTheme;
 import ec.edu.espe.studentsystem.model.Activity;

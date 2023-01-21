@@ -13,17 +13,42 @@ import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import static ec.edu.espe.studentsystem.controller.MongoConection.getConnection;
+import ec.edu.espe.studentsystem.model.Activity;
+import ec.edu.espe.studentsystem.model.Assignation;
 import ec.edu.espe.studentsystem.model.Enrollment;
 import ec.edu.espe.studentsystem.model.Teacher;
 import java.util.ArrayList;
 import org.bson.Document;
 import org.bson.conversions.Bson;
+import org.bson.types.ObjectId;
 
 /**
  *
  * @author Cristian Acalo, Scriptal, DCCO-ESPE
  */
 public class ClassroomController {
+    
+    public static void createActivity(Activity activity) {
+        MongoCollection activitiesCollection = getConnection("activities");
+        ArrayList<Assignation> activityReport = activity.getActivityReport();
+        ArrayList<Document> activityReportDoc = new ArrayList<>();
+        for (Assignation assignation : activityReport) {
+            activityReportDoc.add(new Document()
+                    .append("studentId", assignation.getStudentId())
+                    .append("grade", assignation.getGrade()));
+        }
+
+        Document activityDoc = new Document().append("_id", new ObjectId())
+                .append("subjectName", activity.getSubjectName())
+                .append("teacherId", activity.getTeacherId())
+                .append("name", activity.getName())
+                .append("shipping", activity.getShipping())
+                .append("deadline", activity.getDeadline())
+                .append("comment", activity.getComment())
+                .append("activityType", activity.getActivityType())
+                .append("activityReport", activityReportDoc);
+        activitiesCollection.insertOne(activityDoc);
+    }
 
     public static ArrayList<String> readClassrooms(int teacherId) {
         MongoCollection teacherCollection = getConnection("teachers");
