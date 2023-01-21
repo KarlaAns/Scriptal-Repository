@@ -39,6 +39,13 @@ public class ActivityController {
         }
     }
 
+    public static Document findActivity(int teacherId, String activityName, String classroomName) {
+        MongoCollection enrollmentsCollection = getConnection("activities");
+        Bson filter = Filters.and(Filters.eq("teacherId", teacherId), Filters.eq("name", activityName), Filters.eq("subjectName", classroomName));
+        Document activity = (Document) enrollmentsCollection.find(filter).first();
+        return activity;
+    }
+    
     public static ArrayList<Assignation> establishAssignation(String className) {
         Gson gson = new Gson();
         ArrayList<Assignation> activityReport = new ArrayList<>();
@@ -179,4 +186,5 @@ public class ActivityController {
         Document updatedAverageDocument = new Document("$set", new Document("average", generalAverage));
         enrollmentsCollection.updateOne(enrollmentFilter, updatedAverageDocument);
     }
+    
 }
