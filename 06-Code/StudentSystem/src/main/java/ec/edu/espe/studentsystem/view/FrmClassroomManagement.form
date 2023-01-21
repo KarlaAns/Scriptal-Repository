@@ -59,6 +59,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Students"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnItmStudentsActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

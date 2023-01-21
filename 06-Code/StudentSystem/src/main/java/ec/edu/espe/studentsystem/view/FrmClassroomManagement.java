@@ -496,6 +496,11 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
         jMenu1.add(mnItmClassrooms);
 
         mnItmStudents.setText("Students");
+        mnItmStudents.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnItmStudentsActionPerformed(evt);
+            }
+        });
         jMenu1.add(mnItmStudents);
 
         jMenuBar1.add(jMenu1);
@@ -720,6 +725,18 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
         PrintController.printPDF("Teacher Classrooms", tblAssignments);
     }//GEN-LAST:event_btnPrintActionPerformed
+
+    private void mnItmStudentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnItmStudentsActionPerformed
+        // TODO add your handling code here:
+        FrmStudentManagement students = new FrmStudentManagement(teacherId);
+        students.setVisible(true);
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+            students.setStatusCbmiDarkMode(false);
+        } else {
+            students.setStatusCbmiDarkMode(true);
+        }
+        this.dispose();
+    }//GEN-LAST:event_mnItmStudentsActionPerformed
 
     /**
      * @param args the command line arguments
