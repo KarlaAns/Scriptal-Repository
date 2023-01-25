@@ -748,7 +748,7 @@ public class FrmActivitiesManagement extends javax.swing.JFrame {
         String actName = (String) cmbClassrooms.getSelectedItem();
         String actType = (String) cmbType.getSelectedItem();
 
-        if (validateActivityExistance(actName, teacherId, (String) cmbClassrooms.getSelectedItem())) {
+        if (!validateActivityExistance(actName, teacherId, (String) cmbClassrooms.getSelectedItem())) {
             
             ArrayList<Assignation> activityReport = establishAssignation((String) cmbClassrooms.getSelectedItem());
 
