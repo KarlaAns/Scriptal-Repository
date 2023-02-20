@@ -262,7 +262,7 @@ public class TeacherController {
     }
 
     public static boolean deleteToClassrooms(String classroomName) {
-        MongoCollection classromsCollection = getConnection("classroom");
+        MongoCollection classromsCollection = getConnection("classrooms");
         Bson filter = Filters.and(Filters.eq("name", classroomName));
         Document classroom = (Document) classromsCollection.find(filter).first();
         if (classroom != null) {

@@ -674,12 +674,12 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
             if (classrooms) {
                 showClassrooms();
                 teacher = findTeacher(teacherId);
-                JOptionPane.showMessageDialog(this, txtNameToChange.getText() + " classroom updated successfully", "Classroom update", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, txtNameToChange.getText() + " classroom updated successfully", "Classrooms update", JOptionPane.INFORMATION_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(this, "Data not found", "Classroom update", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "An error has ocurred", "Classrooms update", JOptionPane.WARNING_MESSAGE);
             }
         } catch (HeadlessException e) {
-            JOptionPane.showMessageDialog(this, "An error has occurred", "Classroom update", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "An exception has occurred", "Classroom update", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
