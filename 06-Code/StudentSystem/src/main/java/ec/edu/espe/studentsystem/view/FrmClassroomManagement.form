@@ -377,6 +377,7 @@
               </Properties>
               <Events>
                 <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtNameFocusGained"/>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtNameKeyTyped"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnFind">
@@ -601,6 +602,9 @@
                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                 </Property>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="tblAssignments = new javax.swing.JTable(){&#xa;  public boolean isCellEditable(int row, int col){&#xa;  return false;&#xa;}  &#xa;};"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>

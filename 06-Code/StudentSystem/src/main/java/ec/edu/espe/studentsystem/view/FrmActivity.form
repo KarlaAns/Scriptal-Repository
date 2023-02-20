@@ -453,6 +453,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtIdToChange">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtIdToChangeKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
@@ -460,6 +463,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtGradeToChange">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtGradeToChangeKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnSaveGrade">
           <Properties>

@@ -209,6 +209,11 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
                 txtNameFocusGained(evt);
             }
         });
+        txtName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNameKeyTyped(evt);
+            }
+        });
 
         btnFind.setFont(btnFind.getFont().deriveFont(btnFind.getFont().getStyle() & ~java.awt.Font.BOLD, btnFind.getFont().getSize()+2));
         btnFind.setForeground(new java.awt.Color(51, 51, 51));
@@ -379,6 +384,11 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
             }
         });
 
+        tblAssignments = new javax.swing.JTable(){
+            public boolean isCellEditable(int row, int col){
+                return false;
+            }
+        };
         tblAssignments.setAutoCreateRowSorter(true);
         tblAssignments.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 0));
         tblAssignments.setModel(new javax.swing.table.DefaultTableModel(
@@ -737,6 +747,18 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
         }
         this.dispose();
     }//GEN-LAST:event_mnItmStudentsActionPerformed
+
+    private void txtNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNameKeyTyped
+        // TODO add your handling code here:
+        /*char validate= evt.getKeyChar();
+        
+        if(Character.isLetter(validate)){
+            getToolkit().beep();
+            evt.consume();
+            
+            JOptionPane.showMessageDialog(this, "The inserted class already exist", "Classroom insertion", JOptionPane.WARNING_MESSAGE);
+        }*/
+    }//GEN-LAST:event_txtNameKeyTyped
 
     /**
      * @param args the command line arguments

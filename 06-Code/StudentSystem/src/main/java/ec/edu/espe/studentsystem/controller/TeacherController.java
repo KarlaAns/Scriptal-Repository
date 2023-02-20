@@ -174,7 +174,6 @@ public class TeacherController {
         boolean activitiesVerivied = deleteToactivities(classroomName, teacherId);
         boolean subjectVerivied = deleteToSubjects(classroomName);
         boolean classroomsVerified = deleteToClassrooms(classroomName);
-        
         if( teacherVerivied!=false&&
             enrollmentVerivied!=false&&
             activitiesVerivied!=false&&

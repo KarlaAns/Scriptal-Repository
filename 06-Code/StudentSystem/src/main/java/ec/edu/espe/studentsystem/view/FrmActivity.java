@@ -19,6 +19,7 @@ import static ec.edu.espe.studentsystem.controller.ThemeController.setFlatLightL
 import ec.edu.espe.studentsystem.model.Activity;
 import ec.edu.espe.studentsystem.model.Assignation;
 import java.awt.EventQueue;
+import java.awt.event.KeyEvent;
 import static java.lang.String.valueOf;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -56,14 +57,14 @@ public class FrmActivity extends javax.swing.JFrame {
      * @param classroomName
      * @param teacherId
      */
-    public FrmActivity(String activityName,String classroomName, int teacherId) {
+    public FrmActivity(String activityName, String classroomName, int teacherId) {
         this.activityName = activityName;
         this.classroomName = classroomName;
         this.teacherId = teacherId;
         this.teacher = findTeacher(teacherId);
-        this.activityData = findActivity(teacherId, activityName,classroomName);
+        this.activityData = findActivity(teacherId, activityName, classroomName);
         initComponents();
-        
+
         txtActivityName.setText((String) activityData.get("name"));
         fillInputs();
 
@@ -80,7 +81,7 @@ public class FrmActivity extends javax.swing.JFrame {
 
     public final void fillInputs() {
         SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
-        
+
         try {
             Date shipping = formato.parse((String) activityData.get("shipping"));
             Date deadline = formato.parse((String) activityData.get("deadline"));
@@ -322,7 +323,19 @@ public class FrmActivity extends javax.swing.JFrame {
 
         jLabel1.setText("ID:");
 
+        txtIdToChange.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIdToChangeKeyTyped(evt);
+            }
+        });
+
         jLabel2.setText("Grade");
+
+        txtGradeToChange.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtGradeToChangeKeyTyped(evt);
+            }
+        });
 
         btnSaveGrade.setBackground(new java.awt.Color(0, 255, 102));
         btnSaveGrade.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -496,7 +509,7 @@ public class FrmActivity extends javax.swing.JFrame {
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
         ArrayList<String> dataToUpdate = new ArrayList<>();
-        
+
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         Date shipping = dtShipping.getDate();
         Date deadline = dtDeadline.getDate();
@@ -505,9 +518,9 @@ public class FrmActivity extends javax.swing.JFrame {
         dataToUpdate.add(dateFormat.format(deadline));
         dataToUpdate.add(txtAComment.getText());
         dataToUpdate.add((String) cmbType.getSelectedItem());
-    
-        updateActivity(teacherId,(String)activityData.get("name"),(String)activityData.get("subjectName"),dataToUpdate);
-        activityData=findActivity(teacherId, activityName,classroomName);
+
+        updateActivity(teacherId, (String) activityData.get("name"), (String) activityData.get("subjectName"), dataToUpdate);
+        activityData = findActivity(teacherId, activityName, classroomName);
         fillInputs();
     }//GEN-LAST:event_btnUpdateActionPerformed
 
@@ -615,16 +628,25 @@ public class FrmActivity extends javax.swing.JFrame {
 
     private void btnSaveGradeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveGradeActionPerformed
         // TODO add your handling code here:
-        int studentId = Integer.parseInt(txtIdToChange.getText());
-        double grade = Double.parseDouble(txtGradeToChange.getText());
-        
-        ArrayList<Document> assignations = (ArrayList<Document>) activityData.get("activityReport");
-        
-        for (Document assignation : assignations) {
-            if((int)assignation.get("studentId")==studentId){
-                updateGrade(classroomName,(int)teacher.get("id"),(String)activityData.get("name"),studentId,grade);
-                activityData = findActivity(teacherId, activityName,classroomName);
-                showAssignations();
+        int studentId;
+        double grade;
+        System.out.println("******" + txtGradeToChange.getText() + "******");
+        if (".".equals(txtGradeToChange.getText())) {
+            JOptionPane.showMessageDialog(this, "Insert numbers between 0.00 and 20.00 please", "Grade Insertion", JOptionPane.WARNING_MESSAGE);
+        } else {
+            studentId = Integer.parseInt(txtIdToChange.getText());
+            grade = Double.parseDouble(txtGradeToChange.getText());
+            if ((grade < 0 || grade > 20)) {
+                JOptionPane.showMessageDialog(this, "Insert numbers between 0.00 and 20.00 please", "Grade Insertion", JOptionPane.WARNING_MESSAGE);
+            } else {
+                ArrayList<Document> assignations = (ArrayList<Document>) activityData.get("activityReport");
+                for (Document assignation : assignations) {
+                    if ((int) assignation.get("studentId") == studentId) {
+                        updateGrade(classroomName, (int) teacher.get("id"), (String) activityData.get("name"), studentId, grade);
+                        activityData = findActivity(teacherId, activityName, classroomName);
+                        showAssignations();
+                    }
+                }
             }
         }
     }//GEN-LAST:event_btnSaveGradeActionPerformed
@@ -632,6 +654,32 @@ public class FrmActivity extends javax.swing.JFrame {
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
         PrintController.printPDF("Grades Activities", tblStudentsAct);
     }//GEN-LAST:event_btnPrintActionPerformed
+
+    private void txtIdToChangeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdToChangeKeyTyped
+        // TODO add your handling code here:
+        char validate = evt.getKeyChar();
+
+        if ((validate < '0' || validate > '9') && txtIdToChange.getText().contains(".") && (validate != (char) KeyEvent.VK_BACK_SPACE)) {
+            evt.consume();
+            JOptionPane.showMessageDialog(this, "Insert just decimal numbers", "Student ID", JOptionPane.WARNING_MESSAGE);
+        } else if ((validate < '0' || validate > '9') && (validate != '.') && (validate != (char) KeyEvent.VK_BACK_SPACE)) {
+            evt.consume();
+            JOptionPane.showMessageDialog(this, "Insert just decimal numbers", "Student ID", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_txtIdToChangeKeyTyped
+
+    private void txtGradeToChangeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtGradeToChangeKeyTyped
+        // TODO add your handling code here:
+        char validate = evt.getKeyChar();
+
+        if ((validate < '0' || validate > '9') && txtGradeToChange.getText().contains(".") && (validate != (char) KeyEvent.VK_BACK_SPACE)) {
+            evt.consume();
+            JOptionPane.showMessageDialog(this, "Insert just decimal numbers", "Grade Insertion", JOptionPane.WARNING_MESSAGE);
+        } else if ((validate < '0' || validate > '9') && (validate != '.') && (validate != (char) KeyEvent.VK_BACK_SPACE)) {
+            evt.consume();
+            JOptionPane.showMessageDialog(this, "Insert just decimal numbers", "Grade Insertion", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_txtGradeToChangeKeyTyped
 
     /**
      * @param args the command line arguments
@@ -642,7 +690,7 @@ public class FrmActivity extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmActivity("","", 0).setVisible(true);
+                new FrmActivity("", "", 0).setVisible(true);
             }
         });
     }
