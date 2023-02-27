@@ -292,7 +292,9 @@ public class FrmLogIn extends javax.swing.JFrame {
         {
             int id = Integer.parseInt(tfId.getText());
             String password = pfPassword.getText();
-            if (LogInController.matchInMongo(id, password))
+            LogInController logInController= new LogInController();
+            boolean match = logInController.matchInMongo(id, password);
+            if (match)
             {
                 createFrameStudent();
             } else
@@ -307,7 +309,9 @@ public class FrmLogIn extends javax.swing.JFrame {
         {
             int id = Integer.parseInt(tfId.getText());
             String password = pfPassword.getText();
-            if (LogInController.matchInMongo(id, password))
+            LogInController logInController= new LogInController();
+            boolean match = logInController.matchInMongo(id, password);
+            if (match)
             {
                 createFrameTeacher();
             } else
@@ -322,7 +326,9 @@ public class FrmLogIn extends javax.swing.JFrame {
         {
             int id = Integer.parseInt(tfId.getText());
             String password = pfPassword.getText();
-            if (LogInController.matchInMongo(id, password))
+            LogInController logInController= new LogInController();
+            boolean match = logInController.matchInMongo(id, password);
+            if (match)
             {
                 createFramePrincipal();
             } else
