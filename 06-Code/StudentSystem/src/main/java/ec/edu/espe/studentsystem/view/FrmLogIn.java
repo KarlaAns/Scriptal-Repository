@@ -79,6 +79,12 @@ public class FrmLogIn extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 60)); // NOI18N
         jLabel3.setText("Log In");
 
+        pfPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pfPasswordActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -357,6 +363,10 @@ public class FrmLogIn extends javax.swing.JFrame {
         }
         this.dispose();
     }//GEN-LAST:event_mnMailActionPerformed
+
+    private void pfPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pfPasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pfPasswordActionPerformed
 
     /**
      * @param args the command line arguments
