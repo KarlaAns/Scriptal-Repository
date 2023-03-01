@@ -72,7 +72,11 @@ public class TeacherController {
         boolean activitiesUpdateVerified = updateToactivities(teacherId, nameToChange, newName);//OK
         boolean subjectsUpdateVerified = updateToSubjects(nameToChange, newName);//OK
         boolean classroomsUpdateVerified = updateToClassrooms(nameToChange, newName);//OK
-
+        System.out.println("-->" + teacherUpdateVerified);
+        System.out.println("-->" + enrollmentsUpdateVerified);
+        System.out.println("-->" + activitiesUpdateVerified);
+        System.out.println("-->" + subjectsUpdateVerified);
+        System.out.println("-->" + classroomsUpdateVerified);
         if (teacherUpdateVerified!=false&&
             enrollmentsUpdateVerified!=false&&
             activitiesUpdateVerified!=false&&
@@ -157,7 +161,7 @@ public class TeacherController {
     }
 
     public static boolean updateToClassrooms(String nameToChange, String newName) {
-        MongoCollection classromsCollection = getConnection("classroom");
+        MongoCollection classromsCollection = getConnection("classrooms");
         Bson filter = Filters.and(Filters.eq("name", nameToChange));
         Document classroom = (Document) classromsCollection.find(filter).first();
         if (classroom != null) {
