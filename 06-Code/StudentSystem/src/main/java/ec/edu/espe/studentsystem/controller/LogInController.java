@@ -1,7 +1,5 @@
 package ec.edu.espe.studentsystem.controller;
 
-import ec.edu.espe.studentsystem.model.*;
-
 /**
  *
  * @author Alejandro Andrade, Scriptal, DCCO_ESPE
