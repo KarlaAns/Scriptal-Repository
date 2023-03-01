@@ -1,6 +1,5 @@
 package ec.edu.espe.studentsystem.controller;
 
-import ec.edu.espe.studentsystem.model.CollectionStrategy;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -37,10 +36,10 @@ public class LogInControllerTest {
     @Test
     public void testMatchInMongo() {
         System.out.println("matchInMongo");
-        int id = 0;
-        String password = "";
+        int id = 99999;
+        String password = "1234";
         LogInController instance = new LogInController();
-        boolean expResult = false;
+        boolean expResult = true;
         boolean result = instance.matchInMongo(id, password);
         assertEquals(expResult, result);
     }
@@ -51,9 +50,9 @@ public class LogInControllerTest {
     @Test
     public void testSetCollection() {
         System.out.println("setCollection");
-        int id = 0;
+        int id = 99999;
         LogInController instance = new LogInController();
-        CollectionStrategy expResult = null;
+        CollectionStrategy expResult =new CollectionPrincipal();
         CollectionStrategy result = instance.setCollection(id);
         assertEquals(expResult, result);
     }

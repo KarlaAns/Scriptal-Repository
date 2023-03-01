@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit5TestClass.java to edit this template
- */
 package ec.edu.espe.studentsystem.controller;
 
 import javax.swing.JLabel;
@@ -44,12 +40,11 @@ public class EnrollmentControllerTest {
     @Test
     public void testViewData() {
         System.out.println("viewData");
-        int id = 0;
+        int id = 99999;
         DefaultTableModel model = null;
         JLabel lblAverageTotal = null;
         EnrollmentController.viewData(id, model, lblAverageTotal);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
     }
     
 }

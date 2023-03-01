@@ -41,7 +41,7 @@ public class EventControllerTest {
         System.out.println("insertEvent");
         String id = "1";
         String name = "Christmas";
-        String date = "12/02/2023";
+        String date = "12-02-2023";
         String description = "nothing here";
         EventController.insertEvent(id, name, date, description);
 
@@ -78,8 +78,7 @@ public class EventControllerTest {
         System.out.println("deleteEvent");
         int id = 0;
         EventController.deleteEvent(id);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
     }
 
     /**
@@ -88,13 +87,11 @@ public class EventControllerTest {
     @Test
     public void testInsertCancelledEvent() {
         System.out.println("insertCancelledEvent");
-        String id = "";
-        String name = "";
-        String date = "";
+        String id = "1";
+        String name = "halloween";
+        String date = "20-01-2023";
         String description = "";
         EventController.insertCancelledEvent(id, name, date, description);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
     
 }
