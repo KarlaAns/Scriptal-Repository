@@ -32,9 +32,4 @@ public class MongoConection {
             throw e;
         }
     }
-    
-    public static void closeConnection() {
-        mongoClient.close();
-        System.out.println("Successfully closed connection to MongoDB Atlas");
-    }
 }
