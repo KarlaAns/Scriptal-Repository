@@ -1,5 +1,5 @@
 
-package ec.edu.espe.studentsystem.model;
+package ec.edu.espe.studentsystem.controller;
 
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
