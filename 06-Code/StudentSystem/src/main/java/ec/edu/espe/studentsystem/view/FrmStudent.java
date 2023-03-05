@@ -218,14 +218,21 @@ public class FrmStudent extends javax.swing.JFrame {
     private void mniAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAboutActionPerformed
         FrmAboutUs aboutUs = new FrmAboutUs();
         aboutUs.setVisible(true);
+
         if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName()))
         {
             aboutUs.setStatusCbmiDarkMode(false);
         } else
         {
-            aboutUs.setStatusCbmiDarkMode(true);
-        }
-        this.dispose();
+
+            if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName()))
+            {
+                aboutUs.setStatusCbmiDarkMode(false);
+            } else
+            {
+                aboutUs.setStatusCbmiDarkMode(true);
+            }
+            this.dispose();
     }//GEN-LAST:event_mniAboutActionPerformed
 
     private void mnActivityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnActivityActionPerformed
@@ -287,10 +294,19 @@ public class FrmStudent extends javax.swing.JFrame {
             newHelp.setStatusCbmiDarkMode(false);
         } else
         {
-            newHelp.setStatusCbmiDarkMode(true);
-        }
-        this.dispose();
+            if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName()))
+            {
+                newHelp.setStatusCbmiDarkMode(false);
+            } else
+            {
+                newHelp.setStatusCbmiDarkMode(true);
+            }
+            this.dispose();
     }//GEN-LAST:event_mnMailActionPerformed
+
+    
+
+    
 
     private void openFrmEnrollment() {
         FrmEnrollment frmEnrollment = new FrmEnrollment(id);

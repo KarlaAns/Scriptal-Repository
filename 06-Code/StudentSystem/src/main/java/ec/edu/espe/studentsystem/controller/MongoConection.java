@@ -10,14 +10,13 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
+
 /**
  *
  * @author Cristian Acalo, Scriptal, DCCO-ESPE
  */
 public class MongoConection {
-    private static MongoClient mongoClient;
-    private static MongoDatabase mongoDatabase;
-    
+
     public static MongoCollection<Document> getConnection(String collection) throws MongoClientException {
         try {
             String url = "mongodb+srv://laandrade:laandrade@cluster0.jcz1lsa.mongodb.net/test";
@@ -25,7 +24,7 @@ public class MongoConection {
             MongoClient mc = MongoClients.create(url);
             MongoDatabase database = mc.getDatabase(dataBase);
             MongoCollection<Document> c = database.getCollection(collection);
-            
+
             return c;
         } catch (MongoClientException e) {
             System.out.println("Error connecting to MongoDB Atlas: " + e.getMessage());

@@ -1,4 +1,3 @@
-
 package ec.edu.espe.studentsystem.controller;
 
 import com.formdev.flatlaf.FlatDarculaLaf;
@@ -11,27 +10,23 @@ import javax.swing.UIManager;
  * @author Alejandro Andrade, Scriptal, DCCO_ESPE
  */
 public class ThemeController {
-    
+
     public static void setFlatLightLafTheme() {
-        try
-        {
+        try {
             UIManager.setLookAndFeel(new FlatLightLaf());
             FlatLaf.updateUI();
-        } catch (Exception ex)
-        {
+        } catch (Exception ex) {
             System.err.println("Failed to initialize LaF");
         }
     }
-    
+
     public static void setDarkTheme() {
-        try
-        {
+        try {
             UIManager.setLookAndFeel(new FlatDarculaLaf());
             FlatLaf.updateUI();
-        } catch (Exception ex)
-        {
+        } catch (Exception ex) {
             System.err.println("Failed to initialize LaF");
         }
     }
-    
+
 }

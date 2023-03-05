@@ -133,7 +133,7 @@ public class TeacherControllerTest {
         String classroomName = "";
         int teacherId = 0;
         boolean expResult = false;
-        boolean result = TeacherController.deleteToactivities(classroomName, teacherId);
+        boolean result = TeacherController.deleteToActivities(classroomName, teacherId);
         assertEquals(expResult, result);
     }
 

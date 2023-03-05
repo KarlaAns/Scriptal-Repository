@@ -1,4 +1,3 @@
-
 package ec.edu.espe.studentsystem.view;
 
 import static ec.edu.espe.studentsystem.controller.ClassroomController.findTeacher;
@@ -15,15 +14,17 @@ public class FrmTeacher extends javax.swing.JFrame {
 
     private final int teacherId;
     private final Document teacher;
+
     /**
      * Creates new form FrmTeacher
+     *
      * @param teacherId
      */
     public FrmTeacher(int teacherId) {
         initComponents();
-        this.teacherId=teacherId;
+        this.teacherId = teacherId;
         this.teacher = findTeacher(teacherId);
-        if(teacher!=null){
+        if (teacher != null) {
             String[] teacherName;
             teacherName = teacher.getString("name").split(" ");
             lbTeacherName.setText(teacherName[0]);
@@ -177,9 +178,9 @@ public class FrmTeacher extends javax.swing.JFrame {
         // TODO add your handling code here:
         FrmClassroomManagement classrooms = new FrmClassroomManagement(teacherId);
         classrooms.setVisible(true);
-        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
             classrooms.setStatusCbmiDarkMode(false);
-        }else{
+        } else {
             classrooms.setStatusCbmiDarkMode(true);
         }
         this.dispose();
@@ -189,9 +190,9 @@ public class FrmTeacher extends javax.swing.JFrame {
         // TODO add your handling code here:
         FrmStudentManagement students = new FrmStudentManagement(teacherId);
         students.setVisible(true);
-        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
             students.setStatusCbmiDarkMode(false);
-        }else{
+        } else {
             students.setStatusCbmiDarkMode(true);
         }
         this.dispose();
@@ -201,9 +202,9 @@ public class FrmTeacher extends javax.swing.JFrame {
         FrmMain main = new FrmMain();
         main.setVisible(true);
         System.out.println(UIManager.getLookAndFeel().getName());
-        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
             main.setStatusCbmiDarkMode(false);
-        }else{
+        } else {
             main.setStatusCbmiDarkMode(true);
         }
         this.dispose();
@@ -217,16 +218,14 @@ public class FrmTeacher extends javax.swing.JFrame {
     }//GEN-LAST:event_mniAboutActionPerformed
 
     private void cbmiDarkModeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbmiDarkModeActionPerformed
-        if (cbmiDarkMode.isSelected())
-        {
+        if (cbmiDarkMode.isSelected()) {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     ThemeController.setDarkTheme();
                 }
             });
-        } else
-        {
+        } else {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
@@ -241,7 +240,7 @@ public class FrmTeacher extends javax.swing.JFrame {
      */
     public static void main(String args[]) {
         ThemeController.setFlatLightLafTheme();
-        
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new FrmTeacher(0).setVisible(true);

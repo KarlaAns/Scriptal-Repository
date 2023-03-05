@@ -4,19 +4,12 @@
  */
 package ec.edu.espe.studentsystem.controller;
 
-import com.google.gson.Gson;
-import com.mongodb.MongoException;
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
-import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import static ec.edu.espe.studentsystem.controller.MongoConection.getConnection;
 import ec.edu.espe.studentsystem.model.Activity;
 import ec.edu.espe.studentsystem.model.Assignation;
-import ec.edu.espe.studentsystem.model.Enrollment;
-import ec.edu.espe.studentsystem.model.Teacher;
 import java.util.ArrayList;
 import org.bson.Document;
 import org.bson.conversions.Bson;

@@ -216,9 +216,9 @@ public class FrmMain extends javax.swing.JFrame {
     private void mnMailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnMailActionPerformed
         FrmHelp newHelp = new FrmHelp();
         newHelp.setVisible(true);
-        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
             newHelp.setStatusCbmiDarkMode(false);
-        }else{
+        } else {
             newHelp.setStatusCbmiDarkMode(true);
         }
         this.dispose();

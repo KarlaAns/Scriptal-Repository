@@ -6,6 +6,10 @@ import com.mongodb.client.MongoCursor;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Updates;
 import ec.edu.espe.studentsystem.model.Event;
+<<<<<<< HEAD
+=======
+import java.util.Scanner;
+>>>>>>> 60fc3e98f5be341feba789dc96a30642f183094d
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
