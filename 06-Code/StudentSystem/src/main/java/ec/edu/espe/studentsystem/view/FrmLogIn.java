@@ -433,9 +433,7 @@ public class FrmLogIn extends javax.swing.JFrame {
     }
 
     private void createFrameStudent() {
-        int id = Integer.parseInt(tfId.getText());
-        String password = pfPassword.getText();
-        FrmStudent frmStudent = new FrmStudent(id, password);
+        FrmStudent frmStudent = new FrmStudent(Integer.parseInt(tfId.getText()), pfPassword.getText());
         frmStudent.setVisible(true);
         if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName()))
         {

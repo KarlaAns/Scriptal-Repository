@@ -23,7 +23,6 @@ public class FrmStudent extends javax.swing.JFrame {
 
     /**
      * Creates new form FrmStudent
-     *
      * @param id
      * @param password
      */
@@ -218,21 +217,12 @@ public class FrmStudent extends javax.swing.JFrame {
     private void mniAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAboutActionPerformed
         FrmAboutUs aboutUs = new FrmAboutUs();
         aboutUs.setVisible(true);
-
-        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName()))
-        {
+        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
             aboutUs.setStatusCbmiDarkMode(false);
-        } else
-        {
-
-            if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName()))
-            {
-                aboutUs.setStatusCbmiDarkMode(false);
-            } else
-            {
-                aboutUs.setStatusCbmiDarkMode(true);
-            }
-            this.dispose();
+        }else{
+            aboutUs.setStatusCbmiDarkMode(true);
+        }
+        this.dispose();
     }//GEN-LAST:event_mniAboutActionPerformed
 
     private void mnActivityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnActivityActionPerformed
@@ -263,11 +253,9 @@ public class FrmStudent extends javax.swing.JFrame {
     private void menuHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuHelpActionPerformed
         FrmHelp newHelp = new FrmHelp();
         newHelp.setVisible(true);
-        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName()))
-        {
+        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
             newHelp.setStatusCbmiDarkMode(false);
-        } else
-        {
+        }else{
             newHelp.setStatusCbmiDarkMode(true);
         }
         this.dispose();
@@ -276,11 +264,9 @@ public class FrmStudent extends javax.swing.JFrame {
     private void mniLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniLogOutActionPerformed
         FrmMain main = new FrmMain();
         main.setVisible(true);
-        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName()))
-        {
+        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
             main.setStatusCbmiDarkMode(false);
-        } else
-        {
+        }else{
             main.setStatusCbmiDarkMode(true);
         }
         this.dispose();
@@ -289,24 +275,13 @@ public class FrmStudent extends javax.swing.JFrame {
     private void mnMailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnMailActionPerformed
         FrmHelp newHelp = new FrmHelp();
         newHelp.setVisible(true);
-        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName()))
-        {
+        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
             newHelp.setStatusCbmiDarkMode(false);
-        } else
-        {
-            if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName()))
-            {
-                newHelp.setStatusCbmiDarkMode(false);
-            } else
-            {
-                newHelp.setStatusCbmiDarkMode(true);
-            }
-            this.dispose();
+        }else{
+            newHelp.setStatusCbmiDarkMode(true);
+        }
+        this.dispose();
     }//GEN-LAST:event_mnMailActionPerformed
-
-    
-
-    
 
     private void openFrmEnrollment() {
         FrmEnrollment frmEnrollment = new FrmEnrollment(id);
@@ -360,7 +335,7 @@ public class FrmStudent extends javax.swing.JFrame {
     public void setStatusCbmiDarkMode(boolean isSelected) {
         this.cbmiDarkMode.setSelected(isSelected);
     }
-
+    
     private String getStudentName() {
         String collection = "students";
         String studentName = "";
@@ -370,12 +345,11 @@ public class FrmStudent extends javax.swing.JFrame {
         Bson bsonFilter = Filters.eq("id", id);
         Document doc = studentsCollection.find(Filters.and(bsonFilter)).first();
         String studentDoc = doc.toJson();
-        TypeToken<Student> type = new TypeToken<Student>() {
-        };
+        TypeToken<Student> type = new TypeToken<Student>() {};
         Student student = gson.fromJson(studentDoc, type.getType());
         studentName = student.getName();
 
         return studentName;
-
+    
     }
 }
