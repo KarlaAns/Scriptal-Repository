@@ -24,10 +24,4 @@ public class MongoConectionTest {
         assertEquals(expResult, result);
     }
 
-    @Test
-    public void testCloseConnection() {
-        System.out.println("closeConnection");
-        MongoConection.closeConnection();
-    }
-    
 }

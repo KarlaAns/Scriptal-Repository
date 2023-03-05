@@ -17,9 +17,6 @@ import org.bson.Document;
  */
 public class MongoConection {
 
-    private static MongoClient mongoClient;
-    private static MongoDatabase mongoDatabase;
-
     public static MongoCollection<Document> getConnection(String collection) throws MongoClientException {
         try {
             String url = "mongodb+srv://laandrade:laandrade@cluster0.jcz1lsa.mongodb.net/test";
@@ -33,10 +30,5 @@ public class MongoConection {
             System.out.println("Error connecting to MongoDB Atlas: " + e.getMessage());
             throw e;
         }
-    }
-
-    public static void closeConnection() {
-        mongoClient.close();
-        System.out.println("Successfully closed connection to MongoDB Atlas");
     }
 }
