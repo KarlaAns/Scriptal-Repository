@@ -59,16 +59,11 @@ public class TeacherController {
     }
 
     public static boolean updateClassroom(String nameToChange, String newName, int teacherId) {
-        boolean teacherUpdateVerified = updateToTeacher(teacherId, nameToChange, newName);//OK
-        boolean enrollmentsUpdateVerified = updateToEnrollments(nameToChange, newName);//OK
-        boolean activitiesUpdateVerified = updateToactivities(teacherId, nameToChange, newName);//OK
-        boolean subjectsUpdateVerified = updateToSubjects(nameToChange, newName);//OK
-        boolean classroomsUpdateVerified = updateToClassrooms(nameToChange, newName);//OK
-        System.out.println("-->" + teacherUpdateVerified);
-        System.out.println("-->" + enrollmentsUpdateVerified);
-        System.out.println("-->" + activitiesUpdateVerified);
-        System.out.println("-->" + subjectsUpdateVerified);
-        System.out.println("-->" + classroomsUpdateVerified);
+        boolean teacherUpdateVerified = updateToTeacher(teacherId, nameToChange, newName);
+        boolean enrollmentsUpdateVerified = updateToEnrollments(nameToChange, newName);
+        boolean activitiesUpdateVerified = updateToActivities(teacherId, nameToChange, newName);
+        boolean subjectsUpdateVerified = updateToSubjects(nameToChange, newName);
+        boolean classroomsUpdateVerified = updateToClassrooms(nameToChange, newName);
         if (teacherUpdateVerified != false
                 && enrollmentsUpdateVerified != false
                 && activitiesUpdateVerified != false
@@ -127,7 +122,7 @@ public class TeacherController {
         }
     }
 
-    public static boolean updateToactivities(int teacherId, String nameToChange, String newName) {
+    public static boolean updateToActivities(int teacherId, String nameToChange, String newName) {
         MongoCollection activitiesCollection = getConnection("activities");
         Bson filter = Filters.and(Filters.eq("teacherId", teacherId), Filters.eq("subjectName", nameToChange));
         MongoCursor<Document> activities = activitiesCollection.find(filter).iterator();
@@ -142,7 +137,6 @@ public class TeacherController {
     public static boolean updateToSubjects(String nameToChange, String newName) {
         MongoCollection activitiesCollection = getConnection("subjects");
         Bson filter = Filters.elemMatch("gradesReport", Filters.eq("subject", nameToChange));
-        //Bson filter = Filters.all("gradesReport", values);
         MongoCursor<Document> subjects = activitiesCollection.find(filter).iterator();
         if (subjects != null) {
             Document updatedSubjectDocument = new Document("$set", new Document("gradesReport.$.subject", newName));

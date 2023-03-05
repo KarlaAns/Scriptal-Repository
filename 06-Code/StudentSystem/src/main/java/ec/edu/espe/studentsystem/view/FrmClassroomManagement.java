@@ -1,6 +1,5 @@
 package ec.edu.espe.studentsystem.view;
 
-import static ec.edu.espe.studentsystem.controller.ClassroomController.countNumberStudents;
 import static ec.edu.espe.studentsystem.controller.ClassroomController.findTeacher;
 import ec.edu.espe.studentsystem.controller.PrintController;
 import static ec.edu.espe.studentsystem.controller.TeacherController.createClassroom;
@@ -10,11 +9,9 @@ import static ec.edu.espe.studentsystem.controller.TeacherController.findClassro
 import static ec.edu.espe.studentsystem.controller.TeacherController.updateClassroom;
 import ec.edu.espe.studentsystem.controller.ThemeController;
 import static ec.edu.espe.studentsystem.controller.ThemeController.setFlatLightLafTheme;
-import ec.edu.espe.studentsystem.model.Classroom;
 import java.awt.EventQueue;
 import java.awt.HeadlessException;
 import java.util.ArrayList;
-import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
@@ -207,11 +204,6 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
         txtName.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtNameFocusGained(evt);
-            }
-        });
-        txtName.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtNameKeyTyped(evt);
             }
         });
 
@@ -697,7 +689,6 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
 
     private void mnItmClassroomsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnItmClassroomsActionPerformed
         // TODO add your handling code here:
-        //Document teacherId = findTeacher((int) teacher.get("id"));
         FrmClassroomManagement classroomManagement = new FrmClassroomManagement(teacherId);
         classroomManagement.setVisible(true);
         if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
@@ -747,18 +738,6 @@ public class FrmClassroomManagement extends javax.swing.JFrame {
         }
         this.dispose();
     }//GEN-LAST:event_mnItmStudentsActionPerformed
-
-    private void txtNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNameKeyTyped
-        // TODO add your handling code here:
-        /*char validate= evt.getKeyChar();
-        
-        if(Character.isLetter(validate)){
-            getToolkit().beep();
-            evt.consume();
-            
-            JOptionPane.showMessageDialog(this, "The inserted class already exist", "Classroom insertion", JOptionPane.WARNING_MESSAGE);
-        }*/
-    }//GEN-LAST:event_txtNameKeyTyped
 
     /**
      * @param args the command line arguments

@@ -74,7 +74,7 @@ public class TeacherControllerTest {
         String nameToChange = "";
         String newName = "";
         boolean expResult = false;
-        boolean result = TeacherController.updateToactivities(teacherId, nameToChange, newName);
+        boolean result = TeacherController.updateToActivities(teacherId, nameToChange, newName);
         assertEquals(expResult, result);
     }
 

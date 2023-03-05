@@ -19,14 +19,10 @@ import ec.edu.espe.studentsystem.model.Activity;
 import ec.edu.espe.studentsystem.model.Assignation;
 
 import java.awt.EventQueue;
-import java.awt.HeadlessException;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
