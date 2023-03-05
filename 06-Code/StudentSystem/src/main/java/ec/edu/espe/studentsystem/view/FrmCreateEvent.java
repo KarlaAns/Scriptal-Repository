@@ -1,22 +1,15 @@
 package ec.edu.espe.studentsystem.view;
 
 import com.formdev.flatlaf.FlatLightLaf;
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
 import ec.edu.espe.studentsystem.controller.EventController;
 import ec.edu.espe.studentsystem.controller.ThemeController;
-import ec.edu.espe.studentsystem.model.Event;
 import java.awt.EventQueue;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Scanner;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
-import org.bson.Document;
 
 /**
  *
@@ -38,7 +31,6 @@ public class FrmCreateEvent extends javax.swing.JFrame {
         model.addColumn("Description");
         this.table.setModel(model);
     }
-    private static final Scanner sc = new Scanner(System.in);
 
     /**
      * Creates new form frmEvent
@@ -99,11 +91,7 @@ public class FrmCreateEvent extends javax.swing.JFrame {
         jLabel2.setText("Name of the event:");
 
         txtEvent.setToolTipText("Insert the name of the Event");
-        txtEvent.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtEventActionPerformed(evt);
-            }
-        });
+        
         txtEvent.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtEventKeyTyped(evt);
@@ -123,11 +111,6 @@ public class FrmCreateEvent extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel10.setText("ID of event:");
 
-        txtID.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIDActionPerformed(evt);
-            }
-        });
         txtID.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtIDKeyTyped(evt);
@@ -389,43 +372,41 @@ public class FrmCreateEvent extends javax.swing.JFrame {
 
         char c = evt.getKeyChar();
 
-        if ((Character.isLetter(c)) || (Character.isWhitespace(c)) || (Character.isISOControl(c))) {
+        if ((Character.isLetter(c)) || (Character.isWhitespace(c)) || (Character.isISOControl(c)))
+        {
             txtEvent.setEditable(true);
 
-        } else {
+        } else
+        {
             txtEvent.setEditable(false);
             JOptionPane.showMessageDialog(this, c + " is not accepted here", "Warning on input data", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_txtEventKeyTyped
 
-    private void txtEventActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEventActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtEventActionPerformed
-
     private void txtIDKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIDKeyTyped
         // TODO add your handling code here:
         char c = evt.getKeyChar();
 
-        if ((Character.isDigit(c)) || (Character.isWhitespace(c)) || (Character.isISOControl(c))) {
+        if ((Character.isDigit(c)) || (Character.isWhitespace(c)) || (Character.isISOControl(c)))
+        {
             txtEvent.setEditable(true);
 
-        } else {
+        } else
+        {
             txtEvent.setEditable(false);
             JOptionPane.showMessageDialog(this, c + " is not accepted here", "Warning on input data", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_txtIDKeyTyped
 
-    private void txtIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtIDActionPerformed
-
     private void mniHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniHomeActionPerformed
         FrmMain main = new FrmMain();
         main.setVisible(true);
         System.out.println(UIManager.getLookAndFeel().getName());
-        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName()))
+        {
             main.setStatusCbmiDarkMode(false);
-        } else {
+        } else
+        {
             main.setStatusCbmiDarkMode(true);
         }
         this.dispose();
@@ -439,14 +420,16 @@ public class FrmCreateEvent extends javax.swing.JFrame {
     }//GEN-LAST:event_mniAboutActionPerformed
 
     private void cbmiDarkModeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbmiDarkModeActionPerformed
-        if (cbmiDarkMode.isSelected()) {
+        if (cbmiDarkMode.isSelected())
+        {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     ThemeController.setDarkTheme();
                 }
             });
-        } else {
+        } else
+        {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
@@ -459,9 +442,11 @@ public class FrmCreateEvent extends javax.swing.JFrame {
     private void mnMailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnMailActionPerformed
         FrmHelp newHelp = new FrmHelp();
         newHelp.setVisible(true);
-        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName()))
+        {
             newHelp.setStatusCbmiDarkMode(false);
-        } else {
+        } else
+        {
             newHelp.setStatusCbmiDarkMode(true);
         }
         this.dispose();
@@ -469,11 +454,13 @@ public class FrmCreateEvent extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
 
-                FrmCreateEvent btnAdd = new FrmCreateEvent();
+        FrmCreateEvent btnAdd = new FrmCreateEvent();
         btnAdd.setVisible(true);
-        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName()))
+        {
             btnAdd.setStatusCbmiDarkMode(false);
-        } else {
+        } else
+        {
             btnAdd.setStatusCbmiDarkMode(true);
         }
         this.dispose();
@@ -481,18 +468,20 @@ public class FrmCreateEvent extends javax.swing.JFrame {
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
 
-          FrmDeleteEvent mniDelete = new FrmDeleteEvent();
+        FrmDeleteEvent mniDelete = new FrmDeleteEvent();
         mniDelete.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
 
-         FrmSearchEvent btnSearch = new FrmSearchEvent();
+        FrmSearchEvent btnSearch = new FrmSearchEvent();
         btnSearch.setVisible(true);
-        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName()))
+        {
             btnSearch.setStatusCbmiDarkMode(false);
-        } else {
+        } else
+        {
             btnSearch.setStatusCbmiDarkMode(true);
         }
         this.dispose();
@@ -500,11 +489,13 @@ public class FrmCreateEvent extends javax.swing.JFrame {
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
 
-                FrmUpdateEvent mniUpdate = new FrmUpdateEvent();
+        FrmUpdateEvent mniUpdate = new FrmUpdateEvent();
         mniUpdate.setVisible(true);
-        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName()))
+        {
             mniUpdate.setStatusCbmiDarkMode(false);
-        } else {
+        } else
+        {
             mniUpdate.setStatusCbmiDarkMode(true);
         }
         this.dispose();
@@ -515,11 +506,6 @@ public class FrmCreateEvent extends javax.swing.JFrame {
      */
     public static void main(String args[]) {
         setTheme();
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new FrmCreateEvent().setVisible(true);
@@ -528,9 +514,11 @@ public class FrmCreateEvent extends javax.swing.JFrame {
     }
 
     private static void setTheme() {
-        try {
+        try
+        {
             UIManager.setLookAndFeel(new FlatLightLaf());
-        } catch (Exception ex) {
+        } catch (Exception ex)
+        {
             System.err.println("Failed to initialize LaF");
         }
     }

@@ -79,12 +79,6 @@ public class FrmLogIn extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 60)); // NOI18N
         jLabel3.setText("Log In");
 
-        pfPassword.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pfPasswordActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -271,7 +265,7 @@ public class FrmLogIn extends javax.swing.JFrame {
     }
 
     public boolean validateId() throws HeadlessException {
-        
+
         if (tfId.getText().isEmpty())
         {
             JOptionPane.showMessageDialog(this, "First fill the ID field");
@@ -279,7 +273,7 @@ public class FrmLogIn extends javax.swing.JFrame {
         }
         if (!tfId.getText().matches("[0-9]*"))
         {
-            JOptionPane.showMessageDialog(this, "Invalid ID");            
+            JOptionPane.showMessageDialog(this, "Invalid ID");
         }
         if (Integer.parseInt(tfId.getText()) > 100000)
         {
@@ -298,7 +292,7 @@ public class FrmLogIn extends javax.swing.JFrame {
         {
             int id = Integer.parseInt(tfId.getText());
             String password = pfPassword.getText();
-            LogInController logInController= new LogInController();
+            LogInController logInController = new LogInController();
             boolean match = logInController.matchInMongo(id, password);
             if (match)
             {
@@ -315,7 +309,7 @@ public class FrmLogIn extends javax.swing.JFrame {
         {
             int id = Integer.parseInt(tfId.getText());
             String password = pfPassword.getText();
-            LogInController logInController= new LogInController();
+            LogInController logInController = new LogInController();
             boolean match = logInController.matchInMongo(id, password);
             if (match)
             {
@@ -332,7 +326,7 @@ public class FrmLogIn extends javax.swing.JFrame {
         {
             int id = Integer.parseInt(tfId.getText());
             String password = pfPassword.getText();
-            LogInController logInController= new LogInController();
+            LogInController logInController = new LogInController();
             boolean match = logInController.matchInMongo(id, password);
             if (match)
             {
@@ -370,10 +364,6 @@ public class FrmLogIn extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_mnMailActionPerformed
 
-    private void pfPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pfPasswordActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_pfPasswordActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -406,14 +396,6 @@ public class FrmLogIn extends javax.swing.JFrame {
     private javax.swing.JPasswordField pfPassword;
     private javax.swing.JTextField tfId;
     // End of variables declaration//GEN-END:variables
-
-    public int getTfId() {
-        return Integer.parseInt(tfId.getText());
-    }
-
-    public String getPfPassword() {
-        return pfPassword.getText();
-    }
 
     public boolean getStatusCbmiDarkMode() {
         return cbmiDarkMode.isSelected();
@@ -451,7 +433,9 @@ public class FrmLogIn extends javax.swing.JFrame {
     }
 
     private void createFrameStudent() {
-        FrmStudent frmStudent = new FrmStudent(getTfId(), getPfPassword());
+        int id = Integer.parseInt(tfId.getText());
+        String password = pfPassword.getText();
+        FrmStudent frmStudent = new FrmStudent(id, password);
         frmStudent.setVisible(true);
         if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName()))
         {

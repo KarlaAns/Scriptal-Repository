@@ -4,11 +4,7 @@ import ec.edu.espe.studentsystem.controller.EventController;
 import ec.edu.espe.studentsystem.controller.ThemeController;
 import ec.edu.espe.studentsystem.model.Event;
 import java.awt.EventQueue;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
@@ -85,11 +81,7 @@ public class FrmCancelEvent extends javax.swing.JFrame {
         jLabel3.setText("Id of the event:");
 
         txtIdToCancel.setToolTipText("Insert the name of the Event");
-        txtIdToCancel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIdToCancelActionPerformed(evt);
-            }
-        });
+        
         txtIdToCancel.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtIdToCancelKeyTyped(evt);
@@ -313,18 +305,16 @@ public class FrmCancelEvent extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtIdToCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdToCancelActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtIdToCancelActionPerformed
-
     private void txtIdToCancelKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdToCancelKeyTyped
 
         char c = evt.getKeyChar();
 
-        if ((Character.isDigit(c)) || (Character.isWhitespace(c)) || (Character.isISOControl(c))) {
+        if ((Character.isDigit(c)) || (Character.isWhitespace(c)) || (Character.isISOControl(c)))
+        {
             txtIdToCancel.setEditable(true);
 
-        } else {
+        } else
+        {
             txtIdToCancel.setEditable(false);
             JOptionPane.showMessageDialog(this, c + " is not accepted here", "Warning on input data", JOptionPane.WARNING_MESSAGE);
         }
@@ -333,18 +323,22 @@ public class FrmCancelEvent extends javax.swing.JFrame {
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         boolean validation = false;
-        if (txtIdToCancel.getText().isEmpty()) {
+        if (txtIdToCancel.getText().isEmpty())
+        {
             JOptionPane.showMessageDialog(this, "Id field is empty");
             validation = false;
-        } else {
+        } else
+        {
             validation = true;
         }
-        if (validation) {
+        if (validation)
+        {
             String id = txtIdToCancel.getText();
             int idAsDigit = Integer.parseInt(txtIdToCancel.getText());
             Event event = EventController.findEvent(txtIdToCancel.getText());
 
-            if (!event.getId().equals("0")) {
+            if (!event.getId().equals("0"))
+            {
                 String name = event.getName();
                 String description = event.getDescription();
                 String date = event.getDate();
@@ -353,7 +347,8 @@ public class FrmCancelEvent extends javax.swing.JFrame {
                 btnCancel.setEnabled(true);
             }
 
-            if (event.getId().equals("0")) {
+            if (event.getId().equals("0"))
+            {
                 JOptionPane.showMessageDialog(this, "Data not found");
             }
         }
@@ -364,9 +359,11 @@ public class FrmCancelEvent extends javax.swing.JFrame {
         FrmEventMng btnBack = new FrmEventMng();
         btnBack.setVisible(true);
         System.out.println(UIManager.getLookAndFeel().getName());
-        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName()))
+        {
             btnBack.setStatusCbmiDarkMode(false);
-        } else {
+        } else
+        {
             btnBack.setStatusCbmiDarkMode(true);
         }
         this.dispose();
@@ -376,7 +373,8 @@ public class FrmCancelEvent extends javax.swing.JFrame {
         String id = txtIdToCancel.getText();
         Event event = EventController.findEvent(txtIdToCancel.getText());
 
-        if (event != null && !event.getId().equals("0")) {
+        if (event != null && !event.getId().equals("0"))
+        {
             String name = event.getName();
             String description = event.getDescription();
             String date = event.getDate();
@@ -390,9 +388,11 @@ public class FrmCancelEvent extends javax.swing.JFrame {
         FrmEventMng main = new FrmEventMng();
         main.setVisible(true);
         System.out.println(UIManager.getLookAndFeel().getName());
-        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName()))
+        {
             main.setStatusCbmiDarkMode(false);
-        } else {
+        } else
+        {
             main.setStatusCbmiDarkMode(true);
         }
         this.dispose();
@@ -402,9 +402,11 @@ public class FrmCancelEvent extends javax.swing.JFrame {
         FrmAboutUs mniAbout = new FrmAboutUs();
         mniAbout.setVisible(true);
 
-        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName()))
+        {
             mniAbout.setStatusCbmiDarkMode(false);
-        } else {
+        } else
+        {
             mniAbout.setStatusCbmiDarkMode(true);
         }
         this.dispose();
@@ -413,9 +415,11 @@ public class FrmCancelEvent extends javax.swing.JFrame {
     private void mniLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniLogOutActionPerformed
         FrmLogIn login = new FrmLogIn();
         login.setVisible(true);
-        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName()))
+        {
             login.setStatusCbmiDarkMode(false);
-        } else {
+        } else
+        {
             login.setStatusCbmiDarkMode(true);
         }
         this.dispose();
@@ -424,9 +428,11 @@ public class FrmCancelEvent extends javax.swing.JFrame {
     private void MnItmAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnItmAddActionPerformed
         FrmCreateEvent btnAdd = new FrmCreateEvent();
         btnAdd.setVisible(true);
-        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName()))
+        {
             btnAdd.setStatusCbmiDarkMode(false);
-        } else {
+        } else
+        {
             btnAdd.setStatusCbmiDarkMode(true);
         }
         this.dispose();
@@ -435,9 +441,11 @@ public class FrmCancelEvent extends javax.swing.JFrame {
     private void MnItmSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnItmSearchActionPerformed
         FrmSearchEvent btnSearch = new FrmSearchEvent();
         btnSearch.setVisible(true);
-        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName()))
+        {
             btnSearch.setStatusCbmiDarkMode(false);
-        } else {
+        } else
+        {
             btnSearch.setStatusCbmiDarkMode(true);
         }
         this.dispose();
@@ -446,9 +454,11 @@ public class FrmCancelEvent extends javax.swing.JFrame {
     private void MnItmUpdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnItmUpdActionPerformed
         FrmCancelEvent mniUpdate = new FrmCancelEvent();
         mniUpdate.setVisible(true);
-        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName()))
+        {
             mniUpdate.setStatusCbmiDarkMode(false);
-        } else {
+        } else
+        {
             mniUpdate.setStatusCbmiDarkMode(true);
         }
         this.dispose();
@@ -458,23 +468,27 @@ public class FrmCancelEvent extends javax.swing.JFrame {
         FrmDeleteEvent mniDelete = new FrmDeleteEvent();
         mniDelete.setVisible(true);
         System.out.println(UIManager.getLookAndFeel().getName());
-        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName()))
+        {
             mniDelete.setStatusCbmiDarkMode(false);
-        } else {
+        } else
+        {
             mniDelete.setStatusCbmiDarkMode(true);
         }
         this.dispose();
     }//GEN-LAST:event_MnItmDeleteActionPerformed
 
     private void cbmiDarkModeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbmiDarkModeActionPerformed
-        if (cbmiDarkMode.isSelected()) {
+        if (cbmiDarkMode.isSelected())
+        {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     ThemeController.setDarkTheme();
                 }
             });
-        } else {
+        } else
+        {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
@@ -488,9 +502,11 @@ public class FrmCancelEvent extends javax.swing.JFrame {
         // TODO add your handling code here:
         FrmHelp newHelp = new FrmHelp();
         newHelp.setVisible(true);
-        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName()))
+        {
             newHelp.setStatusCbmiDarkMode(false);
-        } else {
+        } else
+        {
             newHelp.setStatusCbmiDarkMode(true);
         }
         this.dispose();
@@ -499,9 +515,11 @@ public class FrmCancelEvent extends javax.swing.JFrame {
     private void mnMailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnMailActionPerformed
         FrmHelp newHelp = new FrmHelp();
         newHelp.setVisible(true);
-        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName()))
+        {
             newHelp.setStatusCbmiDarkMode(false);
-        } else {
+        } else
+        {
             newHelp.setStatusCbmiDarkMode(true);
         }
         this.dispose();
@@ -516,20 +534,27 @@ public class FrmCancelEvent extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+        try
+        {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
+            {
+                if ("Nimbus".equals(info.getName()))
+                {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
+        } catch (ClassNotFoundException ex)
+        {
             java.util.logging.Logger.getLogger(FrmCancelEvent.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
+        } catch (InstantiationException ex)
+        {
             java.util.logging.Logger.getLogger(FrmCancelEvent.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
+        } catch (IllegalAccessException ex)
+        {
             java.util.logging.Logger.getLogger(FrmCancelEvent.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (javax.swing.UnsupportedLookAndFeelException ex)
+        {
             java.util.logging.Logger.getLogger(FrmCancelEvent.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>

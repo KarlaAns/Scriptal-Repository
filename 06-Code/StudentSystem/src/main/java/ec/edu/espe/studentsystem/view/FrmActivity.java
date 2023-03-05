@@ -1,14 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package ec.edu.espe.studentsystem.view;
 
-import com.google.gson.Gson;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
 import static ec.edu.espe.studentsystem.controller.ActivityController.findActivity;
-import static ec.edu.espe.studentsystem.controller.ActivityController.findAllActivities;
 import static ec.edu.espe.studentsystem.controller.ActivityController.updateActivity;
 import static ec.edu.espe.studentsystem.controller.ActivityController.updateGrade;
 import static ec.edu.espe.studentsystem.controller.ClassroomController.findTeacher;
@@ -16,11 +10,8 @@ import static ec.edu.espe.studentsystem.controller.MongoConection.getConnection;
 import ec.edu.espe.studentsystem.controller.PrintController;
 import ec.edu.espe.studentsystem.controller.ThemeController;
 import static ec.edu.espe.studentsystem.controller.ThemeController.setFlatLightLafTheme;
-import ec.edu.espe.studentsystem.model.Activity;
-import ec.edu.espe.studentsystem.model.Assignation;
 import java.awt.EventQueue;
 import java.awt.event.KeyEvent;
-import static java.lang.String.valueOf;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -68,7 +59,10 @@ public class FrmActivity extends javax.swing.JFrame {
         txtActivityName.setText((String) activityData.get("name"));
         fillInputs();
 
-        String[] head = new String[]{"ID", "Name", "Grade"};
+        String[] head = new String[]
+        {
+            "ID", "Name", "Grade"
+        };
         dtm.setColumnIdentifiers(head);
         tblStudentsAct.setModel(dtm);
 
@@ -82,7 +76,8 @@ public class FrmActivity extends javax.swing.JFrame {
     public final void fillInputs() {
         SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
 
-        try {
+        try
+        {
             Date shipping = formato.parse((String) activityData.get("shipping"));
             Date deadline = formato.parse((String) activityData.get("deadline"));
             txtName.setText((String) activityData.get("name"));
@@ -91,7 +86,8 @@ public class FrmActivity extends javax.swing.JFrame {
             txtAComment.setText((String) activityData.get("comment"));
             cmbType.setSelectedItem(activityData.get("activityType"));
 
-        } catch (ParseException ex) {
+        } catch (ParseException ex)
+        {
             Logger.getLogger(FrmActivity.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -107,13 +103,17 @@ public class FrmActivity extends javax.swing.JFrame {
         dtm.setRowCount(0);
         MongoCollection studentsCollection = getConnection("students");
         String studentName;
-        for (Document assignation : assignations) {
+        for (Document assignation : assignations)
+        {
 
             Bson filter = Filters.and(Filters.eq("id", (int) assignation.get("studentId")));
             Document studentData = (Document) studentsCollection.find(filter).first();
-            if (studentData != null) {
+            if (studentData != null)
+            {
                 studentName = (String) studentData.get("name");
-                dtm.addRow(new Object[]{assignation.get("studentId"),
+                dtm.addRow(new Object[]
+                {
+                    assignation.get("studentId"),
                     studentName,
                     assignation.get("grade")
                 });
@@ -525,62 +525,66 @@ public class FrmActivity extends javax.swing.JFrame {
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
-        // TODO add your handling code here:
-        /*Document student = findDataStudent();
-        txtName.setText();
-        dtShipping.setDate(date);
-        dtDeadline.setDate(date);*/
+
     }//GEN-LAST:event_txtNameActionPerformed
 
     private void cmbTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTypeActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_cmbTypeActionPerformed
 
     private void bthBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bthBackActionPerformed
-        // TODO add your handling code here:
+
         FrmActivitiesManagement activitiesManagement = new FrmActivitiesManagement((String) activityData.get("subjectName"), teacherId);
         activitiesManagement.setVisible(true);
-        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName()))
+        {
             activitiesManagement.setStatusCbmiDarkMode(false);
-        } else {
+        } else
+        {
             activitiesManagement.setStatusCbmiDarkMode(true);
         }
         this.dispose();
     }//GEN-LAST:event_bthBackActionPerformed
 
     private void mniAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAboutActionPerformed
-        // TODO add your handling code here:
+
         FrmAboutUs aboutUs = new FrmAboutUs();
         aboutUs.setVisible(true);
-        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName()))
+        {
             aboutUs.setStatusCbmiDarkMode(false);
-        } else {
+        } else
+        {
             aboutUs.setStatusCbmiDarkMode(true);
         }
         this.dispose();
     }//GEN-LAST:event_mniAboutActionPerformed
 
     private void mniLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniLogOutActionPerformed
-        // TODO add your handling code here:
+
         FrmMain main = new FrmMain();
         main.setVisible(true);
-        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName()))
+        {
             main.setStatusCbmiDarkMode(false);
-        } else {
+        } else
+        {
             main.setStatusCbmiDarkMode(true);
         }
         this.dispose();
     }//GEN-LAST:event_mniLogOutActionPerformed
 
     private void cbmiDarkModeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbmiDarkModeActionPerformed
-        if (cbmiDarkMode.isSelected()) {
+        if (cbmiDarkMode.isSelected())
+        {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     ThemeController.setDarkTheme();
                 }
             });
-        } else {
+        } else
+        {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
@@ -591,57 +595,69 @@ public class FrmActivity extends javax.swing.JFrame {
     }//GEN-LAST:event_cbmiDarkModeActionPerformed
 
     private void mnItmClassroomsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnItmClassroomsActionPerformed
-        // TODO add your handling code here:
+
         FrmClassroomManagement classroomManagement = new FrmClassroomManagement(teacherId);
         classroomManagement.setVisible(true);
-        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName()))
+        {
             classroomManagement.setStatusCbmiDarkMode(false);
-        } else {
+        } else
+        {
             classroomManagement.setStatusCbmiDarkMode(true);
         }
         this.dispose();
     }//GEN-LAST:event_mnItmClassroomsActionPerformed
 
     private void mnItmStudentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnItmStudentsActionPerformed
-        // TODO add your handling code here:
+
         FrmStudentManagement students = new FrmStudentManagement(teacherId);
         students.setVisible(true);
-        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName()))
+        {
             students.setStatusCbmiDarkMode(false);
-        } else {
+        } else
+        {
             students.setStatusCbmiDarkMode(true);
         }
         this.dispose();
     }//GEN-LAST:event_mnItmStudentsActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
+
         FrmHelp newHelp = new FrmHelp();
         newHelp.setVisible(true);
-        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName()))
+        {
             newHelp.setStatusCbmiDarkMode(false);
-        } else {
+        } else
+        {
             newHelp.setStatusCbmiDarkMode(true);
         }
         this.dispose();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void btnSaveGradeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveGradeActionPerformed
-        // TODO add your handling code here:
+
         int studentId;
         double grade;
         System.out.println("******" + txtGradeToChange.getText() + "******");
-        if (".".equals(txtGradeToChange.getText())) {
+        if (".".equals(txtGradeToChange.getText()))
+        {
             JOptionPane.showMessageDialog(this, "Insert numbers between 0.00 and 20.00 please", "Grade Insertion", JOptionPane.WARNING_MESSAGE);
-        } else {
+        } else
+        {
             studentId = Integer.parseInt(txtIdToChange.getText());
             grade = Double.parseDouble(txtGradeToChange.getText());
-            if ((grade < 0 || grade > 20)) {
+            if ((grade < 0 || grade > 20))
+            {
                 JOptionPane.showMessageDialog(this, "Insert numbers between 0.00 and 20.00 please", "Grade Insertion", JOptionPane.WARNING_MESSAGE);
-            } else {
+            } else
+            {
                 ArrayList<Document> assignations = (ArrayList<Document>) activityData.get("activityReport");
-                for (Document assignation : assignations) {
-                    if ((int) assignation.get("studentId") == studentId) {
+                for (Document assignation : assignations)
+                {
+                    if ((int) assignation.get("studentId") == studentId)
+                    {
                         updateGrade(classroomName, (int) teacher.get("id"), (String) activityData.get("name"), studentId, grade);
                         activityData = findActivity(teacherId, activityName, classroomName);
                         showAssignations();
@@ -656,26 +672,30 @@ public class FrmActivity extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPrintActionPerformed
 
     private void txtIdToChangeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdToChangeKeyTyped
-        // TODO add your handling code here:
+
         char validate = evt.getKeyChar();
 
-        if ((validate < '0' || validate > '9') && txtIdToChange.getText().contains(".") && (validate != (char) KeyEvent.VK_BACK_SPACE)) {
+        if ((validate < '0' || validate > '9') && txtIdToChange.getText().contains(".") && (validate != (char) KeyEvent.VK_BACK_SPACE))
+        {
             evt.consume();
             JOptionPane.showMessageDialog(this, "Insert just decimal numbers", "Student ID", JOptionPane.WARNING_MESSAGE);
-        } else if ((validate < '0' || validate > '9') && (validate != '.') && (validate != (char) KeyEvent.VK_BACK_SPACE)) {
+        } else if ((validate < '0' || validate > '9') && (validate != '.') && (validate != (char) KeyEvent.VK_BACK_SPACE))
+        {
             evt.consume();
             JOptionPane.showMessageDialog(this, "Insert just decimal numbers", "Student ID", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_txtIdToChangeKeyTyped
 
     private void txtGradeToChangeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtGradeToChangeKeyTyped
-        // TODO add your handling code here:
+
         char validate = evt.getKeyChar();
 
-        if ((validate < '0' || validate > '9') && txtGradeToChange.getText().contains(".") && (validate != (char) KeyEvent.VK_BACK_SPACE)) {
+        if ((validate < '0' || validate > '9') && txtGradeToChange.getText().contains(".") && (validate != (char) KeyEvent.VK_BACK_SPACE))
+        {
             evt.consume();
             JOptionPane.showMessageDialog(this, "Insert just decimal numbers", "Grade Insertion", JOptionPane.WARNING_MESSAGE);
-        } else if ((validate < '0' || validate > '9') && (validate != '.') && (validate != (char) KeyEvent.VK_BACK_SPACE)) {
+        } else if ((validate < '0' || validate > '9') && (validate != '.') && (validate != (char) KeyEvent.VK_BACK_SPACE))
+        {
             evt.consume();
             JOptionPane.showMessageDialog(this, "Insert just decimal numbers", "Grade Insertion", JOptionPane.WARNING_MESSAGE);
         }

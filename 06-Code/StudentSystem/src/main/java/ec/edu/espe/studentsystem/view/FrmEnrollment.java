@@ -1,28 +1,18 @@
-
 package ec.edu.espe.studentsystem.view;
 
-import com.google.gson.Gson;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.model.Filters;
 import ec.edu.espe.studentsystem.controller.EnrollmentController;
-import ec.edu.espe.studentsystem.controller.MongoConection;
 import ec.edu.espe.studentsystem.controller.PrintController;
 import ec.edu.espe.studentsystem.controller.ThemeController;
-import ec.edu.espe.studentsystem.model.Subject;
 import java.awt.EventQueue;
-import java.text.MessageFormat;
-import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
-import org.bson.Document;
-import org.bson.conversions.Bson;
 
 /**
  *
  * @author Alejandro Andrade, Scriptal, DCCO_ESPE
  */
 public class FrmEnrollment extends javax.swing.JFrame {
-    
+
     DefaultTableModel model;
     private int id = 0;
     private String password = "";
@@ -38,7 +28,7 @@ public class FrmEnrollment extends javax.swing.JFrame {
         model.addColumn("Average");
         this.jTable1.setModel(model);
         EnrollmentController.viewData(id, model, lblAverageTotal);
-        
+
     }
 
     /**
@@ -209,23 +199,27 @@ public class FrmEnrollment extends javax.swing.JFrame {
     private void mniAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAboutActionPerformed
         FrmAboutUs aboutUs = new FrmAboutUs();
         aboutUs.setVisible(true);
-        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName()))
+        {
             aboutUs.setStatusCbmiDarkMode(false);
-        }else{
+        } else
+        {
             aboutUs.setStatusCbmiDarkMode(true);
         }
         this.dispose();
     }//GEN-LAST:event_mniAboutActionPerformed
 
     private void cbmiDarkModeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbmiDarkModeActionPerformed
-        if (cbmiDarkMode.isSelected()) {
+        if (cbmiDarkMode.isSelected())
+        {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     ThemeController.setDarkTheme();
                 }
             });
-        } else {
+        } else
+        {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
@@ -239,9 +233,11 @@ public class FrmEnrollment extends javax.swing.JFrame {
         FrmStudentsActivities frmActivities = new FrmStudentsActivities(id);
         frmActivities.setVisible(true);
         System.out.println(UIManager.getLookAndFeel().getName());
-        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName()))
+        {
             frmActivities.setStatusCbmiDarkMode(false);
-        }else{
+        } else
+        {
             frmActivities.setStatusCbmiDarkMode(true);
         }
         this.dispose();
@@ -250,9 +246,11 @@ public class FrmEnrollment extends javax.swing.JFrame {
     private void menuHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuHelpActionPerformed
         FrmHelp newHelp = new FrmHelp();
         newHelp.setVisible(true);
-        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName()))
+        {
             newHelp.setStatusCbmiDarkMode(false);
-        }else{
+        } else
+        {
             newHelp.setStatusCbmiDarkMode(true);
         }
         this.dispose();
@@ -261,9 +259,11 @@ public class FrmEnrollment extends javax.swing.JFrame {
     private void mniLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniLogOutActionPerformed
         FrmMain main = new FrmMain();
         main.setVisible(true);
-        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName()))
+        {
             main.setStatusCbmiDarkMode(false);
-        }else{
+        } else
+        {
             main.setStatusCbmiDarkMode(true);
         }
         this.dispose();
@@ -272,9 +272,11 @@ public class FrmEnrollment extends javax.swing.JFrame {
     private void mnMailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnMailActionPerformed
         FrmHelp newHelp = new FrmHelp();
         newHelp.setVisible(true);
-        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName()))
+        {
             newHelp.setStatusCbmiDarkMode(false);
-        }else{
+        } else
+        {
             newHelp.setStatusCbmiDarkMode(true);
         }
         this.dispose();
@@ -289,7 +291,7 @@ public class FrmEnrollment extends javax.swing.JFrame {
      */
     public static void main(String args[]) {
         ThemeController.setFlatLightLafTheme();
-        
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new FrmEnrollment(0).setVisible(true);
@@ -316,7 +318,6 @@ public class FrmEnrollment extends javax.swing.JFrame {
     private javax.swing.JMenuItem mniLogOut;
     // End of variables declaration//GEN-END:variables
 
-        
     public boolean getStatusCbmiDarkMode() {
         return cbmiDarkMode.isSelected();
     }
@@ -324,33 +325,4 @@ public class FrmEnrollment extends javax.swing.JFrame {
     public void setStatusCbmiDarkMode(boolean isSelected) {
         this.cbmiDarkMode.setSelected(isSelected);
     }
-
-    /**
-     * @return the id
-     */
-    public int getId() {
-        return id;
-    }
-
-    /**
-     * @param id the id to set
-     */
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    /**
-     * @return the password
-     */
-    public String getPassword() {
-        return password;
-    }
-
-    /**
-     * @param password the password to set
-     */
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
 }

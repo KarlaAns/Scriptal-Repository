@@ -23,6 +23,7 @@ public class FrmStudent extends javax.swing.JFrame {
 
     /**
      * Creates new form FrmStudent
+     *
      * @param id
      * @param password
      */
@@ -217,9 +218,11 @@ public class FrmStudent extends javax.swing.JFrame {
     private void mniAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAboutActionPerformed
         FrmAboutUs aboutUs = new FrmAboutUs();
         aboutUs.setVisible(true);
-        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName()))
+        {
             aboutUs.setStatusCbmiDarkMode(false);
-        }else{
+        } else
+        {
             aboutUs.setStatusCbmiDarkMode(true);
         }
         this.dispose();
@@ -253,9 +256,11 @@ public class FrmStudent extends javax.swing.JFrame {
     private void menuHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuHelpActionPerformed
         FrmHelp newHelp = new FrmHelp();
         newHelp.setVisible(true);
-        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName()))
+        {
             newHelp.setStatusCbmiDarkMode(false);
-        }else{
+        } else
+        {
             newHelp.setStatusCbmiDarkMode(true);
         }
         this.dispose();
@@ -264,9 +269,11 @@ public class FrmStudent extends javax.swing.JFrame {
     private void mniLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniLogOutActionPerformed
         FrmMain main = new FrmMain();
         main.setVisible(true);
-        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName()))
+        {
             main.setStatusCbmiDarkMode(false);
-        }else{
+        } else
+        {
             main.setStatusCbmiDarkMode(true);
         }
         this.dispose();
@@ -275,9 +282,11 @@ public class FrmStudent extends javax.swing.JFrame {
     private void mnMailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnMailActionPerformed
         FrmHelp newHelp = new FrmHelp();
         newHelp.setVisible(true);
-        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName()))
+        {
             newHelp.setStatusCbmiDarkMode(false);
-        }else{
+        } else
+        {
             newHelp.setStatusCbmiDarkMode(true);
         }
         this.dispose();
@@ -293,8 +302,6 @@ public class FrmStudent extends javax.swing.JFrame {
         {
             frmEnrollment.setStatusCbmiDarkMode(true);
         }
-        frmEnrollment.setId(id);
-        frmEnrollment.setPassword(password);
         this.dispose();
     }
 
@@ -338,34 +345,6 @@ public class FrmStudent extends javax.swing.JFrame {
         this.cbmiDarkMode.setSelected(isSelected);
     }
 
-    /**
-     * @return the id
-     */
-    public int getId() {
-        return id;
-    }
-
-    /**
-     * @param id the id to set
-     */
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    /**
-     * @return the password
-     */
-    public String getPassword() {
-        return password;
-    }
-
-    /**
-     * @param password the password to set
-     */
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     private String getStudentName() {
         String collection = "students";
         String studentName = "";
@@ -375,11 +354,12 @@ public class FrmStudent extends javax.swing.JFrame {
         Bson bsonFilter = Filters.eq("id", id);
         Document doc = studentsCollection.find(Filters.and(bsonFilter)).first();
         String studentDoc = doc.toJson();
-        TypeToken<Student> type = new TypeToken<Student>() {};
+        TypeToken<Student> type = new TypeToken<Student>() {
+        };
         Student student = gson.fromJson(studentDoc, type.getType());
         studentName = student.getName();
 
         return studentName;
-    
+
     }
 }

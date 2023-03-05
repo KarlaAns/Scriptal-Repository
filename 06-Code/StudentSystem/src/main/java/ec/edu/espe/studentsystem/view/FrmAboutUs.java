@@ -1,8 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package ec.edu.espe.studentsystem.view;
+
 import ec.edu.espe.studentsystem.controller.ThemeController;
 import java.awt.EventQueue;
 import javax.swing.UIManager;
@@ -12,9 +9,11 @@ import javax.swing.UIManager;
  * @author Alejandro Andrade, Scriptal, DCCO_ESPE
  */
 public class FrmAboutUs extends javax.swing.JFrame {
- public void setStatusCbmiDarkMode(boolean isSelected) {
+
+    public void setStatusCbmiDarkMode(boolean isSelected) {
         this.cbmiDarkMode.setSelected(isSelected);
     }
+
     /**
      * Creates new form FrmAboutUs
      */
@@ -136,11 +135,6 @@ public class FrmAboutUs extends javax.swing.JFrame {
         jMenuBar1.add(mnManage);
 
         menuView.setText("View");
-        menuView.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuViewActionPerformed(evt);
-            }
-        });
 
         cbmiDarkMode.setText("Dark Mode");
         cbmiDarkMode.addActionListener(new java.awt.event.ActionListener() {
@@ -207,10 +201,6 @@ public class FrmAboutUs extends javax.swing.JFrame {
         }
         this.dispose();
     }//GEN-LAST:event_mniHomeActionPerformed
-
-    private void menuViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuViewActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_menuViewActionPerformed
 
     /**
      * @param args the command line arguments

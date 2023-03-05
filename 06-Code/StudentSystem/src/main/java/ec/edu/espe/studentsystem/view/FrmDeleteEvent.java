@@ -4,11 +4,6 @@ import ec.edu.espe.studentsystem.controller.EventController;
 import ec.edu.espe.studentsystem.controller.ThemeController;
 import ec.edu.espe.studentsystem.model.Event;
 import java.awt.EventQueue;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
@@ -90,11 +85,6 @@ public class FrmDeleteEvent extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel2.setText("Enter the id of the event to delete:");
 
-        txtIdToDelete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIdToDeleteActionPerformed(evt);
-            }
-        });
         txtIdToDelete.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtIdToDeleteKeyTyped(evt);
@@ -320,37 +310,40 @@ public class FrmDeleteEvent extends javax.swing.JFrame {
         // TODO add your handling code here:
         char c = evt.getKeyChar();
 
-        if ((Character.isDigit(c)) || (Character.isWhitespace(c)) || (Character.isISOControl(c))) {
+        if ((Character.isDigit(c)) || (Character.isWhitespace(c)) || (Character.isISOControl(c)))
+        {
             txtIdToDelete.setEditable(true);
-        } else {
+        } else
+        {
             txtIdToDelete.setEditable(false);
             JOptionPane.showMessageDialog(this, c + " is not accepted here", "Warning on input data", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_txtIdToDeleteKeyTyped
 
-    private void txtIdToDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdToDeleteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtIdToDeleteActionPerformed
-
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         boolean validation = false;
-        if (txtIdToDelete.getText().isEmpty()) {
+        if (txtIdToDelete.getText().isEmpty())
+        {
             JOptionPane.showMessageDialog(this, "Id field is empty");
             validation = false;
-        } else {
+        } else
+        {
             validation = true;
         }
-        if (validation) {
+        if (validation)
+        {
             String id = txtIdToDelete.getText();
             Event event = EventController.findEvent(id);
-            if (event != null && !event.getId().equals("0")) {
+            if (event != null && !event.getId().equals("0"))
+            {
                 String name = event.getName();
                 String description = event.getDescription();
                 String dateOfEvent = event.getDate();
                 addToTable(id, name, dateOfEvent, description);
             }
 
-            if (event == null || event.getId() == null || event.getId().isEmpty()) {
+            if (event == null || event.getId() == null || event.getId().isEmpty())
+            {
                 JOptionPane.showMessageDialog(this, "Data not found");
 
             }
@@ -361,9 +354,11 @@ public class FrmDeleteEvent extends javax.swing.JFrame {
         FrmEventMng main = new FrmEventMng();
         main.setVisible(true);
         System.out.println(UIManager.getLookAndFeel().getName());
-        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName()))
+        {
             main.setStatusCbmiDarkMode(false);
-        } else {
+        } else
+        {
             main.setStatusCbmiDarkMode(true);
         }
         this.dispose();
@@ -374,9 +369,11 @@ public class FrmDeleteEvent extends javax.swing.JFrame {
         FrmAboutUs mniAbout = new FrmAboutUs();
         mniAbout.setVisible(true);
 
-        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName()))
+        {
             mniAbout.setStatusCbmiDarkMode(false);
-        } else {
+        } else
+        {
             mniAbout.setStatusCbmiDarkMode(true);
         }
         this.dispose();
@@ -386,9 +383,11 @@ public class FrmDeleteEvent extends javax.swing.JFrame {
         // TODO add your handling code here:
         FrmLogIn login = new FrmLogIn();
         login.setVisible(true);
-        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName()))
+        {
             login.setStatusCbmiDarkMode(false);
-        } else {
+        } else
+        {
             login.setStatusCbmiDarkMode(true);
         }
         this.dispose();
@@ -398,21 +397,25 @@ public class FrmDeleteEvent extends javax.swing.JFrame {
 
         FrmCreateEvent btnAdd = new FrmCreateEvent();
         btnAdd.setVisible(true);
-        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName()))
+        {
             btnAdd.setStatusCbmiDarkMode(false);
-        } else {
+        } else
+        {
             btnAdd.setStatusCbmiDarkMode(true);
         }
         this.dispose();
     }//GEN-LAST:event_MnItmAddActionPerformed
 
     private void MnItmSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnItmSearchActionPerformed
- 
+
         FrmSearchEvent btnSearch = new FrmSearchEvent();
         btnSearch.setVisible(true);
-        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName()))
+        {
             btnSearch.setStatusCbmiDarkMode(false);
-        } else {
+        } else
+        {
             btnSearch.setStatusCbmiDarkMode(true);
         }
         this.dispose();
@@ -422,9 +425,11 @@ public class FrmDeleteEvent extends javax.swing.JFrame {
         // TODO add your handling code here:
         FrmUpdateEvent mniUpdate = new FrmUpdateEvent();
         mniUpdate.setVisible(true);
-        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName()))
+        {
             mniUpdate.setStatusCbmiDarkMode(false);
-        } else {
+        } else
+        {
             mniUpdate.setStatusCbmiDarkMode(true);
         }
         this.dispose();
@@ -438,14 +443,16 @@ public class FrmDeleteEvent extends javax.swing.JFrame {
     }//GEN-LAST:event_MnItmDeleteActionPerformed
 
     private void cbmiDarkModeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbmiDarkModeActionPerformed
-        if (cbmiDarkMode.isSelected()) {
+        if (cbmiDarkMode.isSelected())
+        {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     ThemeController.setDarkTheme();
                 }
             });
-        } else {
+        } else
+        {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
@@ -458,9 +465,11 @@ public class FrmDeleteEvent extends javax.swing.JFrame {
     private void mnMailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnMailActionPerformed
         FrmHelp newHelp = new FrmHelp();
         newHelp.setVisible(true);
-        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName()))
+        {
             newHelp.setStatusCbmiDarkMode(false);
-        } else {
+        } else
+        {
             newHelp.setStatusCbmiDarkMode(true);
         }
         this.dispose();
@@ -470,33 +479,7 @@ public class FrmDeleteEvent extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmDeleteEvent.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmDeleteEvent.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmDeleteEvent.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmDeleteEvent.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new FrmDeleteEvent().setVisible(true);
