@@ -5,20 +5,12 @@
 package ec.edu.espe.studentsystem.controller;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.mongodb.MongoException;
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
-import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
-import static com.mongodb.client.model.Filters.eq;
 import com.mongodb.client.model.Updates;
-import com.mongodb.client.result.UpdateResult;
 import ec.edu.espe.studentsystem.model.Event;
 import java.util.Scanner;
-import javax.swing.JOptionPane;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;

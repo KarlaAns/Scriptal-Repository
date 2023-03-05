@@ -9,19 +9,11 @@ import com.mongodb.MongoClientException;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.model.Filters;
-import static com.mongodb.client.model.Filters.eq;
-import static com.mongodb.client.model.Projections.elemMatch;
-import com.mongodb.client.result.InsertOneResult;
 import static ec.edu.espe.studentsystem.controller.MongoConection.getConnection;
-import ec.edu.espe.studentsystem.model.Activity;
-import ec.edu.espe.studentsystem.model.Assignation;
-import ec.edu.espe.studentsystem.model.Classroom;
 import ec.edu.espe.studentsystem.model.Enrollment;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 import org.bson.Document;
 import org.bson.conversions.Bson;
-import org.bson.types.ObjectId;
 
 /**
  *
@@ -44,7 +36,7 @@ public class TeacherController {
             teacherCollection.updateOne(idToSearchDocument, updatedClassroomsDocument);
             classroomsCollection.insertOne(new Document().append("name", classroomName));
             return true;
-        }else{
+        } else {
             return false;
         }
     }
@@ -77,13 +69,13 @@ public class TeacherController {
         System.out.println("-->" + activitiesUpdateVerified);
         System.out.println("-->" + subjectsUpdateVerified);
         System.out.println("-->" + classroomsUpdateVerified);
-        if (teacherUpdateVerified!=false&&
-            enrollmentsUpdateVerified!=false&&
-            activitiesUpdateVerified!=false&&
-            subjectsUpdateVerified != false&&
-            classroomsUpdateVerified!=false) {
+        if (teacherUpdateVerified != false
+                && enrollmentsUpdateVerified != false
+                && activitiesUpdateVerified != false
+                && subjectsUpdateVerified != false
+                && classroomsUpdateVerified != false) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
@@ -175,14 +167,14 @@ public class TeacherController {
     public static boolean deleteClassroom(int teacherId, String classroomName) {
         boolean teacherVerivied = deleteToTeacher(classroomName, teacherId);
         boolean enrollmentVerivied = deleteToEnrollments(classroomName);
-        boolean activitiesVerivied = deleteToactivities(classroomName, teacherId);
+        boolean activitiesVerivied = deleteToActivities(classroomName, teacherId);
         boolean subjectVerivied = deleteToSubjects(classroomName);
         boolean classroomsVerified = deleteToClassrooms(classroomName);
-        if( teacherVerivied!=false&&
-            enrollmentVerivied!=false&&
-            activitiesVerivied!=false&&
-            subjectVerivied!=false&&
-            classroomsVerified!=false){
+        if (teacherVerivied != false
+                && enrollmentVerivied != false
+                && activitiesVerivied != false
+                && subjectVerivied != false
+                && classroomsVerified != false) {
             return true;
         }
         return false;
@@ -230,7 +222,7 @@ public class TeacherController {
         return true;
     }
 
-    public static boolean deleteToactivities(String classroomName, int teacherId) {
+    public static boolean deleteToActivities(String classroomName, int teacherId) {
         MongoCollection activitiesCollection = getConnection("activities");
         Bson filter = Filters.and(Filters.eq("teacherId", teacherId), Filters.eq("subjectName", classroomName));
         MongoCursor<Document> activities = activitiesCollection.find(filter).iterator();

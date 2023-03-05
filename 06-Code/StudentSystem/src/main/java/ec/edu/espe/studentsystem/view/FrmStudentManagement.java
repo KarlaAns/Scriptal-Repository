@@ -6,8 +6,6 @@ import ec.edu.espe.studentsystem.controller.StudentController;
 import ec.edu.espe.studentsystem.controller.ThemeController;
 import ec.edu.espe.studentsystem.model.Student;
 import java.awt.EventQueue;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -424,27 +422,23 @@ public class FrmStudentManagement extends javax.swing.JFrame {
     private void mniAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAboutActionPerformed
         FrmAboutUs aboutUs = new FrmAboutUs();
         aboutUs.setVisible(true);
-        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName()))
-        {
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
             aboutUs.setStatusCbmiDarkMode(false);
-        } else
-        {
+        } else {
             aboutUs.setStatusCbmiDarkMode(true);
         }
         this.dispose();
     }//GEN-LAST:event_mniAboutActionPerformed
 
     private void cbmiDarkModeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbmiDarkModeActionPerformed
-        if (cbmiDarkMode.isSelected())
-        {
+        if (cbmiDarkMode.isSelected()) {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     ThemeController.setDarkTheme();
                 }
             });
-        } else
-        {
+        } else {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
@@ -457,11 +451,9 @@ public class FrmStudentManagement extends javax.swing.JFrame {
     private void mnMailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnMailActionPerformed
         FrmHelp newHelp = new FrmHelp();
         newHelp.setVisible(true);
-        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName()))
-        {
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
             newHelp.setStatusCbmiDarkMode(false);
-        } else
-        {
+        } else {
             newHelp.setStatusCbmiDarkMode(true);
         }
         this.dispose();
@@ -470,11 +462,9 @@ public class FrmStudentManagement extends javax.swing.JFrame {
     private void menuHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuHelpActionPerformed
         FrmHelp newHelp = new FrmHelp();
         newHelp.setVisible(true);
-        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName()))
-        {
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
             newHelp.setStatusCbmiDarkMode(false);
-        } else
-        {
+        } else {
             newHelp.setStatusCbmiDarkMode(true);
         }
         this.dispose();
@@ -483,27 +473,23 @@ public class FrmStudentManagement extends javax.swing.JFrame {
     private void mniLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniLogOutActionPerformed
         FrmMain main = new FrmMain();
         main.setVisible(true);
-        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName()))
-        {
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
             main.setStatusCbmiDarkMode(false);
-        } else
-        {
+        } else {
             main.setStatusCbmiDarkMode(true);
         }
         this.dispose();
     }//GEN-LAST:event_mniLogOutActionPerformed
 
     private void menuViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuViewActionPerformed
-        if (cbmiDarkMode.isSelected())
-        {
+        if (cbmiDarkMode.isSelected()) {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     ThemeController.setDarkTheme();
                 }
             });
-        } else
-        {
+        } else {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
@@ -529,21 +515,17 @@ public class FrmStudentManagement extends javax.swing.JFrame {
     private void btnFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindActionPerformed
 
         boolean validation = false;
-        if (tfId.getText().isEmpty())
-        {
+        if (tfId.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Id field is empty");
             validation = false;
-        } else
-        {
+        } else {
             validation = true;
         }
-        if (validation)
-        {
+        if (validation) {
             int id = Integer.parseInt(tfId.getText());
             Student student = StudentController.find(id);
 
-            if (student.getId() != 0)
-            {
+            if (student.getId() != 0) {
                 String name = student.getName();
                 String password = student.getPassword();
                 String mail = student.getEmail();
@@ -555,12 +537,10 @@ public class FrmStudentManagement extends javax.swing.JFrame {
                 labelId.setText(String.valueOf(id));
                 SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
                 Date birtOfDate;
-                try
-                {
+                try {
                     birtOfDate = format.parse(student.getDateOfBirth());
                     dataChooser.setDate(birtOfDate);
-                } catch (ParseException ex)
-                {
+                } catch (ParseException ex) {
                     Logger.getLogger(FrmStudentManagement.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 btnAssing.setEnabled(true);
@@ -569,8 +549,7 @@ public class FrmStudentManagement extends javax.swing.JFrame {
                 btnUpdate.setEnabled(true);
             }
 
-            if (student.getId() == 0)
-            {
+            if (student.getId() == 0) {
                 JOptionPane.showMessageDialog(this, "Data not found");
                 emptySpaces();
             }
@@ -620,11 +599,9 @@ public class FrmStudentManagement extends javax.swing.JFrame {
     private void miClassroomsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miClassroomsActionPerformed
         FrmClassroomManagement classrooms = new FrmClassroomManagement(teacherId);
         classrooms.setVisible(true);
-        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName()))
-        {
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
             classrooms.setStatusCbmiDarkMode(false);
-        } else
-        {
+        } else {
             classrooms.setStatusCbmiDarkMode(true);
         }
         this.dispose();
@@ -643,7 +620,6 @@ public class FrmStudentManagement extends javax.swing.JFrame {
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
         PrintController.printPDF("Student Management", jTable1);
     }//GEN-LAST:event_btnPrintActionPerformed
-
 
     private void addToTable(int id, String name, String password, String mail, String dateOfBirth) {
         String[] info = new String[5];
@@ -743,11 +719,9 @@ public class FrmStudentManagement extends javax.swing.JFrame {
         ArrayList<String> classrooms;
         classrooms = readClassrooms(teacherId);
         System.out.println(teacherId);
-        if (classrooms != null)
-        {
+        if (classrooms != null) {
             cmbClassrooms.addItem("Classrooms");
-            for (String classroom : classrooms)
-            {
+            for (String classroom : classrooms) {
                 cmbClassrooms.addItem(classroom);
             }
         }

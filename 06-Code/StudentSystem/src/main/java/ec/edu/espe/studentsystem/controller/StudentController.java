@@ -10,7 +10,6 @@ import com.mongodb.client.model.Updates;
 import ec.edu.espe.studentsystem.model.Enrollment;
 import ec.edu.espe.studentsystem.model.GradeReport;
 import ec.edu.espe.studentsystem.model.Student;
-import ec.edu.espe.studentsystem.model.Subject;
 import java.util.ArrayList;
 import java.util.Random;
 import org.bson.Document;
@@ -31,13 +30,11 @@ public class StudentController {
         Bson filter = Filters.eq("id", id);
         MongoCursor<Document> cursor = collection.find(filter).limit(1).iterator();
 
-        if (cursor.hasNext())
-        {
+        if (cursor.hasNext()) {
             Document doc = collection.find(filter).first();
             String studentDoc = doc.toJson();
             Student student = gson.fromJson(studentDoc, Student.class);
-            while (student.getId() == id)
-            {
+            while (student.getId() == id) {
                 id = (r.nextInt() * (50000 - 10000)) + 10000;
             }
         }
@@ -65,7 +62,7 @@ public class StudentController {
                 .append("gradesReport", gradesReport);
         collectionSubjects.insertOne(subjectDoc);
     }
-    
+
     public static void addToEnrollmentCollection(int id) {
         MongoCollection<Document> collectionSubjects = MongoConection.getConnection("enrollments");
         ArrayList<String> subjects = new ArrayList<>();
@@ -82,8 +79,7 @@ public class StudentController {
         Bson filter = Filters.eq("id", id);
         MongoCursor<Document> cursor = collection.find(filter).limit(1).iterator();
 
-        if (cursor.hasNext())
-        {
+        if (cursor.hasNext()) {
             Document doc = collection.find(filter).first();
             String studentDoc = doc.toJson();
             Student student = gson.fromJson(studentDoc, Student.class);
@@ -111,20 +107,19 @@ public class StudentController {
     }
 
     public static void assingInSubjects(int id, String newSubject) throws JsonSyntaxException, MongoClientException {
-        Gson gson = new Gson();
+
         MongoCollection<Document> collectionSubjects = MongoConection.getConnection("subjects");
         Bson filter = Filters.and(Filters.eq("studentId", id));
         Document doc = collectionSubjects.find(filter).first();
-        if (doc != null)
-        {
-            
+        if (doc != null) {
+
             ArrayList<Document> gradesReport = (ArrayList<Document>) doc.get("gradesReport");
             Document gradeReport = new Document("subject", newSubject)
                     .append("average", 0.0);
             gradesReport.add(gradeReport);
-            
+
             Document updatedDoc = new Document("$set", new Document("gradesReport", gradesReport));
-            
+
             collectionSubjects.updateOne(filter, updatedDoc);
         } else {
             System.out.println("This document does not exist");
@@ -148,5 +143,4 @@ public class StudentController {
         collectionEnrollment.updateOne(filter, studentUpdates);
     }
 
-    
 }

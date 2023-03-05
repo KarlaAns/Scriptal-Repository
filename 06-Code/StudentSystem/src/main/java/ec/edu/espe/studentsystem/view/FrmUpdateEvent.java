@@ -1,10 +1,8 @@
 package ec.edu.espe.studentsystem.view;
 
 import ec.edu.espe.studentsystem.controller.EventController;
-import ec.edu.espe.studentsystem.controller.StudentController;
 import ec.edu.espe.studentsystem.controller.ThemeController;
 import ec.edu.espe.studentsystem.model.Event;
-import ec.edu.espe.studentsystem.model.Student;
 import java.awt.EventQueue;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -27,7 +25,6 @@ public class FrmUpdateEvent extends javax.swing.JFrame {
     }
     DefaultTableModel model = new DefaultTableModel();
 
-
     private void mostTable() {
 
         model.addColumn("Id");
@@ -36,6 +33,7 @@ public class FrmUpdateEvent extends javax.swing.JFrame {
         model.addColumn("Description");
         this.table.setModel(model);
     }
+
     /**
      * Creates new form FrmUpdateEvent1
      */
@@ -543,6 +541,11 @@ public class FrmUpdateEvent extends javax.swing.JFrame {
     private void MnItmDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnItmDeleteActionPerformed
         FrmDeleteEvent mniDelete = new FrmDeleteEvent();
         mniDelete.setVisible(true);
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+            mniDelete.setStatusCbmiDarkMode(false);
+        } else {
+            mniDelete.setStatusCbmiDarkMode(true);
+        }
         this.dispose();
     }//GEN-LAST:event_MnItmDeleteActionPerformed
 

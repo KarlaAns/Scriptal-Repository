@@ -8,16 +8,11 @@ import com.google.gson.Gson;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.model.Filters;
-import static com.mongodb.client.model.Filters.in;
 import ec.edu.espe.studentsystem.controller.MongoConection;
 import ec.edu.espe.studentsystem.controller.PrintController;
 import ec.edu.espe.studentsystem.controller.ThemeController;
 import ec.edu.espe.studentsystem.model.Activity;
-import ec.edu.espe.studentsystem.model.Assignation;
 import java.awt.EventQueue;
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import org.bson.Document;
@@ -32,9 +27,11 @@ public class FrmStudentsActivities extends javax.swing.JFrame {
     private int id = 0;
     private String password = "";
     DefaultTableModel model;
-    
+
     /**
      * Creates new form FrmActivities
+     *
+     * @param id
      */
     public FrmStudentsActivities(int id) {
         this.id = id;
@@ -207,9 +204,9 @@ public class FrmStudentsActivities extends javax.swing.JFrame {
     private void mniAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAboutActionPerformed
         FrmAboutUs newMniAbout = new FrmAboutUs();
         newMniAbout.setVisible(true);
-        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
             newMniAbout.setStatusCbmiDarkMode(false);
-        }else{
+        } else {
             newMniAbout.setStatusCbmiDarkMode(true);
         }
         this.dispose();
@@ -219,10 +216,10 @@ public class FrmStudentsActivities extends javax.swing.JFrame {
         FrmEnrollment frmEnrollment = new FrmEnrollment(id);
         frmEnrollment.setVisible(true);
         System.out.println(UIManager.getLookAndFeel().getName());
-        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
-            //frmActivities.setStatusCbmiDarkMode(false);
-        }else{
-            //frmActivities.setStatusCbmiDarkMode(true);
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
+            frmEnrollment.setStatusCbmiDarkMode(false);
+        } else {
+            frmEnrollment.setStatusCbmiDarkMode(true);
         }
         this.dispose();
     }//GEN-LAST:event_mnEnrollmentActionPerformed
@@ -248,9 +245,9 @@ public class FrmStudentsActivities extends javax.swing.JFrame {
     private void menuHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuHelpActionPerformed
         FrmHelp newHelp = new FrmHelp();
         newHelp.setVisible(true);
-        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
             newHelp.setStatusCbmiDarkMode(false);
-        }else{
+        } else {
             newHelp.setStatusCbmiDarkMode(true);
         }
         this.dispose();
@@ -259,9 +256,9 @@ public class FrmStudentsActivities extends javax.swing.JFrame {
     private void mniLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniLogOutActionPerformed
         FrmMain main = new FrmMain();
         main.setVisible(true);
-        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
             main.setStatusCbmiDarkMode(false);
-        }else{
+        } else {
             main.setStatusCbmiDarkMode(true);
         }
         this.dispose();
@@ -270,9 +267,9 @@ public class FrmStudentsActivities extends javax.swing.JFrame {
     private void mnMailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnMailActionPerformed
         FrmHelp newHelp = new FrmHelp();
         newHelp.setVisible(true);
-        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
             newHelp.setStatusCbmiDarkMode(false);
-        }else{
+        } else {
             newHelp.setStatusCbmiDarkMode(true);
         }
         this.dispose();
@@ -282,14 +279,12 @@ public class FrmStudentsActivities extends javax.swing.JFrame {
         PrintController.printPDF("Student Activities", jTable1);
     }//GEN-LAST:event_btnPrintActionPerformed
 
-
-
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
         ThemeController.setFlatLightLafTheme();
-        
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new FrmStudentsActivities(0).setVisible(true);
@@ -325,24 +320,23 @@ public class FrmStudentsActivities extends javax.swing.JFrame {
     private void viewData() {
         String collection = "activities";
         Gson gson = new Gson();
-        
+
         MongoCollection<Document> activityCollection = MongoConection.getConnection(collection);
         Bson bsonFilter = Filters.elemMatch("activityReport", Filters.eq("studentId", id));
         MongoCursor<Document> cursor = activityCollection.find(bsonFilter).iterator();
-               
-        while(cursor.hasNext()){
+
+        while (cursor.hasNext()) {
             Document doc = cursor.next();
             String activityDoc = doc.toJson();
             Activity activity = gson.fromJson(activityDoc, Activity.class);
-            String []info = new String[6];
+            String[] info = new String[6];
             info[0] = activity.getActivityType();
             info[1] = activity.getName();
             info[2] = activity.getSubjectName();
             info[3] = activity.getShipping();
             info[4] = activity.getDeadline();
-            for (int i = 0; i < activity.getActivityReport().size(); i++)
-            {
-                if(activity.getActivityReport().get(i).getStudentId() == id){
+            for (int i = 0; i < activity.getActivityReport().size(); i++) {
+                if (activity.getActivityReport().get(i).getStudentId() == id) {
                     info[5] = String.valueOf(activity.getActivityReport().get(i).getGrade());
                 }
             }

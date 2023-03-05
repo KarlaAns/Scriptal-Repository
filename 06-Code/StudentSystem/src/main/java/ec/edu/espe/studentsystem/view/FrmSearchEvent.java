@@ -1,12 +1,9 @@
 package ec.edu.espe.studentsystem.view;
 
-
 import ec.edu.espe.studentsystem.controller.EventController;
 import ec.edu.espe.studentsystem.controller.ThemeController;
 import ec.edu.espe.studentsystem.model.Event;
 import java.awt.EventQueue;
-import java.text.*;
-import java.awt.print.*;
 import java.text.MessageFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -23,11 +20,11 @@ import javax.swing.table.DefaultTableModel;
  * @author Karla Ansatuña, Scriptal, DCCO_ESPE
  */
 public class FrmSearchEvent extends javax.swing.JFrame {
-    
- public void setStatusCbmiDarkMode(boolean isSelected) {
+
+    public void setStatusCbmiDarkMode(boolean isSelected) {
         this.cbmiDarkMode.setSelected(isSelected);
     }
- 
+
     DefaultTableModel model = new DefaultTableModel();
 
     /**
@@ -317,7 +314,7 @@ public class FrmSearchEvent extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-                boolean validation = false;
+        boolean validation = false;
         if (txtId.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Id field is empty");
             validation = false;
@@ -325,14 +322,14 @@ public class FrmSearchEvent extends javax.swing.JFrame {
             validation = true;
         }
         if (validation) {
-            String id=txtId.getText();
+            String id = txtId.getText();
             Event event = EventController.findEvent(txtId.getText());
 
             if (event != null && !event.getId().equals("0")) {
                 String name = event.getName();
                 String description = event.getDescription();
                 String dateOfEvent = event.getDate();
-                addToTable(id, name, dateOfEvent,description);
+                addToTable(id, name, dateOfEvent, description);
                 SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
                 Date DateAgain;
                 txtId.setText("");
@@ -345,7 +342,7 @@ public class FrmSearchEvent extends javax.swing.JFrame {
 
             if (event == null || event.getId() == null || event.getId().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Data not found");
-                
+
             }
         }
     }//GEN-LAST:event_btnSearchActionPerformed
@@ -357,13 +354,13 @@ public class FrmSearchEvent extends javax.swing.JFrame {
 
     private void txtIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdKeyTyped
         // TODO add your handling code here:
-        char d = evt.getKeyChar();
+        char chTyped = evt.getKeyChar();
 
-        if ((Character.isDigit(d)) || (Character.isISOControl(d))) {
+        if ((Character.isDigit(chTyped)) || (Character.isISOControl(chTyped))) {
             txtId.setEditable(true);
         } else {
             txtId.setEditable(false);
-            JOptionPane.showMessageDialog(this, d + " is not accepted here", "Warning on input data", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, chTyped + " is not accepted here", "Warning on input data", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_txtIdKeyTyped
 
@@ -469,9 +466,9 @@ public class FrmSearchEvent extends javax.swing.JFrame {
         // TODO add your handling code here:
         FrmHelp newHelp = new FrmHelp();
         newHelp.setVisible(true);
-        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
             newHelp.setStatusCbmiDarkMode(false);
-        }else{
+        } else {
             newHelp.setStatusCbmiDarkMode(true);
         }
         this.dispose();
@@ -480,22 +477,22 @@ public class FrmSearchEvent extends javax.swing.JFrame {
     private void mnMailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnMailActionPerformed
         FrmHelp newHelp = new FrmHelp();
         newHelp.setVisible(true);
-        if("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())){
+        if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
             newHelp.setStatusCbmiDarkMode(false);
-        }else{
+        } else {
             newHelp.setStatusCbmiDarkMode(true);
         }
         this.dispose();
     }//GEN-LAST:event_mnMailActionPerformed
 
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
-        MessageFormat header=new MessageFormat("Event Report");
-         MessageFormat footer=new MessageFormat("Page{0,number,integer}");
-        
-        try{
+        MessageFormat header = new MessageFormat("Event Report");
+        MessageFormat footer = new MessageFormat("Page{0,number,integer}");
+
+        try {
             table.print(JTable.PrintMode.NORMAL, header, footer);
-        }catch(java.awt.print.PrinterException e){
-            System.err.format("Cannot print %s%n",e.getMessage());
+        } catch (java.awt.print.PrinterException e) {
+            System.err.format("Cannot print %s%n", e.getMessage());
         }
     }//GEN-LAST:event_btnPrintActionPerformed
 
@@ -524,10 +521,6 @@ public class FrmSearchEvent extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(FrmSearchEvent.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -564,7 +557,7 @@ public class FrmSearchEvent extends javax.swing.JFrame {
     private javax.swing.JTextField txtId;
     // End of variables declaration//GEN-END:variables
 
-     private void addToTable(String id, String name, String date, String description) {
+    private void addToTable(String id, String name, String date, String description) {
         String[] info = new String[4];
         info[0] = id;
         info[1] = name;

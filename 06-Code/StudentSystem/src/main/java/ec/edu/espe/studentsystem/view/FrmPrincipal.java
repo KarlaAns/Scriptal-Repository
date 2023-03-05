@@ -229,13 +229,13 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_mniAboutActionPerformed
 
     private void btnEventActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEventActionPerformed
-        FrmEventMng btnEvent = new FrmEventMng();
-        btnEvent.setVisible(true);
-         System.out.println(UIManager.getLookAndFeel().getName());
+        FrmEventMng frmEventMng = new FrmEventMng();
+        frmEventMng.setVisible(true);
+        System.out.println(UIManager.getLookAndFeel().getName());
         if ("FlatLaf Light".equals(UIManager.getLookAndFeel().getName())) {
-            btnEvent.setStatusCbmiDarkMode(false);
+            frmEventMng.setStatusCbmiDarkMode(false);
         } else {
-            btnEvent.setStatusCbmiDarkMode(true);
+            frmEventMng.setStatusCbmiDarkMode(true);
         }
         this.dispose();
     }//GEN-LAST:event_btnEventActionPerformed

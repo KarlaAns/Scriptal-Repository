@@ -3,7 +3,6 @@ package ec.edu.espe.studentsystem.controller;
 
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
-import ec.edu.espe.studentsystem.controller.MongoConection;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
